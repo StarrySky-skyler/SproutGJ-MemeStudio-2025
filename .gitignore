@@ -28,6 +28,8 @@
 
 # Rider cache directory
 .idea/
+.plastic/
+.vscode/
 
 # Gradle cache directory
 .gradle/
