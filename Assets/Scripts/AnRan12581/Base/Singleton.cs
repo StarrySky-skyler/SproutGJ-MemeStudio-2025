@@ -1,35 +1,38 @@
 using UnityEngine;
-
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace AnRan
 {
-    private static T _instance;
-
-
-    public static T Instance
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindFirstObjectByType<T>();
+        private static T _instance;
 
+
+        public static T Instance
+        {
+            get
+            {
                 if (_instance == null)
                 {
-                    GameObject singletonObject = new GameObject();
-                    _instance = singletonObject.AddComponent<T>();
-                    singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    _instance = FindFirstObjectByType<T>();
+
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = new GameObject();
+                        _instance = singletonObject.AddComponent<T>();
+                        singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    }
                 }
+                return _instance;
             }
-            return _instance;
         }
-    }
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
+        private void Awake()
         {
-            Destroy(gameObject);
-        }
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+            }
 
+        }
     }
 }
+  
