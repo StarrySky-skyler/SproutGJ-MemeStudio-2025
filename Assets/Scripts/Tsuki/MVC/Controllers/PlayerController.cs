@@ -1,14 +1,12 @@
 ﻿// ********************************************************************************
-// @author: Starry Sky
+// @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/27 19:01
 // @version: 1.0
 // @description:
 // ********************************************************************************
 
-using System;
 using DG.Tweening;
-using JetBrains.Annotations;
 using Tsuki.Base;
 using Tsuki.Entities;
 using Tsuki.MVC.Models;
@@ -38,9 +36,7 @@ namespace Tsuki.MVC.Controllers
 
         public void OnMove(InputValue context)
         {
-            bool moveX = false;
-            bool moveY = false;
-            GetLineMovable(ref moveX, ref moveY);
+            GetLineMovable(out bool moveX, out bool moveY);
             Move(context.Get<Vector2>(), moveX, moveY);
         }
 
@@ -50,10 +46,10 @@ namespace Tsuki.MVC.Controllers
         /// <param name="movableX"></param>
         /// <param name="movableY"></param>
         /// <returns></returns>
-        private void GetLineMovable(ref bool movableX, ref bool movableY)
+        private void GetLineMovable(out bool movableX, out bool movableY)
         {
-            movableY = transform.position.x == (int)transform.position.x;
-            movableX = transform.position.y == (int)transform.position.y;
+            movableY = transform.position.x % 1 == 0;
+            movableX = transform.position.y % 1 == 0;
         }
 
         /// <summary>
@@ -64,30 +60,26 @@ namespace Tsuki.MVC.Controllers
         /// <param name="movableY"></param>
         private void Move(Vector2 vector, bool movableX, bool movableY)
         {
-            if (_isMoving) return;
-            if (vector == Vector2.zero) return;
+            if (_isMoving || vector == Vector2.zero) return;
             Vector2Int direction = Vector2Int.RoundToInt(vector);
-            Vector2 scaledDirection = direction;
-
-            // 每次移动设置格数
-            scaledDirection.x *= _playerModel.girdSize;
-            scaledDirection.y *= _playerModel.girdSize;
-            Vector3 pos = transform.position;
+            Vector2 scaledDirection = (Vector2)direction * _playerModel.girdSize;
+            Vector3 newPos = transform.position;
 
             // 获取新位置
-            if (movableX) pos += new Vector3(scaledDirection.x, 0, 0);
-            if (movableY) pos += new Vector3(0, scaledDirection.y, 0);
+            if (movableX) newPos += new Vector3(scaledDirection.x, 0, 0);
+            if (movableY) newPos += new Vector3(0, scaledDirection.y, 0);
 
             // 检测是否在地图范围内
-            if (pos.x != (int)pos.x && pos.y != (int)pos.y) return;
-            if (!Commons.GetMovable(_playerModel, pos)) return;
+            if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
+            
+            if (!Commons.GetMovable(_playerModel, newPos)) return;
 
             // 检测是否有箱子
             bool canMove = true;
             Debug.DrawRay(transform.position, scaledDirection, Color.red, 3f);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, scaledDirection, Vector2.Distance(transform.position, pos),
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, scaledDirection, Vector2.Distance(transform.position, newPos),
                 1 << 7 | 1 << 8);
-            if (hit.collider != null)
+            if (hit.collider)
             {
                 if (hit.collider.gameObject.layer == 8) return;
                 Box box = hit.collider.GetComponent<Box>();
@@ -98,15 +90,13 @@ namespace Tsuki.MVC.Controllers
                 }
             }
 
-            if (canMove)
+            if (!canMove) return;
+            _isMoving = true;
+            transform.DOMove(newPos, 0.2f).OnComplete(() =>
             {
-                _isMoving = true;
-                transform.DOMove(pos, 0.2f).OnComplete(() =>
-                {
-                    transform.position = pos;
-                    _isMoving = false;
-                });
-            }
+                transform.position = newPos;
+                _isMoving = false;
+            });
         }
     }
 }
