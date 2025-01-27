@@ -7,7 +7,10 @@
 // ********************************************************************************
 
 using System;
+using DG.Tweening;
 using JetBrains.Annotations;
+using Tsuki.Base;
+using Tsuki.Entities;
 using Tsuki.MVC.Models;
 using Tsuki.MVC.Views;
 using UnityEngine;
@@ -17,8 +20,10 @@ namespace Tsuki.MVC.Controllers
 {
     public class PlayerController : MonoBehaviour
     {
+        public PlayerView playerView;
+
         private PlayerModel _playerModel;
-        [CanBeNull] private PlayerView _playerView;
+        private bool _isMoving;
 
         private void Awake()
         {
@@ -52,20 +57,6 @@ namespace Tsuki.MVC.Controllers
         }
 
         /// <summary>
-        /// 获取是否在地图范围内可移动
-        /// </summary>
-        /// <param name="pos"></param>
-        /// <returns></returns>
-        private bool GetMovable(Vector3 pos)
-        {
-            bool tag = pos.x >= 0;
-            tag = tag && pos.x <= _playerModel.moveRange.x;
-            tag = tag && pos.y >= 0;
-            tag = tag && pos.y <= _playerModel.moveRange.y;
-            return tag;
-        }
-
-        /// <summary>
         /// 移动
         /// </summary>
         /// <param name="vector"></param>
@@ -73,18 +64,44 @@ namespace Tsuki.MVC.Controllers
         /// <param name="movableY"></param>
         private void Move(Vector2 vector, bool movableX, bool movableY)
         {
+            if (_isMoving) return;
+            if (vector == Vector2.zero) return;
             Vector2Int moves = Vector2Int.RoundToInt(vector);
             Vector2 move = moves;
+
             // 每次移动设置格数
             move.x *= _playerModel.moveStep;
             move.y *= _playerModel.moveStep;
             Vector3 pos = transform.position;
-            // 移动
+
+            // 获取新位置
             if (movableX) pos += new Vector3(move.x, 0, 0);
             if (movableY) pos += new Vector3(0, move.y, 0);
+
+            // 检测是否在地图范围内
             if (pos.x != (int)pos.x && pos.y != (int)pos.y) return;
-            if (!GetMovable(pos)) return;
-            transform.position = pos;
+            if (!Commons.GetMovable(_playerModel, pos)) return;
+
+            // 检测是否有箱子
+            bool canMove = true;
+            Debug.DrawRay(transform.position, move, Color.red, 3f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, move, Vector2.Distance(transform.position, pos),
+                1 << 7);
+            if (hit.collider != null)
+            {
+                Box box = hit.collider.GetComponent<Box>();
+                canMove = box.GetPushable(_playerModel, moves);
+                if (canMove)
+                {
+                    box.Move(_playerModel, moves);
+                }
+            }
+
+            if (canMove)
+            {
+                _isMoving = true;
+                transform.DOMove(pos, 0.2f).OnComplete(() => { _isMoving = false; });
+            }
         }
     }
 }
