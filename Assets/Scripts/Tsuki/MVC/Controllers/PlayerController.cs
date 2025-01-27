@@ -86,9 +86,10 @@ namespace Tsuki.MVC.Controllers
             bool canMove = true;
             Debug.DrawRay(transform.position, move, Color.red, 3f);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, move, Vector2.Distance(transform.position, pos),
-                1 << 7);
+                1 << 7 | 1 << 8);
             if (hit.collider != null)
             {
+                if (hit.collider.gameObject.layer == 8) return;
                 Box box = hit.collider.GetComponent<Box>();
                 canMove = box.GetPushable(_playerModel, moves);
                 if (canMove)
@@ -100,7 +101,11 @@ namespace Tsuki.MVC.Controllers
             if (canMove)
             {
                 _isMoving = true;
-                transform.DOMove(pos, 0.2f).OnComplete(() => { _isMoving = false; });
+                transform.DOMove(pos, 0.2f).OnComplete(() =>
+                {
+                    transform.position = pos;
+                    _isMoving = false;
+                });
             }
         }
     }

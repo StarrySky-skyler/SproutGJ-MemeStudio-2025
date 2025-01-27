@@ -27,7 +27,7 @@ namespace Tsuki.Entities
                              new Vector3(direction.x * playerModel.moveStep, direction.y * playerModel.moveStep, 0);
             Debug.DrawRay(transform.position, (Vector2)direction, Color.green, 3);
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, Vector2.Distance(transform.position, newPos),
-                1 << 7);
+                1 << 7 | 1 << 8);
             foreach (RaycastHit2D hit in hits)
             {
                 if (hit.collider != GetComponent<Collider2D>()) return false;
