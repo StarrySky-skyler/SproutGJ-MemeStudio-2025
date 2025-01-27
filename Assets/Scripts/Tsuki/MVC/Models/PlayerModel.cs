@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Tsuki.MVC.Models
 {
@@ -18,8 +19,8 @@ namespace Tsuki.MVC.Models
         [Header("移动范围")]
         public Vector2Int moveRange;
         
-        [Header("每次移动格数")]
-        public float moveStep;
+        [FormerlySerializedAs("moveStep")] [Header("单元格大小")]
+        public float girdSize;
         
         [Header("血量")]
         public int maxHp;

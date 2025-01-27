@@ -24,7 +24,7 @@ namespace Tsuki.Entities
         public bool GetPushable(PlayerModel playerModel, Vector2Int direction)
         {
             Vector3 newPos = transform.position +
-                             new Vector3(direction.x * playerModel.moveStep, direction.y * playerModel.moveStep, 0);
+                             new Vector3(direction.x * playerModel.girdSize, direction.y * playerModel.girdSize, 0);
             Debug.DrawRay(transform.position, (Vector2)direction, Color.green, 3);
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, Vector2.Distance(transform.position, newPos),
                 1 << 7 | 1 << 8);
@@ -39,7 +39,7 @@ namespace Tsuki.Entities
         public void Move(PlayerModel playerModel, Vector2Int direction)
         {
             Vector3 newPos = transform.position +
-                             new Vector3(direction.x * playerModel.moveStep, direction.y * playerModel.moveStep, 0);
+                             new Vector3(direction.x * playerModel.girdSize, direction.y * playerModel.girdSize, 0);
             transform.DOMove(newPos, 0.2f);
         }
     }

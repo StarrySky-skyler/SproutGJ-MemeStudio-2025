@@ -66,17 +66,17 @@ namespace Tsuki.MVC.Controllers
         {
             if (_isMoving) return;
             if (vector == Vector2.zero) return;
-            Vector2Int moves = Vector2Int.RoundToInt(vector);
-            Vector2 move = moves;
+            Vector2Int direction = Vector2Int.RoundToInt(vector);
+            Vector2 scaledDirection = direction;
 
             // 每次移动设置格数
-            move.x *= _playerModel.moveStep;
-            move.y *= _playerModel.moveStep;
+            scaledDirection.x *= _playerModel.girdSize;
+            scaledDirection.y *= _playerModel.girdSize;
             Vector3 pos = transform.position;
 
             // 获取新位置
-            if (movableX) pos += new Vector3(move.x, 0, 0);
-            if (movableY) pos += new Vector3(0, move.y, 0);
+            if (movableX) pos += new Vector3(scaledDirection.x, 0, 0);
+            if (movableY) pos += new Vector3(0, scaledDirection.y, 0);
 
             // 检测是否在地图范围内
             if (pos.x != (int)pos.x && pos.y != (int)pos.y) return;
@@ -84,17 +84,17 @@ namespace Tsuki.MVC.Controllers
 
             // 检测是否有箱子
             bool canMove = true;
-            Debug.DrawRay(transform.position, move, Color.red, 3f);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, move, Vector2.Distance(transform.position, pos),
+            Debug.DrawRay(transform.position, scaledDirection, Color.red, 3f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, scaledDirection, Vector2.Distance(transform.position, pos),
                 1 << 7 | 1 << 8);
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.layer == 8) return;
                 Box box = hit.collider.GetComponent<Box>();
-                canMove = box.GetPushable(_playerModel, moves);
+                canMove = box.GetPushable(_playerModel, direction);
                 if (canMove)
                 {
-                    box.Move(_playerModel, moves);
+                    box.Move(_playerModel, direction);
                 }
             }
 
