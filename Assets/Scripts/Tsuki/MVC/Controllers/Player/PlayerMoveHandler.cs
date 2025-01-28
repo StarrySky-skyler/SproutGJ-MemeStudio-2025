@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace Tsuki.MVC.Controllers.Player
 {
-    public class PlayerMoveHandler : IUndoable
+    public class PlayerMoveHandler : IUndoable, IPauseable
     {
         private readonly PlayerController _playerController;
         private readonly PlayerModel _playerModel;
@@ -25,6 +25,7 @@ namespace Tsuki.MVC.Controllers.Player
         private Vector3 _newPos;                // 新位置
         private bool _movableX;
         private bool _movableY;
+        private bool _allowMove = true;
 
         public PlayerMoveHandler(PlayerController playerController)
         {
@@ -52,7 +53,7 @@ namespace Tsuki.MVC.Controllers.Player
         /// <param name="movableY"></param>
         public void Move(Vector2 inputV2, bool movableX = true, bool movableY = true)
         {
-            if (_playerModel.IsMoving || inputV2 == Vector2.zero) return;
+            if (_playerModel.IsMoving || inputV2 == Vector2.zero || !_allowMove) return;
             _movableX = movableX;
             _movableY = movableY;
             // 获取移动方向
@@ -130,6 +131,16 @@ namespace Tsuki.MVC.Controllers.Player
         public void Undo()
         {
             _playerController.transform.position = _playerModel.lastPos;
+        }
+
+        public void Pause()
+        {
+            _allowMove = false;
+        }
+
+        public void Resume()
+        {
+            _allowMove = true;
         }
     }
 }

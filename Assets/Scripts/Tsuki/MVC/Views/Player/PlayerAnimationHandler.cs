@@ -6,18 +6,20 @@
 // @description:
 // ********************************************************************************
 
+using Tsuki.Interface;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Views.Player
 {
-    public class PlayerAnimationHandler
+    public class PlayerAnimationHandler : IPauseable
     {
         private static readonly int Move = Animator.StringToHash("Move");
         private readonly PlayerView _playerView;
         private readonly PlayerModel _playerModel;
         private readonly Animator _animator;
         private readonly SpriteRenderer _spriteRenderer;
+        private bool _allowFlip = true;
 
         public PlayerAnimationHandler(PlayerView playerView)
         {
@@ -33,11 +35,21 @@ namespace Tsuki.MVC.Views.Player
         /// <param name="moveState"></param>
         public void PlayAnimation(bool moveState)
         {
-            if (_playerModel.moveDirection.x != 0 && moveState)
+            if (_playerModel.moveDirection.x != 0 && moveState && _allowFlip)
             {
                 _spriteRenderer.flipX = _playerModel.moveDirection.x < 0;
             }
             _animator.SetBool(Move, moveState);
+        }
+
+        public void Pause()
+        {
+            _allowFlip = false;
+        }
+
+        public void Resume()
+        {
+            _allowFlip = true;
         }
     }
 }
