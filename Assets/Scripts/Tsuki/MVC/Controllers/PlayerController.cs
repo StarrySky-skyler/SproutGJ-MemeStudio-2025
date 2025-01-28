@@ -6,9 +6,6 @@
 // @description:
 // ********************************************************************************
 
-using DG.Tweening;
-using Tsuki.Base;
-using Tsuki.Entities;
 using Tsuki.MVC.Models;
 using Tsuki.MVC.Views;
 using UnityEngine;
