@@ -8,13 +8,13 @@
 
 using DG.Tweening;
 using Tsuki.Base;
-using Tsuki.Entities;
+using Tsuki.Interface;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Controllers.Player
 {
-    public class PlayerMoveHandler
+    public class PlayerMoveHandler : IUndoable
     {
         private readonly PlayerController _playerController;
         private readonly PlayerModel _playerModel;
@@ -122,6 +122,14 @@ namespace Tsuki.MVC.Controllers.Player
             }
 
             return canMove;
+        }
+
+        /// <summary>
+        /// 撤销移动操作
+        /// </summary>
+        public void Undo()
+        {
+            _playerController.transform.position = _playerModel.lastPos;
         }
     }
 }

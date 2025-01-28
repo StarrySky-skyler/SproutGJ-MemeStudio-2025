@@ -8,7 +8,7 @@
 
 
 
-namespace Tsuki.Entities
+namespace Tsuki.Interface
 {
     public interface IPushable
     {
