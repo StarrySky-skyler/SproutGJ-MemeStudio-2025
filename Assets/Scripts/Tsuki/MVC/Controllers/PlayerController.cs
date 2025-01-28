@@ -34,8 +34,8 @@ namespace Tsuki.MVC.Controllers
 
         public void OnMove(InputValue context)
         {
-            _playerMoveHandler.GetLineMovable(out bool moveX, out bool moveY);
-            _playerMoveHandler.Move(context.Get<Vector2>(), moveX, moveY);
+            // _playerMoveHandler.GetLineMovable(out bool moveX, out bool moveY);
+            _playerMoveHandler.Move(context.Get<Vector2>());
         }
     }
 }

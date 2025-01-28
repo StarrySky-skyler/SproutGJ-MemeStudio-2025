@@ -15,7 +15,7 @@ namespace Tsuki.MVC.Models
     public class PlayerModel : ScriptableObject
     {
         [Header("移动范围")]
-        public Vector2Int moveRange;
+        public Vector2 moveRange;
         
         [FormerlySerializedAs("moveStep")] [Header("单元格大小")]
         public float girdSize;

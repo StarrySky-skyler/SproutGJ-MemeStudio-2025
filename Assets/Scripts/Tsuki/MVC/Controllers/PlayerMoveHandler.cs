@@ -44,7 +44,7 @@ namespace Tsuki.MVC.Controllers
         /// <param name="vector"></param>
         /// <param name="movableX"></param>
         /// <param name="movableY"></param>
-        public void Move(Vector2 vector, bool movableX, bool movableY)
+        public void Move(Vector2 vector, bool movableX = true, bool movableY = true)
         {
             if (_isMoving || vector == Vector2.zero) return;
             Vector2Int direction = Vector2Int.RoundToInt(vector);
@@ -56,7 +56,7 @@ namespace Tsuki.MVC.Controllers
             if (movableY) newPos += new Vector3(0, scaledDirection.y, 0);
 
             // 检测是否在地图范围内
-            if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
+            // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
             if (!Commons.GetMovable(_playerModel, newPos)) return;
 
