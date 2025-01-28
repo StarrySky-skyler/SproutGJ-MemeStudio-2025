@@ -9,7 +9,6 @@
 using System;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Tsuki.MVC.Models.Player
 {
@@ -27,6 +26,9 @@ namespace Tsuki.MVC.Models.Player
         
         [Header("血量")]
         public int maxHp;
+        
+        [Header("障碍物")]
+        public LayerMask obstacleLayer;
         
         public bool IsMoving
         {
@@ -52,6 +54,7 @@ namespace Tsuki.MVC.Models.Player
         public void Init()
         {
             _currentHp = maxHp;
+            _isMoving = false;
         }
         
         /// <summary>

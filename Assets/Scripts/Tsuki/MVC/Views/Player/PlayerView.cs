@@ -6,10 +6,8 @@
 // @description:
 // ********************************************************************************
 
-using System;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Tsuki.MVC.Views.Player
 {

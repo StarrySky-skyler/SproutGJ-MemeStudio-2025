@@ -9,7 +9,6 @@
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Entities;
-using Tsuki.MVC.Models;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
@@ -17,9 +16,15 @@ namespace Tsuki.MVC.Controllers.Player
 {
     public class PlayerMoveHandler
     {
-        private static readonly int Move1 = Animator.StringToHash("Move");
         private readonly PlayerController _playerController;
         private readonly PlayerModel _playerModel;
+        
+        // 移动
+        private Vector2 _scaledDirection;   // 移动方向向量 * 格子大小
+        private Vector3 _originalPos;           // 原始位置
+        private Vector3 _newPos;                // 新位置
+        private bool _movableX;
+        private bool _movableY;
 
         public PlayerMoveHandler(PlayerController playerController)
         {
@@ -42,48 +47,80 @@ namespace Tsuki.MVC.Controllers.Player
         /// <summary>
         /// 移动
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="inputV2"></param>
         /// <param name="movableX"></param>
         /// <param name="movableY"></param>
-        public void Move(Vector2 vector, bool movableX = true, bool movableY = true)
+        public void Move(Vector2 inputV2, bool movableX = true, bool movableY = true)
         {
-            if (_playerModel.IsMoving || vector == Vector2.zero) return;
-            Vector2Int direction = Vector2Int.RoundToInt(vector);
-            Vector2 scaledDirection = (Vector2)direction * _playerModel.girdSize;
-            Vector3 newPos = _playerController.transform.position;
-
+            if (_playerModel.IsMoving || inputV2 == Vector2.zero) return;
+            _movableX = movableX;
+            _movableY = movableY;
+            // 获取移动方向
+            SetDirection(inputV2);
             // 获取新位置
-            if (movableX) newPos += new Vector3(scaledDirection.x, 0, 0);
-            if (movableY) newPos += new Vector3(0, scaledDirection.y, 0);
+            SetNewPos();
 
             // 检测是否在地图范围内
             // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
-            if (!Commons.GetMovable(_playerModel, newPos)) return;
+            if (!Commons.GetMovable(_playerModel, _newPos)) return;
 
-            // 检测是否有箱子
+            if (!CanMoveAfterDetect()) return;
+            StartMove();
+        }
+
+        /// <summary>
+        /// 设置移动方向
+        /// </summary>
+        /// <param name="input"></param>
+        private void SetDirection(Vector2 input)
+        {
+            _playerModel.moveDirection = Vector2Int.RoundToInt(input);
+            _scaledDirection = (Vector2)_playerModel.moveDirection * _playerModel.girdSize;
+        }
+
+        /// <summary>
+        /// 设置新位置
+        /// </summary>
+        private void SetNewPos()
+        {
+            _originalPos = _playerController.transform.position;
+            _newPos = _originalPos;
+
+            // 获取新位置
+            if (_movableX) _newPos += new Vector3(_scaledDirection.x, 0, 0);
+            if (_movableY) _newPos += new Vector3(0, _scaledDirection.y, 0);
+        }
+
+        /// <summary>
+        /// 开始移动
+        /// </summary>
+        private void StartMove()
+        {
+            _playerModel.IsMoving = true;
+            _playerController.transform.DOMove(_newPos, _playerModel.moveTime)
+                .OnComplete(() => { _playerModel.IsMoving = false; });
+        }
+
+        /// <summary>
+        /// 检测箱子和墙后是否可以移动
+        /// </summary>
+        /// <returns></returns>
+        private bool CanMoveAfterDetect()
+        {
             bool canMove = true;
-            Debug.DrawRay(_playerController.transform.position, scaledDirection, Color.red, 3f);
-            RaycastHit2D hit = Physics2D.Raycast(_playerController.transform.position, scaledDirection,
-                Vector2.Distance(_playerController.transform.position, newPos),
-                1 << 7 | 1 << 8);
+            Debug.DrawRay(_playerController.transform.position, _scaledDirection, Color.red, 3f);
+            RaycastHit2D hit = Physics2D.Raycast(_playerController.transform.position, _scaledDirection,
+                Vector2.Distance(_playerController.transform.position, _newPos),
+                _playerModel.obstacleLayer);
             if (hit.collider)
             {
-                if (hit.collider.gameObject.layer == 8) return;
-                Box box = hit.collider.GetComponent<Box>();
-                canMove = box.GetPushable(_playerModel, direction);
-                if (canMove)
-                {
-                    box.Move(_playerModel, direction);
-                }
+                if (hit.collider.gameObject.layer == 8) return false;
+                IPushable box = hit.collider.GetComponent<IPushable>();
+                canMove = box.TryPushBox();
             }
 
-            if (!canMove) return;
-            // 开始移动
-            _playerModel.moveDirection = direction;
-            _playerModel.IsMoving = true;
-            _playerController.transform.DOMove(newPos, _playerModel.moveTime)
-                .OnComplete(() => { _playerModel.IsMoving = false; });
+            return canMove;
         }
     }
 }

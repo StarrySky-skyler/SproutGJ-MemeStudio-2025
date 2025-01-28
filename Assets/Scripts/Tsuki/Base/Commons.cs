@@ -6,7 +6,6 @@
 // @description:
 // ********************************************************************************
 
-using Tsuki.MVC.Models;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
