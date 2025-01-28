@@ -9,6 +9,7 @@
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.MVC.Models;
+using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.Entities
@@ -44,7 +45,7 @@ namespace Tsuki.Entities
 
         public void Move(PlayerModel playerModel, Vector2Int direction)
         {
-            transform.DOMove(_newPos, 0.2f);
+            transform.DOMove(_newPos, playerModel.moveTime);
         }
     }
 }

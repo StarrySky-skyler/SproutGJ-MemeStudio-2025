@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: PlayerModel
   m_EditorClassIdentifier: 
   moveRange: {x: 5, y: 3}
+  moveTime: 0.5
   girdSize: 1
   maxHp: 100
+  moveDirection: {x: 0, y: 1}

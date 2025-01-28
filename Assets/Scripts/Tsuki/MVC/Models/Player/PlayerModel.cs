@@ -6,10 +6,12 @@
 // @description:
 // ********************************************************************************
 
+using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Tsuki.MVC.Models
+namespace Tsuki.MVC.Models.Player
 {
     [CreateAssetMenu(fileName = "PlayerModel", menuName = "Tsuki/New PlayerModel", order = 0)]
     public class PlayerModel : ScriptableObject
@@ -17,13 +19,32 @@ namespace Tsuki.MVC.Models
         [Header("移动范围")]
         public Vector2 moveRange;
         
-        [FormerlySerializedAs("moveStep")] [Header("单元格大小")]
+        [Header("移动一格的时间（箱子也是）")]
+        public float moveTime;
+        
+        [Header("单元格大小")]
         public float girdSize;
         
         [Header("血量")]
         public int maxHp;
         
+        public bool IsMoving
+        {
+            get => _isMoving;
+            set
+            {
+                if (_isMoving == value) return;
+                _isMoving = value;
+                OnMoveStateChanged?.Invoke(_isMoving);
+            }
+        }
+        [CanBeNull] public event Action<bool> OnMoveStateChanged; 
+        
+        [HideInInspector]
+        public Vector2Int moveDirection;
+        
         private int _currentHp;
+        private bool _isMoving;
 
         /// <summary>
         /// 初始化

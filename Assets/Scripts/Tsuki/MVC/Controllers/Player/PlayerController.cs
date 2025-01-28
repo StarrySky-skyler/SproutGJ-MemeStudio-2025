@@ -7,35 +7,42 @@
 // ********************************************************************************
 
 using Tsuki.MVC.Models;
+using Tsuki.MVC.Models.Player;
 using Tsuki.MVC.Views;
+using Tsuki.MVC.Views.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-namespace Tsuki.MVC.Controllers
+namespace Tsuki.MVC.Controllers.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        [HideInInspector]
+        public PlayerModel playerModel;
+        [HideInInspector]
         public PlayerView playerView;
-
-        private PlayerModel _playerModel;
-        private PlayerMoveHandler _playerMoveHandler;
+        
+        private PlayerMoveHandler _moveHandler;
 
         private void Awake()
         {
             // MVC 初始化
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
-            _playerMoveHandler = new PlayerMoveHandler(this, _playerModel);
+            playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+            playerView = GetComponent<PlayerView>();
+            // 初始化处理器
+            _moveHandler = new PlayerMoveHandler(this);
         }
 
         private void Start()
         {
-            _playerModel.Init();
+            playerModel.Init();
         }
 
         public void OnMove(InputValue context)
         {
             // _playerMoveHandler.GetLineMovable(out bool moveX, out bool moveY);
-            _playerMoveHandler.Move(context.Get<Vector2>());
+            _moveHandler.Move(context.Get<Vector2>());
         }
     }
 }

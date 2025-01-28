@@ -7,6 +7,7 @@
 // ********************************************************************************
 
 using Tsuki.MVC.Models;
+using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.Base

@@ -10,22 +10,23 @@ using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Entities;
 using Tsuki.MVC.Models;
+using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
-namespace Tsuki.MVC.Controllers
+namespace Tsuki.MVC.Controllers.Player
 {
     public class PlayerMoveHandler
     {
+        private static readonly int Move1 = Animator.StringToHash("Move");
         private readonly PlayerController _playerController;
         private readonly PlayerModel _playerModel;
-        private bool _isMoving;
-        
-        public PlayerMoveHandler(PlayerController playerController, PlayerModel playerModel)
+
+        public PlayerMoveHandler(PlayerController playerController)
         {
             _playerController = playerController;
-            _playerModel = playerModel;
+            _playerModel = playerController.playerModel;
         }
-        
+
         /// <summary>
         /// 获取是否在线上，用于判断是否可以移动
         /// </summary>
@@ -46,7 +47,7 @@ namespace Tsuki.MVC.Controllers
         /// <param name="movableY"></param>
         public void Move(Vector2 vector, bool movableX = true, bool movableY = true)
         {
-            if (_isMoving || vector == Vector2.zero) return;
+            if (_playerModel.IsMoving || vector == Vector2.zero) return;
             Vector2Int direction = Vector2Int.RoundToInt(vector);
             Vector2 scaledDirection = (Vector2)direction * _playerModel.girdSize;
             Vector3 newPos = _playerController.transform.position;
@@ -78,8 +79,11 @@ namespace Tsuki.MVC.Controllers
             }
 
             if (!canMove) return;
-            _isMoving = true;
-            _playerController.transform.DOMove(newPos, 0.2f).OnComplete(() => { _isMoving = false; });
+            // 开始移动
+            _playerModel.moveDirection = direction;
+            _playerModel.IsMoving = true;
+            _playerController.transform.DOMove(newPos, _playerModel.moveTime)
+                .OnComplete(() => { _playerModel.IsMoving = false; });
         }
     }
 }
