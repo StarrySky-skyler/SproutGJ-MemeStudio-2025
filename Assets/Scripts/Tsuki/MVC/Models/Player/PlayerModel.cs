@@ -43,7 +43,9 @@ namespace Tsuki.MVC.Models.Player
         [CanBeNull] public event Action<bool> OnMoveStateChanged; 
         
         [HideInInspector]
-        public Vector2Int moveDirection;
+        public Vector2Int moveDirection;        // 移动方向
+
+        [HideInInspector] public Vector3 lastPos;       // 上一次的位置
         
         private int _currentHp;
         private bool _isMoving;
@@ -55,6 +57,7 @@ namespace Tsuki.MVC.Models.Player
         {
             _currentHp = maxHp;
             _isMoving = false;
+            lastPos = GameObject.FindWithTag("Player").transform.position;
         }
         
         /// <summary>

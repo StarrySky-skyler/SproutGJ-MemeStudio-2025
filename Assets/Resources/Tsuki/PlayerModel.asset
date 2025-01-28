@@ -16,4 +16,7 @@ MonoBehaviour:
   moveTime: 0.5
   girdSize: 1
   maxHp: 100
-  moveDirection: {x: 0, y: 1}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 384
+  moveDirection: {x: 1, y: 0}
