@@ -6,12 +6,13 @@
 // @description:
 // ********************************************************************************
 
+using Tsuki.Interface;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Views.Player
 {
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : MonoBehaviour, IPauseable
     {
         [HideInInspector]
         public PlayerModel playerModel;
@@ -36,6 +37,16 @@ namespace Tsuki.MVC.Views.Player
         {
             // 注销事件
             playerModel.OnMoveStateChanged -= _animationHandler.PlayAnimation;
+        }
+
+        public void Pause()
+        {
+            _animationHandler.Pause();
+        }
+
+        public void Resume()
+        {
+            _animationHandler.Resume();
         }
     }
 }

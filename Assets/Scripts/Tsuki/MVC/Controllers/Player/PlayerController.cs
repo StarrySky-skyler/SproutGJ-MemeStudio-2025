@@ -6,6 +6,7 @@
 // @description:
 // ********************************************************************************
 
+using Tsuki.Interface;
 using Tsuki.MVC.Models.Player;
 using Tsuki.MVC.Views.Player;
 using UnityEngine;
@@ -13,7 +14,7 @@ using UnityEngine.InputSystem;
 
 namespace Tsuki.MVC.Controllers.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IPauseable, IUndoable
     {
         [HideInInspector]
         public PlayerModel playerModel;
@@ -40,6 +41,21 @@ namespace Tsuki.MVC.Controllers.Player
         {
             // _playerMoveHandler.GetLineMovable(out bool moveX, out bool moveY);
             _moveHandler.Move(context.Get<Vector2>());
+        }
+
+        public void Pause()
+        {
+            _moveHandler.Pause();
+        }
+
+        public void Resume()
+        {
+            _moveHandler.Resume();
+        }
+
+        public void Undo()
+        {
+            _moveHandler.Undo();
         }
     }
 }
