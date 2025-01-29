@@ -98,6 +98,7 @@ namespace Tsuki.MVC.Controllers.Player
         /// </summary>
         private void StartMove()
         {
+            if (_playerController.transform.position == _newPos) return;
             _playerModel.IsMoving = true;
             _playerModel.lastPos = _newPos;
             _playerController.transform.DOMove(_newPos, _playerModel.moveTime)
