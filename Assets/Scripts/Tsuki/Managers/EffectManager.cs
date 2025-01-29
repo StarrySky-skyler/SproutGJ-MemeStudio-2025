@@ -8,6 +8,7 @@
 
 using System;
 using AnRan;
+using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
@@ -15,8 +16,8 @@ namespace Tsuki.Managers
 {
     public class EffectManager : Singleton<EffectManager>
     {
-        [Header("脚印特效")]
-        public GameObject footPrint;
+        [Header("脚印特效")] 
+        [CanBeNull] public GameObject footPrint;
         
         private PlayerModel _playerModel;
 
@@ -24,13 +25,13 @@ namespace Tsuki.Managers
         {
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             // 注册事件
-            _playerModel.OnMoveStateChanged += SpawnFootPrint;
+            if (footPrint) _playerModel.OnMoveStateChanged += SpawnFootPrint;
         }
         
         private void OnDestroy()
         {
             // 注销事件
-            _playerModel.OnMoveStateChanged -= SpawnFootPrint;
+            if (footPrint) _playerModel.OnMoveStateChanged -= SpawnFootPrint;
         }
 
         /// <summary>
