@@ -6,6 +6,7 @@
 // @description:
 // ********************************************************************************
 
+using System;
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Interface;
@@ -16,14 +17,22 @@ namespace Tsuki.Entities
 {
     public class Box : MonoBehaviour, IPushable, IUndoable
     {
+        public bool OnCorrectPos { get; private set; }
+
         private Vector3 _newPos;
         private Vector3 _originalPos;
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
         private PlayerModel _playerModel;
+        private Vector3 _correctPos;
 
         private void Awake()
         {
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+        }
+
+        private void Start()
+        {
+            _correctPos = transform.Find("CorrectPos").position;
         }
 
         /// <summary>
@@ -68,7 +77,10 @@ namespace Tsuki.Entities
         private void Move()
         {
             _originalPos = transform.position;
-            transform.DOMove(_newPos, _playerModel.moveTime);
+            transform.DOMove(_newPos, _playerModel.moveTime).OnComplete(() =>
+            {
+                OnCorrectPos = transform.position == _correctPos;
+            });
         }
 
         public void Undo()
