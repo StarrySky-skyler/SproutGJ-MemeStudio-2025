@@ -39,8 +39,8 @@ namespace Tsuki.MVC.Controllers.Player
 
         public void OnMove(InputValue context)
         {
-            // _playerMoveHandler.GetLineMovable(out bool moveX, out bool moveY);
-            _moveHandler.Move(context.Get<Vector2>());
+            _moveHandler.GetLineMovable(out bool moveX, out bool moveY);
+            _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
 
         public void Pause()

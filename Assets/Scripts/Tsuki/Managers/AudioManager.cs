@@ -7,27 +7,51 @@
 // ********************************************************************************
 
 using System;
+using System.Collections.Generic;
 using AnRan;
 using DG.Tweening;
 using JetBrains.Annotations;
+using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.Managers
 {
+    public enum SoundEffectType
+    {
+        move1 = 1,
+        move2,
+        victory,
+        fail,
+        strange
+    }
+
     public class AudioManager : Singleton<AudioManager>
     {
-        [Header("音频组件")] 
-        public AudioSource bgmAudioSource;
+        [Header("音频组件")] public AudioSource bgmAudioSource;
         public AudioSource soundEffectAudioSource;
 
-        [Header("渐入渐出时间")] 
-        public float fadeInTime;
+        [Header("Bgm")] public List<AudioClip> bgmList;
+
+        [Header("音效")] public List<AudioClip> soundEffectList;
+
+        [Header("渐入渐出时间")] public float fadeInTime;
         public float fadeOutTime;
+
+        private PlayerModel _playerModel;
 
         private void Start()
         {
             bgmAudioSource.loop = true;
             soundEffectAudioSource.loop = false;
+            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+            // 注册事件
+            _playerModel.OnMoveStateChanged += PlayMoveSoundEffect;
+        }
+
+        private void PlayMoveSoundEffect(bool moveState)
+        {
+            if (moveState)
+                PlaySoundEffect(UnityEngine.Random.Range(1, 3) == 1 ? SoundEffectType.move1 : SoundEffectType.move2);
         }
 
         /// <summary>
@@ -41,7 +65,7 @@ namespace Tsuki.Managers
             {
                 FadeOut(bgmAudioSource, () =>
                 {
-                    SetBgm(bgmName); 
+                    SetBgm(bgmName);
                     FadeIn(bgmAudioSource);
                 });
             }
@@ -56,16 +80,35 @@ namespace Tsuki.Managers
         /// <summary>
         /// 播放一次音效
         /// </summary>
-        /// <param name="soundEffectName"></param>
-        public void PlaySoundEffect(string soundEffectName)
+        /// <param name="soundEffectType"></param>
+        public void PlaySoundEffect(SoundEffectType soundEffectType)
         {
-            AudioClip clip = Resources.Load<AudioClip>($"Tsuki/AudioClips/SoundEffects/{soundEffectName}");
+            AudioClip clip = null;
+            switch (soundEffectType)
+            {
+                case SoundEffectType.move1:
+                    clip = soundEffectList.Find(clip => clip.name == "Move a cat");
+                    break;
+                case SoundEffectType.move2:
+                    clip = soundEffectList.Find(clip => clip.name == "Move a cat2");
+                    break;
+                case SoundEffectType.victory:
+                    clip = soundEffectList.Find(clip => clip.name == "Victory this pat");
+                    break;
+                case SoundEffectType.fail:
+                    clip = soundEffectList.Find(clip => clip.name == "Fail this pat");
+                    break;
+                case SoundEffectType.strange:
+                    clip = soundEffectList.Find(clip => clip.name == "Strange Open meme");
+                    break;
+            }
+
             soundEffectAudioSource.PlayOneShot(clip);
         }
 
         private void SetBgm(string bgmName)
         {
-            AudioClip clip = Resources.Load<AudioClip>($"Tsuki/AudioClips/Bgm/{bgmName}");
+            AudioClip clip = bgmList.Find(clip => clip.name == bgmName);
             bgmAudioSource.clip = clip;
         }
 
