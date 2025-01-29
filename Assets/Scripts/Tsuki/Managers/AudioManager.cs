@@ -16,15 +16,6 @@ using UnityEngine;
 
 namespace Tsuki.Managers
 {
-    public enum SoundEffectType
-    {
-        move1 = 1,
-        move2,
-        victory,
-        fail,
-        strange
-    }
-
     public class AudioManager : Singleton<AudioManager>
     {
         [Header("音频组件")] public AudioSource bgmAudioSource;
@@ -38,25 +29,43 @@ namespace Tsuki.Managers
         public float fadeOutTime;
 
         private PlayerModel _playerModel;
+        private bool _moveSoundSwitch;
 
         protected override void Awake()
         {
             base.Awake();
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
         }
-        
+
         private void Start()
         {
             bgmAudioSource.loop = true;
             soundEffectAudioSource.loop = false;
             // 注册事件
             _playerModel.OnMoveStateChanged += PlayMoveSoundEffect;
+            BoxManager.Instance.OnWinChanged += PlayWinSoundEffect;
         }
 
         private void PlayMoveSoundEffect(bool moveState)
         {
-            if (moveState)
-                PlaySoundEffect(UnityEngine.Random.Range(1, 3) == 1 ? SoundEffectType.move1 : SoundEffectType.move2);
+            if (!moveState) return;
+            if (_moveSoundSwitch)
+            {
+                PlaySoundEffect("Move a cat");
+            }
+            else
+            {
+                PlaySoundEffect("Move a cat2");
+            }
+            _moveSoundSwitch = !_moveSoundSwitch;
+        }
+
+        private void PlayWinSoundEffect(bool winState)
+        {
+            if (winState)
+                PlaySoundEffect("Victroy this pat");
+            else
+                PlaySoundEffect("Fail");
         }
 
         /// <summary>
@@ -85,35 +94,17 @@ namespace Tsuki.Managers
         /// <summary>
         /// 播放一次音效
         /// </summary>
-        /// <param name="soundEffectType"></param>
-        public void PlaySoundEffect(SoundEffectType soundEffectType)
+        /// <param name="soundEffectName"></param>
+        public void PlaySoundEffect(string soundEffectName)
         {
-            AudioClip clip = null;
-            switch (soundEffectType)
-            {
-                case SoundEffectType.move1:
-                    clip = soundEffectList.Find(clip => clip.name == "Move a cat");
-                    break;
-                case SoundEffectType.move2:
-                    clip = soundEffectList.Find(clip => clip.name == "Move a cat2");
-                    break;
-                case SoundEffectType.victory:
-                    clip = soundEffectList.Find(clip => clip.name == "Victory this pat");
-                    break;
-                case SoundEffectType.fail:
-                    clip = soundEffectList.Find(clip => clip.name == "Fail this pat");
-                    break;
-                case SoundEffectType.strange:
-                    clip = soundEffectList.Find(clip => clip.name == "Strange Open meme");
-                    break;
-            }
+            AudioClip clip = Resources.Load<AudioClip>("Tsuki/AudioClips/SoundEffect/" + soundEffectName);
 
             soundEffectAudioSource.PlayOneShot(clip);
         }
 
         private void SetBgm(string bgmName)
         {
-            AudioClip clip = bgmList.Find(clip => clip.name == bgmName);
+            AudioClip clip = Resources.Load<AudioClip>("Tsuki/AudioClips/Bgm/" + bgmName);
             bgmAudioSource.clip = clip;
         }
 
