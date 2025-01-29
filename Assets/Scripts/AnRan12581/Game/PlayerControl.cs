@@ -1,6 +1,6 @@
 
 using UnityEngine;
-
+using Vector2Json.SaveSystem;
 namespace AnRan
 {
     public class PlayerControl : MonoBehaviour
@@ -61,11 +61,19 @@ namespace AnRan
             spriteRenderer = GetComponent<SpriteRenderer>();
             raycastDistance = spriteRenderer.bounds.size.y / 2 + 0.05f;
             speed = moveSpeed;
+            AddSerializedJson.AddAllConverter();
         }
 
         private void Update()
         {
             isGrounded = IsGround();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                UserData user = new UserData("GameJam´æµµ",1,new Vector2(transform.position.x,transform.position.y));
+
+                GameJamSaveSystem.SaveData(user);
+            }
 
             Move();
 
