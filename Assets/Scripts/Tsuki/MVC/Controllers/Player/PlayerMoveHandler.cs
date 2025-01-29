@@ -64,7 +64,7 @@ namespace Tsuki.MVC.Controllers.Player
             // 检测是否在地图范围内
             // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
-            if (!Commons.GetMovable(_playerModel, _newPos)) return;
+            if (!Commons.GetReachable(_playerModel, _newPos)) return;
 
             if (!CanMoveAfterDetect()) return;
             StartMove();
@@ -106,10 +106,19 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 检测箱子和墙后是否可以移动
+        /// 检测是否可以移动
         /// </summary>
         /// <returns></returns>
         private bool CanMoveAfterDetect()
+        {
+            return DetectObstacle() && Commons.GetReachable(_playerModel, _newPos);
+        }
+
+        /// <summary>
+        /// 检测墙和箱子
+        /// </summary>
+        /// <returns></returns>
+        private bool DetectObstacle()
         {
             bool canMove = true;
             Debug.DrawRay(_playerController.transform.position, _scaledDirection, Color.red, 3f);

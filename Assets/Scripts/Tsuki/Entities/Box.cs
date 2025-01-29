@@ -64,7 +64,7 @@ namespace Tsuki.Entities
                 if (_hitsBuffer[i].collider != GetComponent<Collider2D>()) return false;
             }
 
-            return Commons.GetMovable(_playerModel, _newPos);
+            return Commons.GetReachable(_playerModel, _newPos);
         }
 
         private void SetNewPos()

@@ -15,9 +15,6 @@ namespace Tsuki.MVC.Models.Player
     [CreateAssetMenu(fileName = "PlayerModel", menuName = "Tsuki/New PlayerModel", order = 0)]
     public class PlayerModel : ScriptableObject
     {
-        [Header("移动范围")]
-        public Vector2 moveRange;
-        
         [Header("移动一格的时间（箱子也是）")]
         public float moveTime;
         
@@ -29,6 +26,9 @@ namespace Tsuki.MVC.Models.Player
         
         [Header("障碍物")]
         public LayerMask obstacleLayer;
+        
+        [Header("地面")]
+        public LayerMask groundLayer;
         
         public bool IsMoving
         {
