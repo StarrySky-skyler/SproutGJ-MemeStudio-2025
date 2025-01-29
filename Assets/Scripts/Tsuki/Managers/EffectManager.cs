@@ -21,9 +21,14 @@ namespace Tsuki.Managers
         
         private PlayerModel _playerModel;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+        }
+        
         private void Start()
         {
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             // 注册事件
             if (footPrint) _playerModel.OnMoveStateChanged += SpawnFootPrint;
         }

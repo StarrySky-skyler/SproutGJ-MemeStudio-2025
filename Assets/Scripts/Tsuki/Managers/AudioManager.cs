@@ -39,11 +39,16 @@ namespace Tsuki.Managers
 
         private PlayerModel _playerModel;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+        }
+        
         private void Start()
         {
             bgmAudioSource.loop = true;
             soundEffectAudioSource.loop = false;
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             // 注册事件
             _playerModel.OnMoveStateChanged += PlayMoveSoundEffect;
         }

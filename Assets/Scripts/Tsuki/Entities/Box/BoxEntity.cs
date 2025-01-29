@@ -10,29 +10,35 @@ using System;
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Interface;
+using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.Entities
 {
-    public class Box : MonoBehaviour, IPushable, IUndoable
+    public enum BoxType
     {
-        public bool OnCorrectPos { get; private set; }
-
+        Zero = 1,
+        One,
+        Two,
+        Three,
+        Four,
+        Five
+    }
+    
+    public class BoxEntity : MonoBehaviour, IPushable, IUndoable
+    {
+        public BoxType boxType;
+        
         private Vector3 _newPos;
         private Vector3 _originalPos;
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
         private PlayerModel _playerModel;
-        private Vector3 _correctPos;
+        private bool _added;
 
         private void Awake()
         {
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
-        }
-
-        private void Start()
-        {
-            _correctPos = transform.Find("CorrectPos").position;
         }
 
         /// <summary>
@@ -67,6 +73,9 @@ namespace Tsuki.Entities
             return Commons.GetReachable(_playerModel, _newPos);
         }
 
+        /// <summary>
+        /// 设置新位置
+        /// </summary>
         private void SetNewPos()
         {
             _newPos = transform.position +
@@ -74,13 +83,13 @@ namespace Tsuki.Entities
                           _playerModel.moveDirection.y * _playerModel.girdSize, 0);
         }
 
+        /// <summary>
+        /// 移动箱子
+        /// </summary>
         private void Move()
         {
             _originalPos = transform.position;
-            transform.DOMove(_newPos, _playerModel.moveTime).OnComplete(() =>
-            {
-                OnCorrectPos = transform.position == _correctPos;
-            });
+            transform.DOMove(_newPos, _playerModel.moveTime);
         }
 
         public void Undo()

@@ -25,7 +25,7 @@ namespace AnRan
             }
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if (_instance != null && _instance != this)
             {
