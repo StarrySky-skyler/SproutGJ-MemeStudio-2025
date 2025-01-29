@@ -104,10 +104,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 324
-        height: 196
-      alignment: 9
+        y: 128
+        width: 68
+        height: 68
+      alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -136,6 +136,13 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Line of 5_3border_0: -6042097693625085304
+      Line of 5_3border_1: -454965248
+      Line of 5_3border_2: 300168778
+      Line of 5_3border_3: -2055333297
+      Line of 5_3border_4: -460763524
+      Line of 5_3border_5: -1711606391
+      Line of 5_3border_6: 1439254693
+      Line of 5_3border_7: 1592269537
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -40,7 +40,7 @@ namespace Tsuki.MVC.Models.Player
                 OnMoveStateChanged?.Invoke(_isMoving);
             }
         }
-        [CanBeNull] public event Action<bool> OnMoveStateChanged; 
+        [CanBeNull] public event Action<bool> OnMoveStateChanged;
         
         [HideInInspector]
         public Vector2Int moveDirection;        // 移动方向
