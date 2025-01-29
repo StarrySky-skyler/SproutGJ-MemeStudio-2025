@@ -10,6 +10,7 @@ using System;
 using AnRan;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tsuki.Managers
 {
@@ -35,6 +36,17 @@ namespace Tsuki.Managers
 
         private void Start()
         {
+            ResetBoxCount();
+            SceneManager.sceneLoaded += (scene, mode) =>
+            {
+                ResetBoxCount();
+            };
+        }
+
+        private void ResetBoxCount()
+        {
+            _boxCorrectCount = 0;
+            _win = false;
             _boxCount = GameObject.FindGameObjectsWithTag("Box").Length;
         }
 

@@ -6,7 +6,9 @@
 // @description:
 // ********************************************************************************
 
+using System;
 using Tsuki.Interface;
+using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
 using Tsuki.MVC.Views.Player;
 using UnityEngine;
@@ -14,7 +16,7 @@ using UnityEngine.InputSystem;
 
 namespace Tsuki.MVC.Controllers.Player
 {
-    public class PlayerController : MonoBehaviour, IPauseable, IUndoable
+    public class PlayerController : MonoBehaviour
     {
         [HideInInspector]
         public PlayerModel playerModel;
@@ -35,6 +37,9 @@ namespace Tsuki.MVC.Controllers.Player
         private void Start()
         {
             playerModel.Init();
+            // 注册事件
+            GameManager.Instance.OnGamePause += _moveHandler.Pause;
+            GameManager.Instance.OnGameResume += _moveHandler.Resume;
         }
 
         public void OnMove(InputValue context)
@@ -43,19 +48,11 @@ namespace Tsuki.MVC.Controllers.Player
             _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
 
-        public void Pause()
+        private void OnDestroy()
         {
-            _moveHandler.Pause();
-        }
-
-        public void Resume()
-        {
-            _moveHandler.Resume();
-        }
-
-        public void Undo()
-        {
-            _moveHandler.Undo();
+            // 注销事件
+            GameManager.Instance.OnGamePause -= _moveHandler.Pause;
+            GameManager.Instance.OnGameResume -= _moveHandler.Resume;
         }
     }
 }

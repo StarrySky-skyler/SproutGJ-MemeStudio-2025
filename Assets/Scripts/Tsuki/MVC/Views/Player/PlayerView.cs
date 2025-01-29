@@ -7,12 +7,13 @@
 // ********************************************************************************
 
 using Tsuki.Interface;
+using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Views.Player
 {
-    public class PlayerView : MonoBehaviour, IPauseable
+    public class PlayerView : MonoBehaviour
     {
         [HideInInspector]
         public PlayerModel playerModel;
@@ -31,22 +32,16 @@ namespace Tsuki.MVC.Views.Player
         {
             // 注册事件
             playerModel.OnMoveStateChanged += _animationHandler.PlayAnimation;
+            GameManager.Instance.OnGamePause += _animationHandler.Pause;
+            GameManager.Instance.OnGameResume += _animationHandler.Resume;
         }
-
+        
         private void OnDestroy()
         {
             // 注销事件
             playerModel.OnMoveStateChanged -= _animationHandler.PlayAnimation;
-        }
-
-        public void Pause()
-        {
-            _animationHandler.Pause();
-        }
-
-        public void Resume()
-        {
-            _animationHandler.Resume();
+            GameManager.Instance.OnGamePause -= _animationHandler.Pause;
+            GameManager.Instance.OnGameResume -= _animationHandler.Resume;
         }
     }
 }
