@@ -28,20 +28,20 @@ namespace Tsuki.MVC.Views.Player
             _animationHandler = new PlayerAnimationHandler(this);
         }
 
-        private void Start()
+        private void OnEnable()
         {
             // 注册事件
             playerModel.OnMoveStateChanged += _animationHandler.PlayAnimation;
-            GameManager.Instance.OnGamePause += _animationHandler.Pause;
-            GameManager.Instance.OnGameResume += _animationHandler.Resume;
+            GameManager.Instance.OnGamePause += (_animationHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume += (_animationHandler as IPauseable).Resume;
         }
         
-        private void OnDestroy()
+        private void OnDisable()
         {
             // 注销事件
             playerModel.OnMoveStateChanged -= _animationHandler.PlayAnimation;
-            GameManager.Instance.OnGamePause -= _animationHandler.Pause;
-            GameManager.Instance.OnGameResume -= _animationHandler.Resume;
+            GameManager.Instance.OnGamePause -= (_animationHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume -= (_animationHandler as IPauseable).Resume;
         }
     }
 }

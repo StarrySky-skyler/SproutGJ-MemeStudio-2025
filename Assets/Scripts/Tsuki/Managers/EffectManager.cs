@@ -27,13 +27,13 @@ namespace Tsuki.Managers
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
         }
         
-        private void Start()
+        private void OnEnable()
         {
             // 注册事件
             if (footPrint) _playerModel.OnMoveStateChanged += SpawnFootPrint;
         }
-        
-        private void OnDestroy()
+
+        private void OnDisable()
         {
             // 注销事件
             if (footPrint) _playerModel.OnMoveStateChanged -= SpawnFootPrint;

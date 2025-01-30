@@ -41,31 +41,32 @@ namespace Tsuki.Managers
         {
             bgmAudioSource.loop = true;
             soundEffectAudioSource.loop = false;
+        }
+
+        private void OnEnable()
+        {
             // 注册事件
             _playerModel.OnMoveStateChanged += PlayMoveSoundEffect;
             BoxManager.Instance.OnWinChanged += PlayWinSoundEffect;
         }
 
+        private void OnDisable()
+        {
+            // 注销事件
+            _playerModel.OnMoveStateChanged -= PlayMoveSoundEffect;
+            BoxManager.Instance.OnWinChanged -= PlayWinSoundEffect;
+        }
+
         private void PlayMoveSoundEffect(bool moveState)
         {
             if (!moveState) return;
-            if (_moveSoundSwitch)
-            {
-                PlaySoundEffect("Move a cat");
-            }
-            else
-            {
-                PlaySoundEffect("Move a cat2");
-            }
+            PlaySoundEffect(_moveSoundSwitch ? "Move a cat" : "Move a cat2");
             _moveSoundSwitch = !_moveSoundSwitch;
         }
 
         private void PlayWinSoundEffect(bool winState)
         {
-            if (winState)
-                PlaySoundEffect("Victroy this pat");
-            else
-                PlaySoundEffect("Fail");
+            PlaySoundEffect(winState ? "Victroy this pat" : "Fail");
         }
 
         /// <summary>

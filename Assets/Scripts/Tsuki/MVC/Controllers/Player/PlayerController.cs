@@ -6,7 +6,6 @@
 // @description:
 // ********************************************************************************
 
-using System;
 using Tsuki.Interface;
 using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
@@ -37,9 +36,6 @@ namespace Tsuki.MVC.Controllers.Player
         private void Start()
         {
             playerModel.Init();
-            // 注册事件
-            GameManager.Instance.OnGamePause += _moveHandler.Pause;
-            GameManager.Instance.OnGameResume += _moveHandler.Resume;
         }
 
         public void OnMove(InputValue context)
@@ -48,11 +44,18 @@ namespace Tsuki.MVC.Controllers.Player
             _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            // 注册事件
+            GameManager.Instance.OnGamePause += (_moveHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume += (_moveHandler as IPauseable).Resume;
+        }
+
+        private void OnDisable()
         {
             // 注销事件
-            GameManager.Instance.OnGamePause -= _moveHandler.Pause;
-            GameManager.Instance.OnGameResume -= _moveHandler.Resume;
+            GameManager.Instance.OnGamePause -= (_moveHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume -= (_moveHandler as IPauseable).Resume;
         }
     }
 }

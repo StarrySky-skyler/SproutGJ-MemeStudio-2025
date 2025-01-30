@@ -37,10 +37,23 @@ namespace Tsuki.Managers
         private void Start()
         {
             ResetBoxCount();
-            SceneManager.sceneLoaded += (scene, mode) =>
-            {
-                ResetBoxCount();
-            };
+        }
+
+        private void OnEnable()
+        {
+            // 注册事件
+            SceneManager.sceneLoaded += ResetBoxCount;
+        }
+        
+        private void OnDisable()
+        {
+            // 注销事件
+            SceneManager.sceneLoaded -= ResetBoxCount;
+        }
+
+        private void ResetBoxCount(Scene scene, LoadSceneMode mode)
+        {
+            ResetBoxCount();
         }
 
         private void ResetBoxCount()

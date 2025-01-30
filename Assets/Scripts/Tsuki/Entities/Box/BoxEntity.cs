@@ -6,26 +6,14 @@
 // @description:
 // ********************************************************************************
 
-using System;
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Interface;
-using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
-namespace Tsuki.Entities
-{
-    public enum BoxType
-    {
-        Zero = 1,
-        One,
-        Two,
-        Three,
-        Four,
-        Five
-    }
-    
+namespace Tsuki.Entities.Box
+{ 
     public class BoxEntity : MonoBehaviour, IPushable, IUndoable
     {
         public BoxType boxType;
