@@ -53,15 +53,16 @@ namespace Tsuki.Managers
 
         private void SpawnFootPrintInPool(bool moveState)
         {
-            if (!moveState) return;
+            if (!moveState || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
             GameObject obj = footPool.Get();
-            obj.transform.position = _playerModel.lastPos;
+            obj.transform.position = result;
+            obj.transform.rotation = Quaternion.identity;
         }
 
 
         private GameObject CreateFunc()
         {
-            GameObject obj = Instantiate(footPrint, _playerModel.lastPos, Quaternion.identity);
+            GameObject obj = Instantiate(footPrint);
 
             obj.GetComponent<Footprint>().footPool = footPool;
 
