@@ -7,14 +7,23 @@
 // ********************************************************************************
 
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Tsuki.Effects
 {
     public class Footprint : MonoBehaviour
     {
+        public ObjectPool<GameObject> footPool;
+
         public void DestorySelf()
         {
-            Destroy(gameObject);
+            if(gameObject.activeSelf)
+            footPool.Release(gameObject);
         }
+
+        //public void DestorySelf()
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 }
