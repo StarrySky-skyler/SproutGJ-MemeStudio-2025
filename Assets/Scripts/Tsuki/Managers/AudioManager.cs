@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using AnRan;
 using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
