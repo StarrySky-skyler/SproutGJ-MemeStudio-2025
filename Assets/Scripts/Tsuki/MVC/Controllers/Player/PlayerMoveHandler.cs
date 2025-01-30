@@ -102,7 +102,11 @@ namespace Tsuki.MVC.Controllers.Player
             _playerModel.LastPosStack.Push(_originalPos);
             _playerModel.IsMoving = true;
             _playerController.transform.DOMove(_newPos, _playerModel.moveTime)
-                .OnComplete(() => { _playerModel.IsMoving = false; });
+                .OnComplete(() =>
+                {
+                    _playerModel.IsMoving = false; 
+                    _playerModel.CurrentPos = _newPos;
+                });
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace Tsuki.MVC.Models.Player
         [CanBeNull] public event Action<bool> OnMoveStateChanged;
         
         public Vector2Int LastDirection { get; set; }        // 移动方向
-
+        public Vector3 CurrentPos { get; set; }
         public Stack<Vector3> LastPosStack { get; private set; }       // 上一次的位置
         
         private int _currentHp;
@@ -58,6 +58,7 @@ namespace Tsuki.MVC.Models.Player
             _currentHp = maxHp;
             _isMoving = false;
             LastPosStack = new Stack<Vector3>();
+            CurrentPos = GameObject.FindWithTag("Player").transform.position;
         }
         
         /// <summary>

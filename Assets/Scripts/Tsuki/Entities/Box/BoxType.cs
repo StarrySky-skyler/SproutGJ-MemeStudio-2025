@@ -8,6 +8,9 @@
 
 namespace Tsuki.Entities.Box
 {
+    /// <summary>
+    /// 箱子类型
+    /// </summary>
     public enum BoxType
     {
         Zero = 1,

@@ -3,7 +3,7 @@
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/30 00:01
 // @version: 1.0
-// @description:
+// @description: 游戏管理器单例
 // ********************************************************************************
 
 using System;
@@ -21,6 +21,9 @@ namespace Tsuki.Managers
         [CanBeNull] public event Action OnGamePause;
         [CanBeNull] public event Action OnGameResume;
         [CanBeNull] public event Action OnGameUndo;
+
+        // TODO: 当前关卡数设置
+        public int CurrentLevel { get; set; }
         
         private PlayerModel _playerModel;
 
