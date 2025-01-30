@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using AnRan;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 

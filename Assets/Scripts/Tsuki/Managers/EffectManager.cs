@@ -12,21 +12,22 @@ using Tsuki.MVC.Models.Player;
 using Tsuki.Effects;
 using UnityEngine;
 using UnityEngine.Pool;
+
 namespace Tsuki.Managers
 {
     public class EffectManager : Singleton<EffectManager>
     {
-        [Header("脚印特效")] 
-        [CanBeNull] public GameObject footPrint;
-        public ObjectPool<GameObject> footPool;
-        
+        [Header("脚印特效")] [CanBeNull] public GameObject footPrint;
+        public ObjectPool<GameObject> FootPool;
+
         private PlayerModel _playerModel;
 
         protected override void Awake()
         {
             base.Awake();
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
-            footPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy, true, 30, 60);
+            FootPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy, true, 30,
+                60);
         }
 
         private void OnEnable()
@@ -54,7 +55,7 @@ namespace Tsuki.Managers
         private void SpawnFootPrintInPool(bool moveState)
         {
             if (!moveState || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
-            GameObject obj = footPool.Get();
+            GameObject obj = FootPool.Get();
             obj.transform.position = result;
             obj.transform.rotation = Quaternion.identity;
         }
@@ -64,7 +65,7 @@ namespace Tsuki.Managers
         {
             GameObject obj = Instantiate(footPrint);
 
-            obj.GetComponent<Footprint>().footPool = footPool;
+            obj.GetComponent<Footprint>().footPool = FootPool;
 
             return obj;
         }
@@ -83,6 +84,5 @@ namespace Tsuki.Managers
         {
             obj.SetActive(true);
         }
-
     }
 }
