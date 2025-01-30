@@ -47,8 +47,8 @@ namespace Tsuki.Managers
         /// <param name="moveState"></param>
         private void SpawnFootPrint(bool moveState)
         {
-            if (!moveState) return;
-            Instantiate(footPrint, _playerModel.lastPos, Quaternion.identity);
+            if (!moveState || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+            Instantiate(footPrint, result, Quaternion.identity);
         }
 
         private void SpawnFootPrintInPool(bool moveState)

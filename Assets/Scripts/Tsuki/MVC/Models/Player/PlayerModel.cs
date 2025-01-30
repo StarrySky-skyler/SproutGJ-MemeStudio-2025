@@ -7,6 +7,7 @@
 // ********************************************************************************
 
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -42,10 +43,9 @@ namespace Tsuki.MVC.Models.Player
         }
         [CanBeNull] public event Action<bool> OnMoveStateChanged;
         
-        [HideInInspector]
-        public Vector2Int moveDirection;        // 移动方向
+        public Vector2Int LastDirection { get; set; }        // 移动方向
 
-        [HideInInspector] public Vector3 lastPos;       // 上一次的位置
+        public Stack<Vector3> LastPosStack { get; private set; }       // 上一次的位置
         
         private int _currentHp;
         private bool _isMoving;
@@ -57,7 +57,7 @@ namespace Tsuki.MVC.Models.Player
         {
             _currentHp = maxHp;
             _isMoving = false;
-            lastPos = GameObject.FindWithTag("Player").transform.position;
+            LastPosStack = new Stack<Vector3>();
         }
         
         /// <summary>

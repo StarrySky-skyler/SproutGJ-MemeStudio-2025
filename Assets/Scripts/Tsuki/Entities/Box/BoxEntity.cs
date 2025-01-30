@@ -6,9 +6,12 @@
 // @description:
 // ********************************************************************************
 
+using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Interface;
+using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
@@ -19,7 +22,8 @@ namespace Tsuki.Entities.Box
         public BoxType boxType;
         
         private Vector3 _newPos;
-        private Vector3 _originalPos;
+        private Vector3 _startPos;
+        private Stack<Vector3> _lastPosStack;
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
         private PlayerModel _playerModel;
         private bool _added;
@@ -27,6 +31,23 @@ namespace Tsuki.Entities.Box
         private void Awake()
         {
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+            _lastPosStack = new Stack<Vector3>();
+        }
+
+        private void Start()
+        {
+            _startPos = transform.position;
+            _newPos = transform.position;
+        }
+
+        private void OnEnable()
+        {
+            GameManager.Instance.OnGameUndo += Undo;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.Instance.OnGameUndo -= Undo;
         }
 
         /// <summary>
@@ -47,9 +68,9 @@ namespace Tsuki.Entities.Box
         private bool GetPushable()
         {
             SetNewPos();
-            Debug.DrawRay(transform.position, (Vector2)_playerModel.moveDirection, Color.green, 3);
+            Debug.DrawRay(transform.position, (Vector2)_playerModel.LastDirection, Color.green, 3);
             // 射线检测是否还有箱子或墙
-            int hitCount = Physics2D.RaycastNonAlloc(transform.position, _playerModel.moveDirection, _hitsBuffer,
+            int hitCount = Physics2D.RaycastNonAlloc(transform.position, _playerModel.LastDirection, _hitsBuffer,
                 Vector2.Distance(transform.position, _newPos),
                 _playerModel.obstacleLayer);
 
@@ -67,8 +88,8 @@ namespace Tsuki.Entities.Box
         private void SetNewPos()
         {
             _newPos = transform.position +
-                      new Vector3(_playerModel.moveDirection.x * _playerModel.girdSize,
-                          _playerModel.moveDirection.y * _playerModel.girdSize, 0);
+                      new Vector3(_playerModel.LastDirection.x * _playerModel.girdSize,
+                          _playerModel.LastDirection.y * _playerModel.girdSize, 0);
         }
 
         /// <summary>
@@ -76,13 +97,27 @@ namespace Tsuki.Entities.Box
         /// </summary>
         private void Move()
         {
-            _originalPos = transform.position;
             transform.DOMove(_newPos, _playerModel.moveTime);
         }
 
         public void Undo()
         {
-            transform.position = _originalPos;
+            // 回到上一个位置
+            if (!_lastPosStack.TryPop(out Vector3 result)) return;
+            transform.position = result;
+        }
+
+        /// <summary>
+        /// 重复上一个位置
+        /// </summary>
+        public void RepeatPos()
+        {
+            if (!_lastPosStack.TryPeek(out Vector3 result))
+            {
+                _lastPosStack.Push(_startPos);
+                return;
+            }
+            _lastPosStack.Push(transform.position);
         }
     }
 }

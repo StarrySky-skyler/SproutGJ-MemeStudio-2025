@@ -18,11 +18,6 @@ namespace Tsuki.Managers
         public GameObject pausePanel;
         
         private GameObject _pausePanel;
-        
-        private void Start()
-        {
-            ResetPauseUI();
-        }
 
         private void OnEnable()
         {
