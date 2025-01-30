@@ -32,14 +32,14 @@ namespace Tsuki.MVC.Views.Player
         /// <summary>
         /// 播放动画
         /// </summary>
-        /// <param name="moveState"></param>
-        public void PlayAnimation(bool moveState)
+        /// <param name="moveStatus"></param>
+        public void PlayAnimation(bool moveStatus)
         {
             if (_playerModel.LastDirection.x != 0 && _allowFlip)
             {
                 _spriteRenderer.flipX = _playerModel.LastDirection.x < 0;
             }
-            _animator.SetBool(Move, moveState);
+            _animator.SetBool(Move, moveStatus);
         }
 
         public void Pause()

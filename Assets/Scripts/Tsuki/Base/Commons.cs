@@ -11,15 +11,15 @@ using UnityEngine;
 
 namespace Tsuki.Base
 {
-    public class Commons
+    public static class Commons
     {
         /// <summary>
-        /// 获取newpos位置是否可到达
+        /// 获取newpos位置是否在地图内
         /// </summary>
         /// <param name="playerModel"></param>
         /// <param name="newPos"></param>
         /// <returns></returns>
-        public static bool GetReachable(PlayerModel playerModel, Vector3 newPos)
+        public static bool IsOnMap(PlayerModel playerModel, Vector3 newPos)
         {
             Collider2D hit = Physics2D.OverlapPoint(newPos, playerModel.groundLayer);
             return hit;

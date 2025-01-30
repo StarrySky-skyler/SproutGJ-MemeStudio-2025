@@ -79,7 +79,7 @@ namespace Tsuki.Entities.Box
                 if (_hitsBuffer[i].collider != GetComponent<Collider2D>()) return false;
             }
 
-            return Commons.GetReachable(_playerModel, _newPos);
+            return Commons.IsOnMap(_playerModel, _newPos);
         }
 
         /// <summary>

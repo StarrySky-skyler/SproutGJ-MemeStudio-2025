@@ -31,7 +31,7 @@ namespace Tsuki.MVC.Views.Player
         private void OnEnable()
         {
             // 注册事件
-            playerModel.OnMoveStateChanged += _animationHandler.PlayAnimation;
+            playerModel.OnMoveStatusChanged += _animationHandler.PlayAnimation;
             GameManager.Instance.OnGamePause += (_animationHandler as IPauseable).Pause;
             GameManager.Instance.OnGameResume += (_animationHandler as IPauseable).Resume;
         }
@@ -39,7 +39,7 @@ namespace Tsuki.MVC.Views.Player
         private void OnDisable()
         {
             // 注销事件
-            playerModel.OnMoveStateChanged -= _animationHandler.PlayAnimation;
+            playerModel.OnMoveStatusChanged -= _animationHandler.PlayAnimation;
             GameManager.Instance.OnGamePause -= (_animationHandler as IPauseable).Pause;
             GameManager.Instance.OnGameResume -= (_animationHandler as IPauseable).Resume;
         }

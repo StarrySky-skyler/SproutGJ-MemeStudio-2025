@@ -64,7 +64,7 @@ namespace Tsuki.MVC.Controllers.Player
             // 检测是否在地图范围内
             // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
-            if (!Commons.GetReachable(_playerModel, _newPos)) return;
+            if (!Commons.IsOnMap(_playerModel, _newPos)) return;
 
             if (!CanMoveAfterDetect()) return;
             StartMove();
@@ -115,7 +115,7 @@ namespace Tsuki.MVC.Controllers.Player
         /// <returns></returns>
         private bool CanMoveAfterDetect()
         {
-            return DetectObstacle() && Commons.GetReachable(_playerModel, _newPos);
+            return DetectObstacle() && Commons.IsOnMap(_playerModel, _newPos);
         }
 
         /// <summary>

@@ -51,14 +51,14 @@ namespace Tsuki.Managers
         {
             // 注册事件
             SceneManager.sceneLoaded += ResetBoxCount;
-            _playerModel.OnMoveStateChanged += RepeatAllBoxLastPos;
+            _playerModel.OnMoveStatusChanged += RepeatAllBoxLastPos;
         }
         
         private void OnDisable()
         {
             // 注销事件
             SceneManager.sceneLoaded -= ResetBoxCount;
-            _playerModel.OnMoveStateChanged -= RepeatAllBoxLastPos;
+            _playerModel.OnMoveStatusChanged -= RepeatAllBoxLastPos;
         }
 
         private void ResetBoxCount(Scene scene, LoadSceneMode mode)

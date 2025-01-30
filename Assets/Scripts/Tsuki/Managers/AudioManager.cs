@@ -45,27 +45,27 @@ namespace Tsuki.Managers
         private void OnEnable()
         {
             // 注册事件
-            _playerModel.OnMoveStateChanged += PlayMoveSoundEffect;
+            _playerModel.OnMoveStatusChanged += PlayMoveSoundEffect;
             BoxManager.Instance.OnWinChanged += PlayWinSoundEffect;
         }
 
         private void OnDisable()
         {
             // 注销事件
-            _playerModel.OnMoveStateChanged -= PlayMoveSoundEffect;
+            _playerModel.OnMoveStatusChanged -= PlayMoveSoundEffect;
             BoxManager.Instance.OnWinChanged -= PlayWinSoundEffect;
         }
 
-        private void PlayMoveSoundEffect(bool moveState)
+        private void PlayMoveSoundEffect(bool moveStatus)
         {
-            if (!moveState) return;
+            if (!moveStatus) return;
             PlaySoundEffect(_moveSoundSwitch ? "Move a cat" : "Move a cat2");
             _moveSoundSwitch = !_moveSoundSwitch;
         }
 
-        private void PlayWinSoundEffect(bool winState)
+        private void PlayWinSoundEffect(bool winStatus)
         {
-            PlaySoundEffect(winState ? "Victroy this pat" : "Fail");
+            PlaySoundEffect(winStatus ? "Victroy this pat" : "Fail");
         }
 
         /// <summary>

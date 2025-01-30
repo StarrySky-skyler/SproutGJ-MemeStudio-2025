@@ -33,28 +33,28 @@ namespace Tsuki.Managers
         private void OnEnable()
         {
             // 注册事件
-            if (footPrint) _playerModel.OnMoveStateChanged += SpawnFootPrintInPool;
+            if (footPrint) _playerModel.OnMoveStatusChanged += SpawnFootPrintInPool;
         }
 
         private void OnDisable()
         {
             // 注销事件
-            if (footPrint) _playerModel.OnMoveStateChanged -= SpawnFootPrintInPool;
+            if (footPrint) _playerModel.OnMoveStatusChanged -= SpawnFootPrintInPool;
         }
 
         /// <summary>
         /// 生成脚本特效
         /// </summary>
-        /// <param name="moveState"></param>
-        private void SpawnFootPrint(bool moveState)
+        /// <param name="moveStatus"></param>
+        private void SpawnFootPrint(bool moveStatus)
         {
-            if (!moveState || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+            if (!moveStatus || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
             Instantiate(footPrint, result, Quaternion.identity);
         }
 
-        private void SpawnFootPrintInPool(bool moveState)
+        private void SpawnFootPrintInPool(bool moveStatus)
         {
-            if (!moveState || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+            if (!moveStatus || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
             GameObject obj = FootPool.Get();
             obj.transform.position = result;
             obj.transform.rotation = Quaternion.identity;

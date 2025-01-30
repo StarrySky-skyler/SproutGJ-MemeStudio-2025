@@ -38,10 +38,10 @@ namespace Tsuki.MVC.Models.Player
             {
                 if (_isMoving == value) return;
                 _isMoving = value;
-                OnMoveStateChanged?.Invoke(_isMoving);
+                OnMoveStatusChanged?.Invoke(_isMoving);
             }
         }
-        [CanBeNull] public event Action<bool> OnMoveStateChanged;
+        [CanBeNull] public event Action<bool> OnMoveStatusChanged;
         
         public Vector2Int LastDirection { get; set; }        // 移动方向
         public Vector3 CurrentPos { get; set; }
