@@ -9,6 +9,8 @@
 using System;
 using AnRan;
 using JetBrains.Annotations;
+using Tsuki.Entities.Box;
+using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,9 +32,16 @@ namespace Tsuki.Managers
 
         [CanBeNull] public event Action<bool> OnWinChanged;
 
+        private PlayerModel _playerModel;
         private bool _win;
         private int _boxCount;
         private int _boxCorrectCount;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+        }
 
         private void Start()
         {
@@ -43,12 +52,14 @@ namespace Tsuki.Managers
         {
             // 注册事件
             SceneManager.sceneLoaded += ResetBoxCount;
+            _playerModel.OnMoveStateChanged += RepeatAllBoxLastPos;
         }
         
         private void OnDisable()
         {
             // 注销事件
             SceneManager.sceneLoaded -= ResetBoxCount;
+            _playerModel.OnMoveStateChanged -= RepeatAllBoxLastPos;
         }
 
         private void ResetBoxCount(Scene scene, LoadSceneMode mode)
@@ -68,8 +79,8 @@ namespace Tsuki.Managers
         /// </summary>
         public void AddCorrectBox()
         {
-            Debug.Log($"增加正确的箱子");
             _boxCorrectCount = Mathf.Min(_boxCorrectCount + 1, _boxCount);
+            Debug.Log($"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
             CheckWin();
         }
         
@@ -78,13 +89,27 @@ namespace Tsuki.Managers
         /// </summary>
         public void RemoveCorrectBox()
         {
-            Debug.Log($"减少正确的箱子");
             _boxCorrectCount = Mathf.Max(_boxCorrectCount - 1, 0);
+            Debug.Log($"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
         }
 
         private void CheckWin()
         {
             Win = _boxCorrectCount == _boxCount;
+        }
+
+        /// <summary>
+        /// 重复所有箱子的最后位置
+        /// </summary>
+        /// <param name="moveStatus"></param>
+        private void RepeatAllBoxLastPos(bool moveStatus)
+        {
+            if (!moveStatus) return;
+            GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
+            foreach (GameObject box in boxes)
+            {
+                box.GetComponent<BoxEntity>().RepeatPos();
+            }
         }
     }
 }

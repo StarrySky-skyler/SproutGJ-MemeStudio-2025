@@ -18,11 +18,11 @@ namespace Tsuki.MVC.Controllers.Player
     {
         private readonly PlayerController _playerController;
         private readonly PlayerModel _playerModel;
-        
+
         // 移动
-        private Vector2 _scaledDirection;   // 移动方向向量 * 格子大小
-        private Vector3 _originalPos;           // 原始位置
-        private Vector3 _newPos;                // 新位置
+        private Vector2 _scaledDirection; // 移动方向向量 * 格子大小
+        private Vector3 _originalPos; // 原始位置
+        private Vector3 _newPos; // 新位置
         private bool _movableX;
         private bool _movableY;
         private bool _allowMove = true;
@@ -76,8 +76,8 @@ namespace Tsuki.MVC.Controllers.Player
         /// <param name="input"></param>
         private void SetDirection(Vector2 input)
         {
-            _playerModel.moveDirection = Vector2Int.RoundToInt(input);
-            _scaledDirection = (Vector2)_playerModel.moveDirection * _playerModel.girdSize;
+            _playerModel.LastDirection = Vector2Int.RoundToInt(input);
+            _scaledDirection = (Vector2)_playerModel.LastDirection * _playerModel.girdSize;
         }
 
         /// <summary>
@@ -99,8 +99,8 @@ namespace Tsuki.MVC.Controllers.Player
         private void StartMove()
         {
             if (_playerController.transform.position == _newPos) return;
+            _playerModel.LastPosStack.Push(_originalPos);
             _playerModel.IsMoving = true;
-            _playerModel.lastPos = _newPos;
             _playerController.transform.DOMove(_newPos, _playerModel.moveTime)
                 .OnComplete(() => { _playerModel.IsMoving = false; });
         }
@@ -140,7 +140,9 @@ namespace Tsuki.MVC.Controllers.Player
         /// </summary>
         public void Undo()
         {
-            _playerController.transform.position = _playerModel.lastPos;
+            // 回到上一个位置
+            if (_playerModel.LastPosStack.TryPop(out Vector3 result))
+                _playerController.transform.position = result;
         }
 
         public void Pause()

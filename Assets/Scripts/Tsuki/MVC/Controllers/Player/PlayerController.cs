@@ -49,6 +49,7 @@ namespace Tsuki.MVC.Controllers.Player
             // 注册事件
             GameManager.Instance.OnGamePause += (_moveHandler as IPauseable).Pause;
             GameManager.Instance.OnGameResume += (_moveHandler as IPauseable).Resume;
+            GameManager.Instance.OnGameUndo += (_moveHandler as IUndoable).Undo;
         }
 
         private void OnDisable()
@@ -56,6 +57,7 @@ namespace Tsuki.MVC.Controllers.Player
             // 注销事件
             GameManager.Instance.OnGamePause -= (_moveHandler as IPauseable).Pause;
             GameManager.Instance.OnGameResume -= (_moveHandler as IPauseable).Resume;
+            GameManager.Instance.OnGameUndo -= (_moveHandler as IUndoable).Undo;
         }
     }
 }

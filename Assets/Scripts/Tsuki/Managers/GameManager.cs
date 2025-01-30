@@ -9,6 +9,7 @@
 using System;
 using AnRan;
 using JetBrains.Annotations;
+using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -20,10 +21,13 @@ namespace Tsuki.Managers
         [CanBeNull] public event Action OnGamePause;
         [CanBeNull] public event Action OnGameResume;
         [CanBeNull] public event Action OnGameUndo;
+        
+        private PlayerModel _playerModel;
 
         protected override void Awake()
         {
             base.Awake();
+            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             DontDestroyOnLoad(gameObject);
         }
 
@@ -46,6 +50,8 @@ namespace Tsuki.Managers
 
         public void OnUndo(InputValue context)
         {
+            // 如果正在移动则不允许撤销
+            if (_playerModel.IsMoving) return;
             OnGameUndo?.Invoke();
         }
     }
