@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Tsuki.MVC.Models.Player
 {
-    [CreateAssetMenu(fileName = "PlayerModel", menuName = "Tsuki/New PlayerModel", order = 0)]
+    [CreateAssetMenu(fileName = "PlayerModel", menuName = "Tsuki/New Player Config", order = 0)]
     public class PlayerModel : ScriptableObject
     {
         [Header("移动一格的时间（箱子也是）")]

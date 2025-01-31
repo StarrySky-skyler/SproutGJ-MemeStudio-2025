@@ -17,6 +17,7 @@ namespace Tsuki.MVC.Controllers.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        // TODO: 使用状态机管理玩家流程
         [HideInInspector]
         public PlayerModel playerModel;
         [HideInInspector]
