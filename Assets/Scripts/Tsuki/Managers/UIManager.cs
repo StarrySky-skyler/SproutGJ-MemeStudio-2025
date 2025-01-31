@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/30 00:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using System;
 using UnityEngine;
@@ -14,9 +14,8 @@ namespace Tsuki.Managers
 {
     public class UIManager : Singleton<UIManager>
     {
-        [Header("暂停UI预制体")]
-        public GameObject pausePanel;
-        
+        [Header("暂停UI预制体")] public GameObject pausePanel;
+
         private GameObject _pausePanel;
 
         private void OnEnable()
@@ -26,7 +25,7 @@ namespace Tsuki.Managers
             GameManager.Instance.OnGameResume += HidePauseUI;
             SceneManager.sceneLoaded += ResetPauseUI;
         }
-        
+
         private void OnDisable()
         {
             // 注销事件
@@ -46,7 +45,8 @@ namespace Tsuki.Managers
         private void ResetPauseUI()
         {
             GameObject ui = GameObject.Find("UI");
-            _pausePanel = Instantiate(pausePanel, ui.transform.position, Quaternion.identity, ui.transform);
+            _pausePanel = Instantiate(pausePanel, ui.transform.position,
+                Quaternion.identity, ui.transform);
             _pausePanel.SetActive(false);
         }
 

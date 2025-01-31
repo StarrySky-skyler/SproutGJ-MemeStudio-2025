@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/27 23:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using DG.Tweening;
 using Tsuki.Base;
@@ -51,9 +51,11 @@ namespace Tsuki.MVC.Controllers.Player
         /// <param name="inputV2"></param>
         /// <param name="movableX"></param>
         /// <param name="movableY"></param>
-        public void Move(Vector2 inputV2, bool movableX = true, bool movableY = true)
+        public void Move(Vector2 inputV2, bool movableX = true,
+            bool movableY = true)
         {
-            if (_playerModel.IsMoving || inputV2 == Vector2.zero || !_allowMove) return;
+            if (_playerModel.IsMoving || inputV2 == Vector2.zero ||
+                !_allowMove) return;
             _movableX = movableX;
             _movableY = movableY;
             // 获取移动方向
@@ -77,7 +79,8 @@ namespace Tsuki.MVC.Controllers.Player
         private void SetDirection(Vector2 input)
         {
             _playerModel.LastDirection = Vector2Int.RoundToInt(input);
-            _scaledDirection = (Vector2)_playerModel.LastDirection * _playerModel.girdSize;
+            _scaledDirection = (Vector2)_playerModel.LastDirection *
+                               _playerModel.girdSize;
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace Tsuki.MVC.Controllers.Player
             _playerController.transform.DOMove(_newPos, _playerModel.moveTime)
                 .OnComplete(() =>
                 {
-                    _playerModel.IsMoving = false; 
+                    _playerModel.IsMoving = false;
                     _playerModel.CurrentPos = _newPos;
                 });
         }
@@ -125,8 +128,10 @@ namespace Tsuki.MVC.Controllers.Player
         private bool DetectObstacle()
         {
             bool canMove = true;
-            Debug.DrawRay(_playerController.transform.position, _scaledDirection, Color.red, 3f);
-            RaycastHit2D hit = Physics2D.Raycast(_playerController.transform.position, _scaledDirection,
+            Debug.DrawRay(_playerController.transform.position,
+                _scaledDirection, Color.red, 3f);
+            RaycastHit2D hit = Physics2D.Raycast(
+                _playerController.transform.position, _scaledDirection,
                 Vector2.Distance(_playerController.transform.position, _newPos),
                 _playerModel.obstacleLayer);
             if (hit.collider)

@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/28 22:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using System;
 using JetBrains.Annotations;
@@ -26,20 +26,23 @@ namespace Tsuki.Managers
         {
             base.Awake();
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
-            FootPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet, ActionOnRelease, ActionOnDestroy, true, 30,
+            FootPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
+                ActionOnRelease, ActionOnDestroy, true, 30,
                 60);
         }
 
         private void OnEnable()
         {
             // 注册事件
-            if (footPrint) _playerModel.OnMoveStatusChanged += SpawnFootPrintInPool;
+            if (footPrint)
+                _playerModel.OnMoveStatusChanged += SpawnFootPrintInPool;
         }
 
         private void OnDisable()
         {
             // 注销事件
-            if (footPrint) _playerModel.OnMoveStatusChanged -= SpawnFootPrintInPool;
+            if (footPrint)
+                _playerModel.OnMoveStatusChanged -= SpawnFootPrintInPool;
         }
 
         /// <summary>
@@ -48,13 +51,15 @@ namespace Tsuki.Managers
         /// <param name="moveStatus"></param>
         private void SpawnFootPrint(bool moveStatus)
         {
-            if (!moveStatus || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+            if (!moveStatus ||
+                !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
             Instantiate(footPrint, result, Quaternion.identity);
         }
 
         private void SpawnFootPrintInPool(bool moveStatus)
         {
-            if (!moveStatus || !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+            if (!moveStatus ||
+                !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
             GameObject obj = FootPool.Get();
             obj.transform.position = result;
             obj.transform.rotation = Quaternion.identity;

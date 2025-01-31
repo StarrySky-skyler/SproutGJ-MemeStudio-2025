@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/27 19:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -13,24 +13,20 @@ using UnityEngine;
 
 namespace Tsuki.MVC.Models.Player
 {
-    [CreateAssetMenu(fileName = "PlayerModel", menuName = "Tsuki/New Player Config", order = 0)]
+    [CreateAssetMenu(fileName = "PlayerModel",
+        menuName = "Tsuki/New Player Config", order = 0)]
     public class PlayerModel : ScriptableObject
     {
-        [Header("移动一格的时间（箱子也是）")]
-        public float moveTime;
-        
-        [Header("单元格大小")]
-        public float girdSize;
-        
-        [Header("血量")]
-        public int maxHp;
-        
-        [Header("障碍物")]
-        public LayerMask obstacleLayer;
-        
-        [Header("地面")]
-        public LayerMask groundLayer;
-        
+        [Header("移动一格的时间（箱子也是）")] public float moveTime;
+
+        [Header("单元格大小")] public float girdSize;
+
+        [Header("血量")] public int maxHp;
+
+        [Header("障碍物")] public LayerMask obstacleLayer;
+
+        [Header("地面")] public LayerMask groundLayer;
+
         public bool IsMoving
         {
             get => _isMoving;
@@ -41,12 +37,13 @@ namespace Tsuki.MVC.Models.Player
                 OnMoveStatusChanged?.Invoke(_isMoving);
             }
         }
+
         [CanBeNull] public event Action<bool> OnMoveStatusChanged;
-        
-        public Vector2Int LastDirection { get; set; }        // 移动方向
+
+        public Vector2Int LastDirection { get; set; } // 移动方向
         public Vector3 CurrentPos { get; set; }
-        public Stack<Vector3> LastPosStack { get; private set; }       // 上一次的位置
-        
+        public Stack<Vector3> LastPosStack { get; private set; } // 上一次的位置
+
         private int _currentHp;
         private bool _isMoving;
 
@@ -60,7 +57,7 @@ namespace Tsuki.MVC.Models.Player
             LastPosStack = new Stack<Vector3>();
             CurrentPos = GameObject.FindWithTag("Player").transform.position;
         }
-        
+
         /// <summary>
         /// 玩家受到伤害
         /// </summary>

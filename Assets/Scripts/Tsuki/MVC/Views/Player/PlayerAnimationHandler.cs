@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/28 21:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using Tsuki.Interface;
 using Tsuki.MVC.Models.Player;
@@ -39,6 +39,7 @@ namespace Tsuki.MVC.Views.Player
             {
                 _spriteRenderer.flipX = _playerModel.LastDirection.x < 0;
             }
+
             _animator.SetBool(Move, moveStatus);
         }
 

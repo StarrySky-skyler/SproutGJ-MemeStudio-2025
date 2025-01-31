@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/30 21:01
 // @version: 1.0
 // @description: 存档管理器单例
-// ********************************************************************************
+// *****************************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -41,7 +41,8 @@ namespace Tsuki.Managers
                 return;
             }
 
-            _userDataList[archiveIndex] = new UserData(_archiveFileNameFormatter + archiveIndex,
+            _userDataList[archiveIndex] = new UserData(
+                _archiveFileNameFormatter + archiveIndex,
                 GameManager.Instance.CurrentLevel,
                 _playerModel.CurrentPos);
         }
@@ -54,12 +55,15 @@ namespace Tsuki.Managers
             _userDataList.Clear();
             for (int i = 0; i < archiveCount; i++)
             {
-                UserData loadedData = GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
+                UserData loadedData =
+                    GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
                 if (loadedData == null)
                 {
-                    Debug.LogWarning($"存档文件{_archiveFileNameFormatter + i}不存在，跳过读取");
+                    Debug.LogWarning(
+                        $"存档文件{_archiveFileNameFormatter + i}不存在，跳过读取");
                     continue;
                 }
+
                 _userDataList.Add(loadedData);
             }
         }

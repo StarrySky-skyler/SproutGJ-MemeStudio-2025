@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/29 23:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using System;
 using JetBrains.Annotations;
@@ -53,7 +53,7 @@ namespace Tsuki.Managers
             SceneManager.sceneLoaded += ResetBoxCount;
             _playerModel.OnMoveStatusChanged += RepeatAllBoxLastPos;
         }
-        
+
         private void OnDisable()
         {
             // 注销事件
@@ -79,17 +79,19 @@ namespace Tsuki.Managers
         public void AddCorrectBox()
         {
             _boxCorrectCount = Mathf.Min(_boxCorrectCount + 1, _boxCount);
-            Debug.Log($"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
+            Debug.Log(
+                $"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
             CheckWin();
         }
-        
+
         /// <summary>
         /// 减少正确的箱子
         /// </summary>
         public void RemoveCorrectBox()
         {
             _boxCorrectCount = Mathf.Max(_boxCorrectCount - 1, 0);
-            Debug.Log($"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
+            Debug.Log(
+                $"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
         }
 
         private void CheckWin()

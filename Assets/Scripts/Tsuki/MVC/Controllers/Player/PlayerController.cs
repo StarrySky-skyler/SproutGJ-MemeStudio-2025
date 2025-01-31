@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/27 19:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using Tsuki.Interface;
 using Tsuki.Managers;
@@ -18,11 +18,9 @@ namespace Tsuki.MVC.Controllers.Player
     public class PlayerController : MonoBehaviour
     {
         // TODO: 使用状态机管理玩家流程
-        [HideInInspector]
-        public PlayerModel playerModel;
-        [HideInInspector]
-        public PlayerView playerView;
-        
+        [HideInInspector] public PlayerModel playerModel;
+        [HideInInspector] public PlayerView playerView;
+
         private PlayerMoveHandler _moveHandler;
 
         private void Awake()
@@ -48,16 +46,20 @@ namespace Tsuki.MVC.Controllers.Player
         private void OnEnable()
         {
             // 注册事件
-            GameManager.Instance.OnGamePause += (_moveHandler as IPauseable).Pause;
-            GameManager.Instance.OnGameResume += (_moveHandler as IPauseable).Resume;
+            GameManager.Instance.OnGamePause +=
+                (_moveHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume +=
+                (_moveHandler as IPauseable).Resume;
             GameManager.Instance.OnGameUndo += (_moveHandler as IUndoable).Undo;
         }
 
         private void OnDisable()
         {
             // 注销事件
-            GameManager.Instance.OnGamePause -= (_moveHandler as IPauseable).Pause;
-            GameManager.Instance.OnGameResume -= (_moveHandler as IPauseable).Resume;
+            GameManager.Instance.OnGamePause -=
+                (_moveHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume -=
+                (_moveHandler as IPauseable).Resume;
             GameManager.Instance.OnGameUndo -= (_moveHandler as IUndoable).Undo;
         }
     }

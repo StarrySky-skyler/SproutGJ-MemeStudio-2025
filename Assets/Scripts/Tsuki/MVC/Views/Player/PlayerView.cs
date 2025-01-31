@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/27 19:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using Tsuki.Interface;
 using Tsuki.Managers;
@@ -15,8 +15,7 @@ namespace Tsuki.MVC.Views.Player
 {
     public class PlayerView : MonoBehaviour
     {
-        [HideInInspector]
-        public PlayerModel playerModel;
+        [HideInInspector] public PlayerModel playerModel;
 
         private PlayerAnimationHandler _animationHandler;
 
@@ -32,16 +31,20 @@ namespace Tsuki.MVC.Views.Player
         {
             // 注册事件
             playerModel.OnMoveStatusChanged += _animationHandler.PlayAnimation;
-            GameManager.Instance.OnGamePause += (_animationHandler as IPauseable).Pause;
-            GameManager.Instance.OnGameResume += (_animationHandler as IPauseable).Resume;
+            GameManager.Instance.OnGamePause +=
+                (_animationHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume +=
+                (_animationHandler as IPauseable).Resume;
         }
-        
+
         private void OnDisable()
         {
             // 注销事件
             playerModel.OnMoveStatusChanged -= _animationHandler.PlayAnimation;
-            GameManager.Instance.OnGamePause -= (_animationHandler as IPauseable).Pause;
-            GameManager.Instance.OnGameResume -= (_animationHandler as IPauseable).Resume;
+            GameManager.Instance.OnGamePause -=
+                (_animationHandler as IPauseable).Pause;
+            GameManager.Instance.OnGameResume -=
+                (_animationHandler as IPauseable).Resume;
         }
     }
 }

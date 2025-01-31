@@ -1,10 +1,10 @@
-﻿// ********************************************************************************
+﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
 // @creationDate: 2025/01/28 20:01
 // @version: 1.0
 // @description:
-// ********************************************************************************
+// *****************************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -97,25 +97,36 @@ namespace Tsuki.Managers
         /// <param name="soundEffectName"></param>
         public void PlaySoundEffect(string soundEffectName)
         {
-            AudioClip clip = Resources.Load<AudioClip>("Tsuki/AudioClips/SoundEffect/" + soundEffectName);
+            AudioClip clip =
+                Resources.Load<AudioClip>("Tsuki/AudioClips/SoundEffect/" +
+                                          soundEffectName);
 
             soundEffectAudioSource.PlayOneShot(clip);
         }
 
         private void SetBgm(string bgmName)
         {
-            AudioClip clip = Resources.Load<AudioClip>("Tsuki/AudioClips/Bgm/" + bgmName);
+            AudioClip clip =
+                Resources.Load<AudioClip>("Tsuki/AudioClips/Bgm/" + bgmName);
             bgmAudioSource.clip = clip;
         }
 
-        private void FadeIn(AudioSource audioSource, [CanBeNull] Action onCompleted = null)
+        private void FadeIn(AudioSource audioSource,
+            [CanBeNull] Action onCompleted = null)
         {
-            audioSource.DOFade(1, fadeInTime).OnComplete(() => { onCompleted?.Invoke(); });
+            audioSource.DOFade(1, fadeInTime).OnComplete(() =>
+            {
+                onCompleted?.Invoke();
+            });
         }
 
-        private void FadeOut(AudioSource audioSource, [CanBeNull] Action onCompleted = null)
+        private void FadeOut(AudioSource audioSource,
+            [CanBeNull] Action onCompleted = null)
         {
-            audioSource.DOFade(0, fadeOutTime).OnComplete(() => { onCompleted?.Invoke(); });
+            audioSource.DOFade(0, fadeOutTime).OnComplete(() =>
+            {
+                onCompleted?.Invoke();
+            });
         }
     }
 }
