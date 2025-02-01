@@ -11,6 +11,24 @@ TextureImporter:
   - first:
       213: -8823569016223394607
     second: weed in land_Break_2
+  - first:
+      213: 1325372773196184852
+    second: weed in land_Break_3
+  - first:
+      213: -1364265298530084022
+    second: weed in land_Break_4
+  - first:
+      213: 1657196171403396204
+    second: weed in land_Break_5
+  - first:
+      213: -3803401257377349949
+    second: weed in land_Break_6
+  - first:
+      213: -1899515067820896996
+    second: weed in land_Break_7
+  - first:
+      213: -1872400699330608021
+    second: weed in land_Break_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -111,8 +129,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,10 +149,10 @@ TextureImporter:
       name: weed in land_Break_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +171,10 @@ TextureImporter:
       name: weed in land_Break_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 128
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,20 +193,20 @@ TextureImporter:
       name: weed in land_Break_3
       rect:
         serializedVersion: 2
-        x: 48
+        x: 192
         y: 0
-        width: 16
-        height: 16
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 2daa3d86122979f47bdb2c382a450818
-      internalID: 650646394
+      spriteID: 41d355dd38ba46210800000000000000
+      internalID: 1325372773196184852
       vertices: []
       indices: 
       edges: []
@@ -197,7 +215,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 500853765d4e8d849b49e54e87fc2341
+    spriteID: a0ed08c19c852044a9747d1b85e05feb
     internalID: 0
     vertices: []
     indices: 
@@ -210,7 +228,7 @@ TextureImporter:
       weed in land_Break_0: -9019342353942841085
       weed in land_Break_1: -3191494563162159234
       weed in land_Break_2: -8823569016223394607
-      weed in land_Break_3: 650646394
+      weed in land_Break_3: 1325372773196184852
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

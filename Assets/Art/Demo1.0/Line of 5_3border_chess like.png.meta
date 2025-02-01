@@ -104,11 +104,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 640
-        width: 340
-        height: 340
+        y: 0
+        width: 1620
+        height: 980
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -121,33 +121,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Line of 5_3border_chess like_1
-      rect:
-        serializedVersion: 2
-        x: 960
-        y: 640
-        width: 340
-        height: 340
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a2cce0018c51517468ad21ee8f630d6e
-      internalID: 958182892
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -158,7 +136,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Line of 5_3border_chess like_0: -6507142873632732753
-      Line of 5_3border_chess like_1: 958182892
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
