@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 68
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,9 +104,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 324
-        height: 196
+        y: 128
+        width: 68
+        height: 68
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,11 +121,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Line of 5_3border_Grass_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b969b591bfd53d46aac8ee9ccfd683d
+      internalID: 47664675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6c1dc10eb0245fd4e9da491e4db3ef79
     internalID: 0
     vertices: []
     indices: 
@@ -136,6 +158,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Line of 5_3border_Grass_0: -85804521792570430
+      Line of 5_3border_Grass_1: 47664675
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
