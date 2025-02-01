@@ -1,0 +1,15 @@
+Font: Yu Gothic UI  Style: Semilight
+Point Size: 90   Padding: 5   SP/PD Ratio: 5.6%
+
+Characters included: 1627/7109
+Missing characters: 2
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+ID: 9	Hex: 9	Char [	]
+ID: 10	Hex: A	Char [
+]
+
+Characters excluded from packing:
+----------------------------------------
