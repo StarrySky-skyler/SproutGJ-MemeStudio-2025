@@ -18,7 +18,7 @@ namespace Tsuki.Managers
     public class EffectManager : Singleton<EffectManager>
     {
         [Header("脚印特效")] [CanBeNull] public GameObject footPrint;
-        public ObjectPool<GameObject> FootPool;
+        private ObjectPool<GameObject> _footPool;
 
         private PlayerModel _playerModel;
 
@@ -26,7 +26,7 @@ namespace Tsuki.Managers
         {
             base.Awake();
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
-            FootPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
+            _footPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
                 ActionOnRelease, ActionOnDestroy, true, 30,
                 60);
         }
@@ -60,7 +60,7 @@ namespace Tsuki.Managers
         {
             if (!moveStatus ||
                 !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
-            GameObject obj = FootPool.Get();
+            GameObject obj = _footPool.Get();
             obj.transform.position = result;
             obj.transform.rotation = Quaternion.identity;
         }
@@ -70,7 +70,7 @@ namespace Tsuki.Managers
         {
             GameObject obj = Instantiate(footPrint);
 
-            obj.GetComponent<Footprint>().footPool = FootPool;
+            obj.GetComponent<Footprint>().footPool = _footPool;
 
             return obj;
         }

@@ -17,9 +17,7 @@ MonoBehaviour:
   maxHp: 100
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 128
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveDirection: {x: -1, y: 0}
-  lastPos: {x: 4.5, y: 2, z: 0}

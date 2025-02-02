@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -11,8 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Ground
+  - Obstacle
   - 
   - 
   - 
@@ -40,6 +41,18 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 934710365
+    locked: 0
+  - name: Boxes
+    uniqueID: 2721094011
+    locked: 0
+  - name: Obstacles
+    uniqueID: 1862245863
+    locked: 0
+  - name: Player
+    uniqueID: 1631632259
     locked: 0
   m_RenderingLayers:
   - Default

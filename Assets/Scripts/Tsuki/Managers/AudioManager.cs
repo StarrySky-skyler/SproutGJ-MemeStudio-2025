@@ -112,7 +112,7 @@ namespace Tsuki.Managers
         /// <summary>
         /// 随机循环播放Bgm
         /// </summary>
-        public void RandomPlayBgm()
+        private void RandomPlayBgm()
         {
             SetRandomBgm();
             _audioFade.FadeIn(bgmAudioSource);

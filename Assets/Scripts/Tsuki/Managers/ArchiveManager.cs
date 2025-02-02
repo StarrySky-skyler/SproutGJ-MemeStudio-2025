@@ -33,7 +33,7 @@ namespace Tsuki.Managers
         /// 保存当前游戏存档
         /// <param name="archiveIndex">存档槽位索引，从0开始</param>
         /// </summary>
-        public void SaveCurrentArchive(int archiveIndex)
+        public void SaveCurrentArchive(int archiveIndex = 0)
         {
             if (archiveIndex < 0 || archiveIndex >= archiveCount)
             {
@@ -43,7 +43,7 @@ namespace Tsuki.Managers
 
             _userDataList[archiveIndex] = new UserData(
                 _archiveFileNameFormatter + archiveIndex,
-                GameManager.Instance.CurrentLevel,
+                LevelManager.Instance.GetCurrentLevel(),
                 _playerModel.CurrentPos);
         }
 
@@ -74,7 +74,7 @@ namespace Tsuki.Managers
         /// <param name="archiveIndex">存档槽位索引，从0开始</param>
         public void LoadArchive(int archiveIndex)
         {
-            // TODO: 加载具体关卡
+            LevelManager.Instance.LoadLevel(_userDataList[archiveIndex]);
         }
     }
 }

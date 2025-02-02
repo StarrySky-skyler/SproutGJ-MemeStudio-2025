@@ -21,9 +21,6 @@ namespace Tsuki.Managers
         [CanBeNull] public event Action OnGameResume;
         [CanBeNull] public event Action OnGameUndo;
 
-        // TODO: 当前关卡数设置
-        public int CurrentLevel { get; set; }
-
         private PlayerModel _playerModel;
 
         protected override void Awake()
