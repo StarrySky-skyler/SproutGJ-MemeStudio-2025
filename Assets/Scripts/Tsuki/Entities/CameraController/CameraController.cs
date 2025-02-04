@@ -30,12 +30,14 @@ namespace Tsuki.Entities.CameraController
         [Header("聚焦所需时间")] public float zoomTime;
 
         private Vector3 _originPos;
+        private float _originFieldOfView;
         private Camera _camera;
 
         private void Start()
         {
-            _originPos = Commons.GetModifiedPos(transform.position);
             _camera = GetComponent<Camera>();
+            _originPos = Commons.GetModifiedPos(transform.position);
+            _originFieldOfView = _camera.orthographicSize;
             // FocusOnTarget(FocusTargetType.LushCity);
         }
 
@@ -81,6 +83,14 @@ namespace Tsuki.Entities.CameraController
             DOTween.To(() => _camera.orthographicSize,
                 x => _camera.orthographicSize = x,
                 targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad);
+        }
+
+        public void Reset()
+        {
+            transform.DOMove(_originPos, moveTime).SetEase(Ease.InOutQuad);
+            DOTween.To(() => _camera.orthographicSize,
+                x => _camera.orthographicSize = x,
+                _originFieldOfView, zoomTime).SetEase(Ease.InOutQuad);
         }
     }
 
