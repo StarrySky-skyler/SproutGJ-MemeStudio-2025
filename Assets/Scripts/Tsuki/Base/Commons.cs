@@ -25,5 +25,27 @@ namespace Tsuki.Base
                 Physics2D.OverlapPoint(newPos, playerModel.groundLayer);
             return hit;
         }
+
+        /// <summary>
+        /// 获取相机修正后的位置
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public static Vector3 GetModifiedPos(Vector3 pos)
+        {
+            Vector3 modifiedPos = pos;
+            modifiedPos.z = -10;
+            return modifiedPos;
+        }
+        
+        /// <summary>
+        /// 获取相机修正后的位置
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public static Vector3 GetModifiedPos(Vector2 pos)
+        {
+            return new Vector3(pos.x, pos.y, -10);
+        }
     }
 }
