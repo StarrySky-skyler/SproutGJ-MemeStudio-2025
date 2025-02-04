@@ -36,7 +36,7 @@ namespace Tsuki.Entities.CameraController
         {
             _originPos = Commons.GetModifiedPos(transform.position);
             _camera = GetComponent<Camera>();
-            // FocusOnTarget(FocusTargetType.LushCity);
+            //FocusOnTarget(FocusTargetType.LushCity);
         }
 
         /// <summary>
