@@ -21,16 +21,16 @@ namespace Tsuki.Managers
         private void OnEnable()
         {
             // 注册事件
-            GameManager.Instance.OnGamePause += ShowPauseUI;
-            GameManager.Instance.OnGameResume += HidePauseUI;
+            GameManager.Instance.onGamePause.AddListener(ShowPauseUI);
+            GameManager.Instance.onGameResume.AddListener(HidePauseUI);
             SceneManager.sceneLoaded += ResetPauseUI;
         }
 
         private void OnDisable()
         {
             // 注销事件
-            GameManager.Instance.OnGamePause -= ShowPauseUI;
-            GameManager.Instance.OnGameResume -= HidePauseUI;
+            GameManager.Instance.onGamePause.RemoveListener(ShowPauseUI);
+            GameManager.Instance.onGameResume.RemoveListener(HidePauseUI);
             SceneManager.sceneLoaded -= ResetPauseUI;
         }
 

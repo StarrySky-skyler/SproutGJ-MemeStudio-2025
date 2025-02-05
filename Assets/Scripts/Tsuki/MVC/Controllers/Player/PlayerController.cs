@@ -18,7 +18,6 @@ namespace Tsuki.MVC.Controllers.Player
     public class PlayerController : MonoBehaviour
     {
         // TODO: 使用状态机管理玩家流程
-        [HideInInspector] public PlayerModel playerModel;
         [HideInInspector] public PlayerView playerView;
 
         private PlayerMoveHandler _moveHandler;
@@ -26,7 +25,6 @@ namespace Tsuki.MVC.Controllers.Player
         private void Awake()
         {
             // MVC 初始化
-            playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             playerView = GetComponent<PlayerView>();
             // 初始化处理器
             _moveHandler = new PlayerMoveHandler(this);
@@ -34,7 +32,7 @@ namespace Tsuki.MVC.Controllers.Player
 
         private void Start()
         {
-            playerModel.Init();
+            ModelsManager.Instance.playerModel.Init();
         }
 
         public void OnMove(InputValue context)
@@ -46,21 +44,23 @@ namespace Tsuki.MVC.Controllers.Player
         private void OnEnable()
         {
             // 注册事件
-            GameManager.Instance.OnGamePause +=
-                (_moveHandler as IPauseable).Pause;
-            GameManager.Instance.OnGameResume +=
-                (_moveHandler as IPauseable).Resume;
-            GameManager.Instance.OnGameUndo += (_moveHandler as IUndoable).Undo;
+            GameManager.Instance.onGamePause.AddListener(
+                (_moveHandler as IPauseable).Pause);
+            GameManager.Instance.onGameResume.AddListener(
+                (_moveHandler as IPauseable).Resume);
+            GameManager.Instance.onGameUndo.AddListener(
+                (_moveHandler as IUndoable).Undo);
         }
 
         private void OnDisable()
         {
             // 注销事件
-            GameManager.Instance.OnGamePause -=
-                (_moveHandler as IPauseable).Pause;
-            GameManager.Instance.OnGameResume -=
-                (_moveHandler as IPauseable).Resume;
-            GameManager.Instance.OnGameUndo -= (_moveHandler as IUndoable).Undo;
+            GameManager.Instance.onGamePause.RemoveListener(
+                (_moveHandler as IPauseable).Pause);
+            GameManager.Instance.onGameResume.RemoveListener(
+                (_moveHandler as IPauseable).Resume);
+            GameManager.Instance.onGameUndo.RemoveListener(
+                (_moveHandler as IUndoable).Undo);
         }
     }
 }

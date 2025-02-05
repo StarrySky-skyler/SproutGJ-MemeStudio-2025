@@ -25,12 +25,10 @@ namespace Tsuki.Entities.Box
         private Vector3 _startPos;
         private Stack<Vector3> _lastPosStack;
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
-        private PlayerModel _playerModel;
         private bool _added;
 
         private void Awake()
         {
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             _lastPosStack = new Stack<Vector3>();
         }
 
@@ -42,12 +40,12 @@ namespace Tsuki.Entities.Box
 
         private void OnEnable()
         {
-            GameManager.Instance.OnGameUndo += Undo;
+            GameManager.Instance.onGameUndo.AddListener(Undo);
         }
 
         private void OnDisable()
         {
-            GameManager.Instance.OnGameUndo -= Undo;
+            GameManager.Instance.onGameUndo.RemoveListener(Undo);
         }
 
         /// <summary>
@@ -69,12 +67,12 @@ namespace Tsuki.Entities.Box
         {
             SetNewPos();
             Debug.DrawRay(transform.position,
-                (Vector2)_playerModel.LastDirection, Color.green, 3);
+                (Vector2)ModelsManager.Instance.playerModel.LastDirection, Color.green, 3);
             // 射线检测是否还有箱子或墙
             int hitCount = Physics2D.RaycastNonAlloc(transform.position,
-                _playerModel.LastDirection, _hitsBuffer,
+                ModelsManager.Instance.playerModel.LastDirection, _hitsBuffer,
                 Vector2.Distance(transform.position, _newPos),
-                _playerModel.obstacleLayer);
+                ModelsManager.Instance.playerModel.obstacleLayer);
 
             for (int i = 0; i < hitCount; i++)
             {
@@ -82,7 +80,7 @@ namespace Tsuki.Entities.Box
                     return false;
             }
 
-            return Commons.IsOnMap(_playerModel, _newPos);
+            return Commons.IsOnMap(ModelsManager.Instance.playerModel, _newPos);
         }
 
         /// <summary>
@@ -92,8 +90,8 @@ namespace Tsuki.Entities.Box
         {
             _newPos = transform.position +
                       new Vector3(
-                          _playerModel.LastDirection.x * _playerModel.girdSize,
-                          _playerModel.LastDirection.y * _playerModel.girdSize,
+                          ModelsManager.Instance.playerModel.LastDirection.x * ModelsManager.Instance.playerModel.girdSize,
+                          ModelsManager.Instance.playerModel.LastDirection.y * ModelsManager.Instance.playerModel.girdSize,
                           0);
         }
 
@@ -102,7 +100,7 @@ namespace Tsuki.Entities.Box
         /// </summary>
         private void Move()
         {
-            transform.DOMove(_newPos, _playerModel.moveTime);
+            transform.DOMove(_newPos, ModelsManager.Instance.playerModel.moveTime);
         }
 
         public void Undo()

@@ -20,12 +20,9 @@ namespace Tsuki.Managers
         [Header("脚印特效")] [CanBeNull] public GameObject footPrint;
         private ObjectPool<GameObject> _footPool;
 
-        private PlayerModel _playerModel;
-
         protected override void Awake()
         {
             base.Awake();
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             _footPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
                 ActionOnRelease, ActionOnDestroy, true, 30,
                 60);
@@ -35,14 +32,16 @@ namespace Tsuki.Managers
         {
             // 注册事件
             if (footPrint)
-                _playerModel.OnMoveStatusChanged += SpawnFootPrintInPool;
+                ModelsManager.Instance.playerModel.onMoveStatusChanged
+                    .AddListener(SpawnFootPrintInPool);
         }
 
         private void OnDisable()
         {
             // 注销事件
             if (footPrint)
-                _playerModel.OnMoveStatusChanged -= SpawnFootPrintInPool;
+                ModelsManager.Instance.playerModel.onMoveStatusChanged
+                    .RemoveListener(SpawnFootPrintInPool);
         }
 
         /// <summary>
@@ -52,14 +51,16 @@ namespace Tsuki.Managers
         private void SpawnFootPrint(bool moveStatus)
         {
             if (!moveStatus ||
-                !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+                !ModelsManager.Instance.playerModel.LastPosStack.TryPeek(
+                    out Vector3 result)) return;
             Instantiate(footPrint, result, Quaternion.identity);
         }
 
         private void SpawnFootPrintInPool(bool moveStatus)
         {
             if (!moveStatus ||
-                !_playerModel.LastPosStack.TryPeek(out Vector3 result)) return;
+                !ModelsManager.Instance.playerModel.LastPosStack.TryPeek(
+                    out Vector3 result)) return;
             GameObject obj = _footPool.Get();
             obj.transform.position = result;
             obj.transform.rotation = Quaternion.identity;

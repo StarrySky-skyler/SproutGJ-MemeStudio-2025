@@ -42,15 +42,18 @@ namespace Tsuki.Managers
         [Header("失败音效")] public AudioClip failSoundEffect;
 
         [Header("BGM")] public List<AudioClip> bgmList;
+        
+        [Header("生日BGM")] public AudioClip birthdayBgm;
 
-        private PlayerModel _playerModel;
+        [HideInInspector]
+        public bool allowRandomBgm = true;
+
         [CanBeNull] private AudioClip _lastMoveSoundEffect;
         private AudioFade _audioFade;
 
         protected override void Awake()
         {
             base.Awake();
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             _audioFade = new AudioFade(this);
         }
 
@@ -66,23 +69,26 @@ namespace Tsuki.Managers
         private void OnEnable()
         {
             // 注册事件
-            _playerModel.OnMoveStatusChanged += PlayMoveSoundEffect;
-            BoxManager.Instance.OnWinChanged += PlayWinSoundEffect;
+            ModelsManager.Instance.playerModel.onMoveStatusChanged.AddListener(
+                PlayMoveSoundEffect);
+            BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
         }
 
         private void OnDisable()
         {
             // 注销事件
-            _playerModel.OnMoveStatusChanged -= PlayMoveSoundEffect;
-            BoxManager.Instance.OnWinChanged -= PlayWinSoundEffect;
+            ModelsManager.Instance.playerModel.onMoveStatusChanged
+                .RemoveListener(PlayMoveSoundEffect);
+            BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
         }
-        
+
         private IEnumerator PlayBgm()
         {
-            while (true)
+            while (allowRandomBgm)
             {
                 RandomPlayBgm();
-                yield return new WaitForSeconds(bgmAudioSource.clip.length - fadeOutTime);
+                yield return new WaitForSeconds(bgmAudioSource.clip.length -
+                                                fadeOutTime);
                 _audioFade.FadeOut(bgmAudioSource);
                 yield return new WaitForSeconds(fadeOutTime);
             }
@@ -131,7 +137,8 @@ namespace Tsuki.Managers
                     AudioClip clip = null;
                     if (!_lastMoveSoundEffect)
                     {
-                        clip = moveSoundEffectList[Random.Range(0, moveSoundEffectList.Count - 1)];
+                        clip = moveSoundEffectList[
+                            Random.Range(0, moveSoundEffectList.Count - 1)];
                     }
                     // 移动音效与上次不同，播放新的移动音效
                     else
@@ -139,7 +146,8 @@ namespace Tsuki.Managers
                         clip = _lastMoveSoundEffect;
                         while (clip == _lastMoveSoundEffect)
                         {
-                            clip = moveSoundEffectList[Random.Range(0, moveSoundEffectList.Count - 1)];
+                            clip = moveSoundEffectList[
+                                Random.Range(0, moveSoundEffectList.Count - 1)];
                         }
                     }
 
@@ -169,6 +177,20 @@ namespace Tsuki.Managers
             }
 
             bgmAudioSource.clip = clip;
+        }
+
+        /// <summary>
+        /// 播放生日Bgm
+        /// </summary>
+        public void PlayBirthdayBgm()
+        {
+            allowRandomBgm = false;
+            StopCoroutine(PlayBgm());
+            _audioFade.FadeOut(bgmAudioSource, () =>
+            {
+                bgmAudioSource.clip = birthdayBgm;
+                _audioFade.FadeIn(bgmAudioSource);
+            });
         }
     }
 }

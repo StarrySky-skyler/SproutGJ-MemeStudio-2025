@@ -1503,6 +1503,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 809375925569236256, guid: 95aa86a8f8d762b4cb75706d11e3af7b, type: 3}
+      propertyPath: birthdayBgm
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c891c6897b0a914ea7ab214d8379891, type: 3}
     - target: {fileID: 1004826896047352902, guid: 95aa86a8f8d762b4cb75706d11e3af7b, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -1827,7 +1831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b4fceaba544052a0e18270129b417d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 0}
 --- !u!114 &1706029034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1840,7 +1843,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: febde7ba32e64aa7acdca9cb18417991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 0}
   playerView: {fileID: 0}
 --- !u!114 &1706029035
 MonoBehaviour:
