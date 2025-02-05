@@ -8,12 +8,12 @@ public class SaveCell : MonoBehaviour
     public TMP_Text load;
     public Image load_slider;
 
-    public void SaveData(string title,string time,float load)
+    public void LoadData(string title,string time,float load)
     {
         this.title.text = title;
         this.time.text = time;
-        this.load.text = $"进度:{load.ToString("F0")}%";
-        load_slider.fillAmount = load;
+        this.load.text = $"进度:{(load / 10f).ToString("F0")}%";
+        load_slider.fillAmount = load / 10f;
     }
 
 }

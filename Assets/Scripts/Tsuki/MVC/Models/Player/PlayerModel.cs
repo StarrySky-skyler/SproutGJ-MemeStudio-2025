@@ -6,10 +6,9 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Tsuki.MVC.Models.Player
 {
@@ -34,11 +33,11 @@ namespace Tsuki.MVC.Models.Player
             {
                 if (_isMoving == value) return;
                 _isMoving = value;
-                OnMoveStatusChanged?.Invoke(_isMoving);
+                onMoveStatusChanged?.Invoke(_isMoving);
             }
         }
 
-        [CanBeNull] public event Action<bool> OnMoveStatusChanged;
+        public UnityEvent<bool> onMoveStatusChanged;
 
         public Vector2Int LastDirection { get; set; } // 移动方向
         public Vector3 CurrentPos { get; set; }

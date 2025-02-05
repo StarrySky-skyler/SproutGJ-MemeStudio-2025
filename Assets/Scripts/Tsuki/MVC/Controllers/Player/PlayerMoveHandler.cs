@@ -9,6 +9,7 @@
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Interface;
+using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
@@ -17,7 +18,6 @@ namespace Tsuki.MVC.Controllers.Player
     public class PlayerMoveHandler : IUndoable, IPauseable
     {
         private readonly PlayerController _playerController;
-        private readonly PlayerModel _playerModel;
 
         // 移动
         private Vector2 _scaledDirection; // 移动方向向量 * 格子大小
@@ -30,7 +30,6 @@ namespace Tsuki.MVC.Controllers.Player
         public PlayerMoveHandler(PlayerController playerController)
         {
             _playerController = playerController;
-            _playerModel = playerController.playerModel;
         }
 
         /// <summary>
@@ -54,7 +53,8 @@ namespace Tsuki.MVC.Controllers.Player
         public void Move(Vector2 inputV2, bool movableX = true,
             bool movableY = true)
         {
-            if (_playerModel.IsMoving || inputV2 == Vector2.zero ||
+            if (ModelsManager.Instance.playerModel.IsMoving ||
+                inputV2 == Vector2.zero ||
                 !_allowMove) return;
             _movableX = movableX;
             _movableY = movableY;
@@ -66,7 +66,8 @@ namespace Tsuki.MVC.Controllers.Player
             // 检测是否在地图范围内
             // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
-            if (!Commons.IsOnMap(_playerModel, _newPos)) return;
+            if (!Commons.IsOnMap(ModelsManager.Instance.playerModel, _newPos))
+                return;
 
             if (!CanMoveAfterDetect()) return;
             StartMove();
@@ -78,9 +79,11 @@ namespace Tsuki.MVC.Controllers.Player
         /// <param name="input"></param>
         private void SetDirection(Vector2 input)
         {
-            _playerModel.LastDirection = Vector2Int.RoundToInt(input);
-            _scaledDirection = (Vector2)_playerModel.LastDirection *
-                               _playerModel.girdSize;
+            ModelsManager.Instance.playerModel.LastDirection =
+                Vector2Int.RoundToInt(input);
+            _scaledDirection =
+                (Vector2)ModelsManager.Instance.playerModel.LastDirection *
+                ModelsManager.Instance.playerModel.girdSize;
         }
 
         /// <summary>
@@ -102,13 +105,14 @@ namespace Tsuki.MVC.Controllers.Player
         private void StartMove()
         {
             if (_playerController.transform.position == _newPos) return;
-            _playerModel.LastPosStack.Push(_originalPos);
-            _playerModel.IsMoving = true;
-            _playerController.transform.DOMove(_newPos, _playerModel.moveTime)
+            ModelsManager.Instance.playerModel.LastPosStack.Push(_originalPos);
+            ModelsManager.Instance.playerModel.IsMoving = true;
+            _playerController.transform.DOMove(_newPos,
+                    ModelsManager.Instance.playerModel.moveTime)
                 .OnComplete(() =>
                 {
-                    _playerModel.IsMoving = false;
-                    _playerModel.CurrentPos = _newPos;
+                    ModelsManager.Instance.playerModel.IsMoving = false;
+                    ModelsManager.Instance.playerModel.CurrentPos = _newPos;
                 });
         }
 
@@ -118,7 +122,8 @@ namespace Tsuki.MVC.Controllers.Player
         /// <returns></returns>
         private bool CanMoveAfterDetect()
         {
-            return DetectObstacle() && Commons.IsOnMap(_playerModel, _newPos);
+            return DetectObstacle() &&
+                   Commons.IsOnMap(ModelsManager.Instance.playerModel, _newPos);
         }
 
         /// <summary>
@@ -133,7 +138,7 @@ namespace Tsuki.MVC.Controllers.Player
             RaycastHit2D hit = Physics2D.Raycast(
                 _playerController.transform.position, _scaledDirection,
                 Vector2.Distance(_playerController.transform.position, _newPos),
-                _playerModel.obstacleLayer);
+                ModelsManager.Instance.playerModel.obstacleLayer);
             if (hit.collider)
             {
                 if (hit.collider.gameObject.layer == 8) return false;
@@ -150,7 +155,8 @@ namespace Tsuki.MVC.Controllers.Player
         public void Undo()
         {
             // 回到上一个位置
-            if (_playerModel.LastPosStack.TryPop(out Vector3 result))
+            if (ModelsManager.Instance.playerModel.LastPosStack.TryPop(
+                    out Vector3 result))
                 _playerController.transform.position = result;
         }
 

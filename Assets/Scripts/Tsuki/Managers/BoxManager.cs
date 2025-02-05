@@ -11,7 +11,9 @@ using JetBrains.Annotations;
 using Tsuki.Entities.Box;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
@@ -25,22 +27,15 @@ namespace Tsuki.Managers
                 if (_win == value) return;
                 _win = value;
                 Debug.Log(_win ? $"所有箱子已归位" : $"所有箱子未归位");
-                OnWinChanged?.Invoke(_win);
+                onWinChanged?.Invoke(_win);
             }
         }
 
-        [CanBeNull] public event Action<bool> OnWinChanged;
+        public UnityEvent<bool> onWinChanged;
 
-        private PlayerModel _playerModel;
         private bool _win;
         private int _boxCount;
         private int _boxCorrectCount;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
-        }
 
         private void Start()
         {
@@ -51,14 +46,16 @@ namespace Tsuki.Managers
         {
             // 注册事件
             SceneManager.sceneLoaded += ResetBoxCount;
-            _playerModel.OnMoveStatusChanged += RepeatAllBoxLastPos;
+            ModelsManager.Instance.playerModel.onMoveStatusChanged.AddListener(
+                RepeatAllBoxLastPos);
         }
 
         private void OnDisable()
         {
             // 注销事件
             SceneManager.sceneLoaded -= ResetBoxCount;
-            _playerModel.OnMoveStatusChanged -= RepeatAllBoxLastPos;
+            ModelsManager.Instance.playerModel.onMoveStatusChanged
+                .RemoveListener(RepeatAllBoxLastPos);
         }
 
         private void ResetBoxCount(Scene scene, LoadSceneMode mode)

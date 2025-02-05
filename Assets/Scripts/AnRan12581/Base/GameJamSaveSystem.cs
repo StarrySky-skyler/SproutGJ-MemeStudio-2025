@@ -84,11 +84,14 @@ public class UserData
 
     public Vector2 PlayerPosition;
 
-    public UserData(string filename,int level, Vector2 playerPos)
+    public string time;
+
+    public UserData(string filename,int level, Vector2 playerPos,string time)
     {
         Filename = filename;
         this.level = level;
         PlayerPosition = playerPos;
+        this.time = time;
     }
 }
 

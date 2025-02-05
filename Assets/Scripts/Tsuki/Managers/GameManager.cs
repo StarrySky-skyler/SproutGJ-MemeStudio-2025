@@ -10,36 +10,35 @@ using System;
 using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
     public class GameManager : Singleton<GameManager>
     {
-        [CanBeNull] public event Action OnGamePause;
-        [CanBeNull] public event Action OnGameResume;
-        [CanBeNull] public event Action OnGameUndo;
-
-        private PlayerModel _playerModel;
+        public UnityEvent onGamePause;
+        public UnityEvent onGameResume;
+        public UnityEvent onGameUndo;
 
         protected override void Awake()
         {
             base.Awake();
-            _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             DontDestroyOnLoad(gameObject);
         }
 
         public void OnPause(InputValue context)
         {
-            OnGamePause?.Invoke();
+            onGamePause?.Invoke();
             Time.timeScale = 0;
         }
 
         public void OnResume(InputValue context)
         {
             Time.timeScale = 1;
-            OnGameResume?.Invoke();
+            onGameResume?.Invoke();
         }
 
         public void OnReload(InputValue context)
@@ -50,8 +49,8 @@ namespace Tsuki.Managers
         public void OnUndo(InputValue context)
         {
             // 如果正在移动则不允许撤销
-            if (_playerModel.IsMoving) return;
-            OnGameUndo?.Invoke();
+            if (ModelsManager.Instance.playerModel.IsMoving) return;
+            onGameUndo?.Invoke();
         }
     }
 }

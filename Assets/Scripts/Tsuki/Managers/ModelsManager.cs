@@ -1,0 +1,24 @@
+﻿// *****************************************************************************
+// @author: 绘星tsuki
+// @email: xiaoyuesun915@gmail.com
+// @creationDate: 2025/02/05 15:02
+// @version: 1.0
+// @description:
+// *****************************************************************************
+
+using Tsuki.MVC.Models.Player;
+using UnityEngine;
+
+namespace Tsuki.Managers
+{
+    public class ModelsManager : Singleton<ModelsManager>
+    {
+        public PlayerModel playerModel;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+        }
+    }
+}
