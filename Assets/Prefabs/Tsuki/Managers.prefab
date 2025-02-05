@@ -53,6 +53,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fda791e22f5468f83685c014a89566e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGamePause:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameResume:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameUndo:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4677635620274197496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +87,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc1452f7ebdf4fc2aeb6656343d8135e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onWinChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5742702432631849803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,23 +132,21 @@ MonoBehaviour:
   soundEffectAudioSource: {fileID: 5743748724707976819}
   fadeInTime: 10
   fadeOutTime: 10
-  moveSoundEffectList:
-  - {fileID: 8300000, guid: ef6f514353522564e82e572796ce3a14, type: 3}
-  - {fileID: 8300000, guid: 7d196f18a4627e04a90c5a66303fce52, type: 3}
-  - {fileID: 8300000, guid: dd91bcb77806a304d91e9f7c61b8b8df, type: 3}
+  moveSoundEffect: {fileID: 8300000, guid: ee832ea2d4ce3d9458948f9e0abf837c, type: 3}
   winSoundEffect: {fileID: 8300000, guid: 814c7676954fb2d4a912fef0ae98fbb2, type: 3}
   failSoundEffect: {fileID: 8300000, guid: 668c1ab98458a6946b0f607b4fdbcefd, type: 3}
   bgmList:
   - {fileID: 8300000, guid: 0dd230977a8d7e94ea8f6f3df8e44049, type: 3}
   - {fileID: 8300000, guid: bb75517028cc95e4d9afcdbfcc9744a3, type: 3}
   - {fileID: 8300000, guid: 95ad1776454e4e04bad27cbb4e8736a7, type: 3}
-  - {fileID: 8300000, guid: 702dff5813aa4d84885a2000a9f9d3f6, type: 3}
   - {fileID: 8300000, guid: 59c2190efab932b4699cf29b78fbfe2e, type: 3}
   - {fileID: 8300000, guid: e7f1853d08d16254eadf4913d0f69837, type: 3}
   - {fileID: 8300000, guid: 9bfafbb88f4bb204784b0e5047b1ff26, type: 3}
   - {fileID: 8300000, guid: 3227192ca9c22b6418cdbac20241d1ca, type: 3}
   - {fileID: 8300000, guid: 98e9b804ab88fea449194adbf99ce39a, type: 3}
   - {fileID: 8300000, guid: cc60766445a059b4ab3eb234c6e1540e, type: 3}
+  birthdayBgm: {fileID: 8300000, guid: 0c891c6897b0a914ea7ab214d8379891, type: 3}
+  allowRandomBgm: 1
 --- !u!114 &5934819957603400545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c354fe533a4b1e8cfe8ff1ff687ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxLevel: 0
 --- !u!82 &8490466476405720694
 AudioSource:
   m_ObjectHideFlags: 0

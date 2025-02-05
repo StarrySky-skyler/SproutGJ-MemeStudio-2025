@@ -13,6 +13,7 @@ using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Tsuki.Managers
@@ -35,7 +36,7 @@ namespace Tsuki.Managers
         [Header("渐入渐出时间")] public float fadeInTime;
         public float fadeOutTime;
 
-        [Header("移动音效")] public List<AudioClip> moveSoundEffectList;
+        [Header("移动音效")] public AudioClip moveSoundEffect;
 
         [Header("胜利音效")] public AudioClip winSoundEffect;
 
@@ -48,7 +49,7 @@ namespace Tsuki.Managers
         [HideInInspector]
         public bool allowRandomBgm = true;
 
-        [CanBeNull] private AudioClip _lastMoveSoundEffect;
+        //[CanBeNull] private AudioClip _lastMoveSoundEffect;
         private AudioFade _audioFade;
 
         protected override void Awake()
@@ -61,7 +62,7 @@ namespace Tsuki.Managers
         {
             bgmAudioSource.loop = false;
             soundEffectAudioSource.loop = false;
-            _lastMoveSoundEffect = null;
+            //_lastMoveSoundEffect = null;
             bgmAudioSource.volume = 0;
             StartCoroutine(PlayBgm());
         }
@@ -70,7 +71,7 @@ namespace Tsuki.Managers
         {
             // 注册事件
             ModelsManager.Instance.playerModel.onMoveStatusChanged.AddListener(
-                PlayMoveSoundEffect);
+                RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
         }
 
@@ -78,7 +79,7 @@ namespace Tsuki.Managers
         {
             // 注销事件
             ModelsManager.Instance.playerModel.onMoveStatusChanged
-                .RemoveListener(PlayMoveSoundEffect);
+                .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
         }
 
@@ -94,11 +95,16 @@ namespace Tsuki.Managers
             }
         }
 
+        private void PlayMoveSoundEffect()
+        {
+            soundEffectAudioSource.PlayOneShot(moveSoundEffect);
+        }
+
         /// <summary>
         /// 播放移动音效
         /// </summary>
         /// <param name="moveStatus"></param>
-        private void PlayMoveSoundEffect(bool moveStatus)
+        private void RandomPlayMoveSoundEffect(bool moveStatus)
         {
             if (!moveStatus) return;
             PlaySoundEffect(SoundEffectType.Move);
@@ -134,26 +140,26 @@ namespace Tsuki.Managers
             {
                 case SoundEffectType.Move:
                     // 第一次播放移动音效
-                    AudioClip clip = null;
-                    if (!_lastMoveSoundEffect)
-                    {
-                        clip = moveSoundEffectList[
-                            Random.Range(0, moveSoundEffectList.Count - 1)];
-                    }
-                    // 移动音效与上次不同，播放新的移动音效
-                    else
-                    {
-                        clip = _lastMoveSoundEffect;
-                        while (clip == _lastMoveSoundEffect)
-                        {
-                            clip = moveSoundEffectList[
-                                Random.Range(0, moveSoundEffectList.Count - 1)];
-                        }
-                    }
-
-                    soundEffectAudioSource.PlayOneShot(clip);
-                    _lastMoveSoundEffect = clip;
-
+                    // AudioClip clip = null;
+                    // if (!_lastMoveSoundEffect)
+                    // {
+                    //     clip = moveSoundEffect[
+                    //         Random.Range(0, moveSoundEffect.Count - 1)];
+                    // }
+                    // // 移动音效与上次不同，播放新的移动音效
+                    // else
+                    // {
+                    //     clip = _lastMoveSoundEffect;
+                    //     while (clip == _lastMoveSoundEffect)
+                    //     {
+                    //         clip = moveSoundEffect[
+                    //             Random.Range(0, moveSoundEffect.Count - 1)];
+                    //     }
+                    // }
+                    //
+                    // soundEffectAudioSource.PlayOneShot(clip);
+                    // _lastMoveSoundEffect = clip;
+                    PlayMoveSoundEffect();
                     break;
                 case SoundEffectType.Win:
                     soundEffectAudioSource.PlayOneShot(winSoundEffect);

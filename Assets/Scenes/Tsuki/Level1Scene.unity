@@ -1503,10 +1503,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 809375925569236256, guid: 95aa86a8f8d762b4cb75706d11e3af7b, type: 3}
-      propertyPath: birthdayBgm
-      value: 
-      objectReference: {fileID: 8300000, guid: 0c891c6897b0a914ea7ab214d8379891, type: 3}
     - target: {fileID: 1004826896047352902, guid: 95aa86a8f8d762b4cb75706d11e3af7b, type: 3}
       propertyPath: m_Name
       value: Managers
