@@ -1098,7 +1098,7 @@ GameObject:
   - component: {fileID: 1985850645}
   - component: {fileID: 1985850644}
   m_Layer: 0
-  m_Name: "\u5927\u6807\u9898_Menu2_No title_only Land"
+  m_Name: BG111
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1114,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -6.4, y: -1.1, z: 0.118846916}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1061, y: 1.1061, z: 1.1061}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 448588824}
@@ -1178,7 +1178,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 988de60563fb93c4ca85cc05923a9521, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56b5659c8a13e4943a92d561540d7a05, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.9019608}
   m_FlipX: 0
   m_FlipY: 0
@@ -1387,7 +1387,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 5d7dfa92930ea2c4d995141ac8330230, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1339cf816dfc9004d97ccb52c21d61ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1408,7 +1408,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -8.47, y: 1.38, z: 0.118846916}
-  m_LocalScale: {x: 0.563868, y: 0.563868, z: 0.563868}
+  m_LocalScale: {x: 0.7790155, y: 0.7790155, z: 0.7790155}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 448588824}
