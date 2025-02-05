@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      char_protagonist_thinking_withoutHighlight_0: -1683384273966820795
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

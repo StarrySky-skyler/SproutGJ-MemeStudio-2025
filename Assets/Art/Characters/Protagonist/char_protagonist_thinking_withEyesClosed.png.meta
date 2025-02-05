@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      char_protagonist_thinking_withEyesClosed_0: 9127183648496127949
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

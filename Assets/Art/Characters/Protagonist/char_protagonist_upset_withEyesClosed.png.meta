@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      char_protagonist_upset_withEyesClosed_0: -7463629654851376507
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
