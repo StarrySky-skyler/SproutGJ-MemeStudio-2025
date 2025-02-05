@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
-
+using Vector2Json.SaveSystem;
 namespace Tsuki.Managers
 {
     public class ArchiveManager : Singleton<ArchiveManager>
@@ -24,6 +24,7 @@ namespace Tsuki.Managers
         protected override void Awake()
         {
             base.Awake();
+            AddSerializedJson.AddAllConverter();
             _userDataList = new List<UserData>();
             ReadAllArchive();
             _playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
@@ -44,7 +45,7 @@ namespace Tsuki.Managers
             _userDataList[archiveIndex] = new UserData(
                 _archiveFileNameFormatter + archiveIndex,
                 LevelManager.Instance.GetCurrentLevel(),
-                _playerModel.CurrentPos);
+                _playerModel.CurrentPos,DateTime.Now.ToString("yyyy/M/d-H:mm:ss"));
         }
 
         /// <summary>

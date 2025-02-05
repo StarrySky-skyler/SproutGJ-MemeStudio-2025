@@ -59,19 +59,11 @@ public class PlayerControl : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         raycastDistance = spriteRenderer.bounds.size.y / 2 + 0.05f;
         speed = moveSpeed;
-        AddSerializedJson.AddAllConverter();
     }
 
     private void Update()
     {
         isGrounded = IsGround();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            UserData user = new UserData("GameJam´æµµ", 1, new Vector2(transform.position.x, transform.position.y));
-
-            GameJamSaveSystem.SaveData(user);
-        }
 
         Move();
 
@@ -127,7 +119,7 @@ public class PlayerControl : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (1 << collision.gameObject.layer == groundLayer)
+        if (1 << collision.gameObject.layer == groundLayer && isGrounded)
         {
             jumpCount = 0;
         }
