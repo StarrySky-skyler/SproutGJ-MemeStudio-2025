@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 31521305}
   - component: {fileID: 31521306}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: "Slider\u97F3\u6548"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 602300918}
   - component: {fileID: 602300917}
   m_Layer: 5
-  m_Name: "Text (Legacy\u9009\u9879"
+  m_Name: "Text \u9009\u9879"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1365,7 +1365,7 @@ GameObject:
   - component: {fileID: 634394589}
   - component: {fileID: 634394588}
   m_Layer: 5
-  m_Name: Image
+  m_Name: "Image OptionPanel\u5E95\u56FE"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2055,7 +2055,7 @@ GameObject:
   - component: {fileID: 864510163}
   - component: {fileID: 864510162}
   m_Layer: 5
-  m_Name: Text (Legacy) (2)
+  m_Name: "Text \u97F3\u4E50"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2136,7 +2136,7 @@ GameObject:
   - component: {fileID: 867997893}
   - component: {fileID: 867997890}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: "Button\u8FD4\u56DE\u83DC\u5355"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2509,7 +2509,7 @@ GameObject:
   - component: {fileID: 1062483118}
   - component: {fileID: 1062483115}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: "Button\u9000\u51FA\u6E38\u620F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3861,7 +3861,7 @@ GameObject:
   - component: {fileID: 1950061289}
   - component: {fileID: 1950061288}
   m_Layer: 5
-  m_Name: Button x
+  m_Name: Button X
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4574,7 +4574,7 @@ GameObject:
   - component: {fileID: 2051314540}
   - component: {fileID: 2051314541}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: "Slider\u97F3\u4E50"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
