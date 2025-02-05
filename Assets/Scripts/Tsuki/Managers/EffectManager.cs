@@ -12,6 +12,7 @@ using Tsuki.MVC.Models.Player;
 using Tsuki.Effects;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 namespace Tsuki.Managers
 {
@@ -26,6 +27,16 @@ namespace Tsuki.Managers
             _footPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
                 ActionOnRelease, ActionOnDestroy, true, 30,
                 60);
+        }
+
+        private void Start()
+        {
+            SceneManager.sceneLoaded += (scene, mode) =>
+            {
+                _footPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
+                    ActionOnRelease, ActionOnDestroy, true, 30,
+                    60);
+            };
         }
 
         private void OnEnable()
