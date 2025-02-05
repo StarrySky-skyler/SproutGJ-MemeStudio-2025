@@ -29,6 +29,14 @@ namespace Tsuki.Managers
             DontDestroyOnLoad(gameObject);
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            onGamePause.RemoveAllListeners();
+            onGameResume.RemoveAllListeners();
+            onGameUndo.RemoveAllListeners();
+        }
+
         public void OnPause(InputValue context)
         {
             onGamePause?.Invoke();

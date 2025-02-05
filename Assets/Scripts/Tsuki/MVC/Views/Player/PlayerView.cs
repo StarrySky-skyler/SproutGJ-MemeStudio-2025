@@ -37,9 +37,11 @@ namespace Tsuki.MVC.Views.Player
 
         private void OnDisable()
         {
+            if (!ModelsManager.Instance.playerModel) return;
             // 注销事件
             ModelsManager.Instance.playerModel.onMoveStatusChanged
                 .RemoveListener(_animationHandler.PlayAnimation);
+            if (!GameManager.Instance) return;
             GameManager.Instance.onGamePause.RemoveListener(
                 (_animationHandler as IPauseable).Pause);
             GameManager.Instance.onGameResume.RemoveListener(

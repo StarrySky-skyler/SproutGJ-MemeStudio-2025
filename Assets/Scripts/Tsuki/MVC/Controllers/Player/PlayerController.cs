@@ -54,6 +54,7 @@ namespace Tsuki.MVC.Controllers.Player
 
         private void OnDisable()
         {
+            if (!GameManager.Instance) return;
             // 注销事件
             GameManager.Instance.onGamePause.RemoveListener(
                 (_moveHandler as IPauseable).Pause);

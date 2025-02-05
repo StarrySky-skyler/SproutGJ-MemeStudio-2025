@@ -45,6 +45,7 @@ namespace Tsuki.Entities.Box
 
         private void OnDisable()
         {
+            if (!GameManager.Instance) return;
             GameManager.Instance.onGameUndo.RemoveListener(Undo);
         }
 
