@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Rbit/Menu.unity
+    guid: bf620ff5292a13642a47a0ef93c31858
+  - enabled: 1
+    path: Assets/Scenes/Rbit/Map select.unity
+    guid: 63ef1aa56b705eb4bae139f4d27fe166
+  - enabled: 1
+    path: "Assets/Scenes/\u51B0\u90E8\u4F8D\u72FC/SaveSystem.unity"
+    guid: eb33456f24b12514da292deab8837544
+  - enabled: 1
     path: Assets/Scenes/Tsuki/Level1Scene.unity
     guid: ded23d9b0fa129a4d940be20046cfe38
   - enabled: 1
