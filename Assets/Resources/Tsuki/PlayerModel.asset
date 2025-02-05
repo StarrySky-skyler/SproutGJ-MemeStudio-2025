@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHp: 100
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
