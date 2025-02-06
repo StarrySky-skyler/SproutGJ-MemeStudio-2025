@@ -27,11 +27,11 @@ public class PopupWindow : MonoBehaviour
             CloseWindow();
         }
 
-        // 如果鼠标点击到窗口外部区域，关闭窗口
-        if (Input.GetMouseButtonDown(0) && !RectTransformUtility.RectangleContainsScreenPoint(window.GetComponent<RectTransform>(), Input.mousePosition, Camera.main))
-        {
-            CloseWindow();
-        }
+        //// 如果鼠标点击到窗口外部区域，关闭窗口
+        //if (Input.GetMouseButtonDown(0) && !RectTransformUtility.RectangleContainsScreenPoint(window.GetComponent<RectTransform>(), Input.mousePosition, Camera.main))
+        //{
+        //    CloseWindow();
+        //}
     }
 
     // 关闭窗口的函数
