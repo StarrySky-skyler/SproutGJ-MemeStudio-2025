@@ -108,24 +108,40 @@ namespace Tsuki.Entities.Box
         /// </summary>
         private void Move()
         {
-            MoveTween = transform.DOMove(_newPos, ModelsManager.Instance.PlayerMod.moveTime)
+            MoveTween = transform.DOMove(_newPos,
+                    ModelsManager.Instance.PlayerMod.moveTime)
                 .OnComplete(
                     () =>
                     {
-                        // TP检测
-                        Collider2D hit1 =
-                            Physics2D.OverlapPoint(_newPos, 1 << 9);
-                        if (hit1)
-                        {
-                            hit1.GetComponent<TpPoint>().Tp(transform);
-                            return;
-                        }
-                        // 冰层移动
-                        Collider2D hit =
-                            Physics2D.OverlapPoint(_newPos, 1 << 3);
-                        if (!hit) return;
-                        if (!TryPushBox(_lastPushDirection)) return;
+                        if (HandleTp()) return;
+                        if (!HandleIceSlide()) return;
                     });
+        }
+
+        /// <summary>
+        /// 处理TP
+        /// </summary>
+        private bool HandleTp()
+        {
+            Collider2D hit1 =
+                Physics2D.OverlapPoint(_newPos, 1 << 9);
+            if (hit1)
+            {
+                hit1.GetComponent<TpPoint>().Tp(transform);
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool HandleIceSlide()
+        {
+            // 冰层移动
+            Collider2D hit =
+                Physics2D.OverlapPoint(_newPos, 1 << 3);
+            if (!hit) return false;
+            if (!TryPushBox(_lastPushDirection)) return false;
+            return true;
         }
 
         public void Undo()
