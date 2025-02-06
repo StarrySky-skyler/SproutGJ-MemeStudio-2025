@@ -32,7 +32,7 @@ namespace Tsuki.MVC.Controllers.Player
 
         private void Start()
         {
-            ModelsManager.Instance.playerModel.Init();
+            ModelsManager.Instance.PlayerMod.Init();
         }
 
         public void OnMove(InputValue context)

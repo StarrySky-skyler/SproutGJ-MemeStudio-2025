@@ -43,7 +43,7 @@ namespace Tsuki.Managers
         {
             // 注册事件
             if (footPrint)
-                ModelsManager.Instance.playerModel.onMoveStatusChanged
+                ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                     .AddListener(SpawnFootPrintInPool);
         }
 
@@ -51,7 +51,7 @@ namespace Tsuki.Managers
         {
             // 注销事件
             if (footPrint)
-                ModelsManager.Instance.playerModel.onMoveStatusChanged
+                ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                     .RemoveListener(SpawnFootPrintInPool);
         }
 
@@ -62,7 +62,7 @@ namespace Tsuki.Managers
         private void SpawnFootPrint(bool moveStatus)
         {
             if (!moveStatus ||
-                !ModelsManager.Instance.playerModel.LastPosStack.TryPeek(
+                !ModelsManager.Instance.PlayerMod.LastPosStack.TryPeek(
                     out Vector3 result)) return;
             Instantiate(footPrint, result, Quaternion.identity);
         }
@@ -70,7 +70,7 @@ namespace Tsuki.Managers
         private void SpawnFootPrintInPool(bool moveStatus)
         {
             if (!moveStatus ||
-                !ModelsManager.Instance.playerModel.LastPosStack.TryPeek(
+                !ModelsManager.Instance.PlayerMod.LastPosStack.TryPeek(
                     out Vector3 result)) return;
             GameObject obj = _footPool.Get();
             obj.transform.position = result;

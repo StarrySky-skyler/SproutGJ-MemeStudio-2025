@@ -68,12 +68,12 @@ namespace Tsuki.Entities.Box
         {
             SetNewPos();
             Debug.DrawRay(transform.position,
-                (Vector2)ModelsManager.Instance.playerModel.LastDirection, Color.green, 3);
+                (Vector2)ModelsManager.Instance.PlayerMod.LastDirection, Color.green, 3);
             // 射线检测是否还有箱子或墙
             int hitCount = Physics2D.RaycastNonAlloc(transform.position,
-                ModelsManager.Instance.playerModel.LastDirection, _hitsBuffer,
+                ModelsManager.Instance.PlayerMod.LastDirection, _hitsBuffer,
                 Vector2.Distance(transform.position, _newPos),
-                ModelsManager.Instance.playerModel.obstacleLayer);
+                ModelsManager.Instance.PlayerMod.obstacleLayer);
 
             for (int i = 0; i < hitCount; i++)
             {
@@ -81,7 +81,7 @@ namespace Tsuki.Entities.Box
                     return false;
             }
 
-            return Commons.IsOnMap(ModelsManager.Instance.playerModel, _newPos);
+            return Commons.IsOnMap(ModelsManager.Instance.PlayerMod, _newPos);
         }
 
         /// <summary>
@@ -91,8 +91,8 @@ namespace Tsuki.Entities.Box
         {
             _newPos = transform.position +
                       new Vector3(
-                          ModelsManager.Instance.playerModel.LastDirection.x * ModelsManager.Instance.playerModel.girdSize,
-                          ModelsManager.Instance.playerModel.LastDirection.y * ModelsManager.Instance.playerModel.girdSize,
+                          ModelsManager.Instance.PlayerMod.LastDirection.x * ModelsManager.Instance.PlayerMod.girdSize,
+                          ModelsManager.Instance.PlayerMod.LastDirection.y * ModelsManager.Instance.PlayerMod.girdSize,
                           0);
         }
 
@@ -101,7 +101,7 @@ namespace Tsuki.Entities.Box
         /// </summary>
         private void Move()
         {
-            transform.DOMove(_newPos, ModelsManager.Instance.playerModel.moveTime);
+            transform.DOMove(_newPos, ModelsManager.Instance.PlayerMod.moveTime);
         }
 
         public void Undo()

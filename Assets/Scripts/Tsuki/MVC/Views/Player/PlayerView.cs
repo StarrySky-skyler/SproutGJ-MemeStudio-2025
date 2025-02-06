@@ -27,7 +27,7 @@ namespace Tsuki.MVC.Views.Player
         private void OnEnable()
         {
             // 注册事件
-            ModelsManager.Instance.playerModel.onMoveStatusChanged.AddListener(
+            ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 _animationHandler.PlayAnimation);
             GameManager.Instance.onGamePause.AddListener(
                 (_animationHandler as IPauseable).Pause);
@@ -37,9 +37,9 @@ namespace Tsuki.MVC.Views.Player
 
         private void OnDisable()
         {
-            if (!ModelsManager.Instance.playerModel) return;
+            if (!ModelsManager.Instance.PlayerMod) return;
             // 注销事件
-            ModelsManager.Instance.playerModel.onMoveStatusChanged
+            ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(_animationHandler.PlayAnimation);
             if (!GameManager.Instance) return;
             GameManager.Instance.onGamePause.RemoveListener(

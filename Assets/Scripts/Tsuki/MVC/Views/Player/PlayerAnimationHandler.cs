@@ -34,9 +34,9 @@ namespace Tsuki.MVC.Views.Player
         /// <param name="moveStatus"></param>
         public void PlayAnimation(bool moveStatus)
         {
-            if (ModelsManager.Instance.playerModel.LastDirection.x != 0 && _allowFlip)
+            if (ModelsManager.Instance.PlayerMod.LastDirection.x != 0 && _allowFlip)
             {
-                _spriteRenderer.flipX = ModelsManager.Instance.playerModel.LastDirection.x < 0;
+                _spriteRenderer.flipX = ModelsManager.Instance.PlayerMod.LastDirection.x < 0;
             }
 
             _animator.SetBool(Move, moveStatus);

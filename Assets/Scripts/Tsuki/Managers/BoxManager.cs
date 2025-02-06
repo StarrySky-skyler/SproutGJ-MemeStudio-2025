@@ -46,7 +46,7 @@ namespace Tsuki.Managers
         {
             // 注册事件
             SceneManager.sceneLoaded += ResetBoxCount;
-            ModelsManager.Instance.playerModel.onMoveStatusChanged.AddListener(
+            ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 RepeatAllBoxLastPos);
         }
 
@@ -54,7 +54,7 @@ namespace Tsuki.Managers
         {
             // 注销事件
             SceneManager.sceneLoaded -= ResetBoxCount;
-            ModelsManager.Instance.playerModel.onMoveStatusChanged
+            ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RepeatAllBoxLastPos);
         }
 

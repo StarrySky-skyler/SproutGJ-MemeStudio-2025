@@ -53,7 +53,7 @@ namespace Tsuki.MVC.Controllers.Player
         public void Move(Vector2 inputV2, bool movableX = true,
             bool movableY = true)
         {
-            if (ModelsManager.Instance.playerModel.IsMoving ||
+            if (ModelsManager.Instance.PlayerMod.IsMoving ||
                 inputV2 == Vector2.zero ||
                 !_allowMove) return;
             _movableX = movableX;
@@ -66,7 +66,7 @@ namespace Tsuki.MVC.Controllers.Player
             // 检测是否在地图范围内
             // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
-            if (!Commons.IsOnMap(ModelsManager.Instance.playerModel, _newPos))
+            if (!Commons.IsOnMap(ModelsManager.Instance.PlayerMod, _newPos))
                 return;
 
             if (!CanMoveAfterDetect()) return;
@@ -79,11 +79,11 @@ namespace Tsuki.MVC.Controllers.Player
         /// <param name="input"></param>
         private void SetDirection(Vector2 input)
         {
-            ModelsManager.Instance.playerModel.LastDirection =
+            ModelsManager.Instance.PlayerMod.LastDirection =
                 Vector2Int.RoundToInt(input);
             _scaledDirection =
-                (Vector2)ModelsManager.Instance.playerModel.LastDirection *
-                ModelsManager.Instance.playerModel.girdSize;
+                (Vector2)ModelsManager.Instance.PlayerMod.LastDirection *
+                ModelsManager.Instance.PlayerMod.girdSize;
         }
 
         /// <summary>
@@ -105,14 +105,14 @@ namespace Tsuki.MVC.Controllers.Player
         private void StartMove()
         {
             if (_playerController.transform.position == _newPos) return;
-            ModelsManager.Instance.playerModel.LastPosStack.Push(_originalPos);
-            ModelsManager.Instance.playerModel.IsMoving = true;
+            ModelsManager.Instance.PlayerMod.LastPosStack.Push(_originalPos);
+            ModelsManager.Instance.PlayerMod.IsMoving = true;
             _playerController.transform.DOMove(_newPos,
-                    ModelsManager.Instance.playerModel.moveTime)
+                    ModelsManager.Instance.PlayerMod.moveTime)
                 .OnComplete(() =>
                 {
-                    ModelsManager.Instance.playerModel.IsMoving = false;
-                    ModelsManager.Instance.playerModel.CurrentPos = _newPos;
+                    ModelsManager.Instance.PlayerMod.IsMoving = false;
+                    ModelsManager.Instance.PlayerMod.CurrentPos = _newPos;
                 });
         }
 
@@ -123,7 +123,7 @@ namespace Tsuki.MVC.Controllers.Player
         private bool CanMoveAfterDetect()
         {
             return DetectObstacle() &&
-                   Commons.IsOnMap(ModelsManager.Instance.playerModel, _newPos);
+                   Commons.IsOnMap(ModelsManager.Instance.PlayerMod, _newPos);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Tsuki.MVC.Controllers.Player
             RaycastHit2D hit = Physics2D.Raycast(
                 _playerController.transform.position, _scaledDirection,
                 Vector2.Distance(_playerController.transform.position, _newPos),
-                ModelsManager.Instance.playerModel.obstacleLayer);
+                ModelsManager.Instance.PlayerMod.obstacleLayer);
             if (hit.collider)
             {
                 if (hit.collider.gameObject.layer == 8) return false;
@@ -155,7 +155,7 @@ namespace Tsuki.MVC.Controllers.Player
         public void Undo()
         {
             // 回到上一个位置
-            if (ModelsManager.Instance.playerModel.LastPosStack.TryPop(
+            if (ModelsManager.Instance.PlayerMod.LastPosStack.TryPop(
                     out Vector3 result))
                 _playerController.transform.position = result;
         }
