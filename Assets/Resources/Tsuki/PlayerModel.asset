@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Bits: 384
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
   onMoveStatusChanged:
     m_PersistentCalls:
       m_Calls: []

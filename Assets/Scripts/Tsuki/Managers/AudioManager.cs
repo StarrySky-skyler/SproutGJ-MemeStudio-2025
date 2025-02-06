@@ -31,8 +31,7 @@ namespace Tsuki.Managers
 
     public class AudioManager : Singleton<AudioManager>
     {
-        private AudioSource _bgmAudioSource;
-        private AudioSource _sfxAudioSource;
+        [Header("Audio预制体")] public GameObject audioPrefab;
 
         [Header("渐入渐出时间")] public float fadeInTime;
         public float fadeOutTime;
@@ -51,6 +50,8 @@ namespace Tsuki.Managers
 
         //[CanBeNull] private AudioClip _lastMoveSoundEffect;
         private AudioFade _audioFade;
+        private AudioSource _bgmAudioSource;
+        private AudioSource _sfxAudioSource;
 
         protected override void Awake()
         {
@@ -60,10 +61,11 @@ namespace Tsuki.Managers
 
         private void Start()
         {
-            _bgmAudioSource = GameObject.FindWithTag("Audio")
-                .GetComponents<AudioSource>()[0];
-            _sfxAudioSource = GameObject.FindWithTag("Audio")
-                .GetComponents<AudioSource>()[1];
+            GameObject audioGo = GameObject.FindWithTag("Audio");
+            // 若未找到Audio对象，则实例化一个
+            if (!audioGo) audioGo = Instantiate(audioPrefab);
+            _bgmAudioSource = audioGo.GetComponents<AudioSource>()[0];
+            _sfxAudioSource = audioGo.GetComponents<AudioSource>()[1];
             _bgmAudioSource.loop = false;
             _sfxAudioSource.loop = false;
             //_lastMoveSoundEffect = null;

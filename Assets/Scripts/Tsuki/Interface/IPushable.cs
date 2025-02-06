@@ -7,11 +7,12 @@
 // *****************************************************************************
 
 
+using UnityEngine;
 
 namespace Tsuki.Interface
 {
     public interface IPushable
     {
-        public bool TryPushBox();
+        public bool TryPushBox(Vector2Int pushDirection);
     }
 }

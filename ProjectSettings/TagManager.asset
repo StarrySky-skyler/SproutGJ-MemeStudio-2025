@@ -10,13 +10,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - GroundIce
   - Water
   - UI
   - Ground
   - Box
   - Wall
-  - 
+  - TPPoint
   - 
   - 
   - 

@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5ac759d2ec41fda87e095c20172ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioPrefab: {fileID: 2142494737789285628, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
   fadeInTime: 10
   fadeOutTime: 10
   moveSoundEffect: {fileID: 8300000, guid: ee832ea2d4ce3d9458948f9e0abf837c, type: 3}

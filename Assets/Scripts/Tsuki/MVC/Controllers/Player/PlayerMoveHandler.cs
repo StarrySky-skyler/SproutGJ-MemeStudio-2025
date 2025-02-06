@@ -143,7 +143,9 @@ namespace Tsuki.MVC.Controllers.Player
             {
                 if (hit.collider.gameObject.layer == 8) return false;
                 IPushable box = hit.collider.GetComponent<IPushable>();
-                canMove = box.TryPushBox();
+                canMove =
+                    box.TryPushBox(ModelsManager.Instance.PlayerMod
+                        .LastDirection);
             }
 
             return canMove;

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Tsuki.Base;
+using Tsuki.Entities.TPPoint;
 using Tsuki.Interface;
 using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
@@ -26,6 +27,8 @@ namespace Tsuki.Entities.Box
         private Stack<Vector3> _lastPosStack;
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
         private bool _added;
+        private Vector2Int _lastPushDirection;
+        public Tween MoveTween { get; private set; }
 
         private void Awake()
         {
@@ -53,9 +56,9 @@ namespace Tsuki.Entities.Box
         /// 推动箱子
         /// </summary>
         /// <returns></returns>
-        public bool TryPushBox()
+        public bool TryPushBox(Vector2Int pushDirection)
         {
-            if (!GetPushable()) return false;
+            if (!GetPushable(pushDirection)) return false;
             Move();
             return true;
         }
@@ -64,11 +67,12 @@ namespace Tsuki.Entities.Box
         /// 获取箱子是否可推动
         /// </summary>
         /// <returns></returns>
-        private bool GetPushable()
+        private bool GetPushable(Vector2Int pushDirection)
         {
-            SetNewPos();
+            SetNewPos(pushDirection);
             Debug.DrawRay(transform.position,
-                (Vector2)ModelsManager.Instance.PlayerMod.LastDirection, Color.green, 3);
+                (Vector2)ModelsManager.Instance.PlayerMod.LastDirection,
+                Color.green, 3);
             // 射线检测是否还有箱子或墙
             int hitCount = Physics2D.RaycastNonAlloc(transform.position,
                 ModelsManager.Instance.PlayerMod.LastDirection, _hitsBuffer,
@@ -87,12 +91,15 @@ namespace Tsuki.Entities.Box
         /// <summary>
         /// 设置新位置
         /// </summary>
-        private void SetNewPos()
+        private void SetNewPos(Vector2Int pushDirection)
         {
+            _lastPushDirection = pushDirection;
             _newPos = transform.position +
                       new Vector3(
-                          ModelsManager.Instance.PlayerMod.LastDirection.x * ModelsManager.Instance.PlayerMod.girdSize,
-                          ModelsManager.Instance.PlayerMod.LastDirection.y * ModelsManager.Instance.PlayerMod.girdSize,
+                          pushDirection.x *
+                          ModelsManager.Instance.PlayerMod.girdSize,
+                          pushDirection.y *
+                          ModelsManager.Instance.PlayerMod.girdSize,
                           0);
         }
 
@@ -101,7 +108,24 @@ namespace Tsuki.Entities.Box
         /// </summary>
         private void Move()
         {
-            transform.DOMove(_newPos, ModelsManager.Instance.PlayerMod.moveTime);
+            MoveTween = transform.DOMove(_newPos, ModelsManager.Instance.PlayerMod.moveTime)
+                .OnComplete(
+                    () =>
+                    {
+                        // TP检测
+                        Collider2D hit1 =
+                            Physics2D.OverlapPoint(_newPos, 1 << 9);
+                        if (hit1)
+                        {
+                            hit1.GetComponent<TpPoint>().Tp(transform);
+                            return;
+                        }
+                        // 冰层移动
+                        Collider2D hit =
+                            Physics2D.OverlapPoint(_newPos, 1 << 3);
+                        if (!hit) return;
+                        if (!TryPushBox(_lastPushDirection)) return;
+                    });
         }
 
         public void Undo()
