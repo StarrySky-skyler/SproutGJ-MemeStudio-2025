@@ -71,11 +71,11 @@ namespace Tsuki.Entities.Box
         {
             SetNewPos(pushDirection);
             Debug.DrawRay(transform.position,
-                (Vector2)ModelsManager.Instance.PlayerMod.LastDirection,
+                (Vector2)pushDirection,
                 Color.green, 3);
             // 射线检测是否还有箱子或墙
             int hitCount = Physics2D.RaycastNonAlloc(transform.position,
-                ModelsManager.Instance.PlayerMod.LastDirection, _hitsBuffer,
+                pushDirection, _hitsBuffer,
                 Vector2.Distance(transform.position, _newPos),
                 ModelsManager.Instance.PlayerMod.obstacleLayer);
 

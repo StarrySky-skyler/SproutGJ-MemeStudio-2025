@@ -28,6 +28,7 @@ namespace Tsuki.Entities.Box
         private void Update()
         {
             // 死锁位置
+            if (boxType == BoxType.None) return;
             if (transform.position != _originalPos)
                 transform.position = _originalPos;
         }
@@ -35,6 +36,7 @@ namespace Tsuki.Entities.Box
         private void LateUpdate()
         {
             // 死锁位置
+            if (boxType == BoxType.None) return;
             if (transform.position != _originalPos)
                 transform.position = _originalPos;
         }

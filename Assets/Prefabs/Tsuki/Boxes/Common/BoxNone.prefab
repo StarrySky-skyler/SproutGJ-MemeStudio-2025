@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2723098963454380663, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3491339499962500398, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: boxType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4599030662714540369, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -48,13 +56,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5142341359151225997, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 5579043989902314136, guid: 830ec2be7d2a84142a407b3c27a5aedb, type: 3}
     - target: {fileID: 5358689708564423324, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: m_Name
       value: BoxNone
       objectReference: {fileID: 0}
+    - target: {fileID: 5924542337562941079, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924542337562941079, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6808240211379255695, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7662419226466179205, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: boxType
