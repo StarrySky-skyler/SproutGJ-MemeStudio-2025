@@ -3,21 +3,53 @@ using UnityEngine.UI;
 
 public class VolumeControl : MonoBehaviour
 {
-    public Slider volumeSlider;   // ÒôÁ¿»¬¶¯Ìõ
-    public AudioSource audioSource; // ÒôÆµÔ´£¬ÓÃÓÚ¿ØÖÆÒôÁ¿
+    public Slider volumeSlider; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public AudioSource audioSource; // ï¿½ï¿½ÆµÔ´ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
-        // ³õÊ¼»¯Ê±ÉèÖÃ»¬¶¯ÌõµÄÖµÎªµ±Ç°ÒôÆµÔ´µÄÒôÁ¿
-        volumeSlider.value = audioSource.volume;
+        // ï¿½ï¿½Ê¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎªï¿½ï¿½Ç°ï¿½ï¿½ÆµÔ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //volumeSlider.value = audioSource.volume;
+        switch (audioSource.outputAudioMixerGroup.name)
+        {
+            case "BGM":
+                audioSource.outputAudioMixerGroup.audioMixer.GetFloat(
+                    "BGMVolume", out float bgmVolume);
+                volumeSlider.value = Mathf.Pow(10, bgmVolume / 20);
+                break;
+            case "SoundEffect":
+                audioSource.outputAudioMixerGroup.audioMixer.GetFloat(
+                    "SFXVolume", out float soundEffectVolume);
+                volumeSlider.value = Mathf.Pow(10, soundEffectVolume / 20);
+                break;
+            default:
+                Debug.LogWarning("Unknown audio mixer group: " +
+                                 audioSource.outputAudioMixerGroup.name);
+                break;
+        }
 
-        // ¸ø»¬¶¯ÌõÌí¼Ó¼àÌýÆ÷£¬¸Ä±äÒôÁ¿
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
 
-    // µ±»¬¶¯ÌõÖµ¸Ä±äÊ±µ÷ÓÃ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ä±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
     void OnVolumeChanged(float value)
     {
-        audioSource.volume = value;  // ÉèÖÃÒôÆµÔ´µÄÒôÁ¿
+        switch (audioSource.outputAudioMixerGroup.name)
+        {
+            case "BGM":
+                audioSource.outputAudioMixerGroup.audioMixer.SetFloat(
+                    "BGMVolume", Mathf.Clamp(Mathf.Log10(value) * 20, -80, 0));
+                break;
+            case "SoundEffect":
+                audioSource.outputAudioMixerGroup.audioMixer.SetFloat(
+                    "SFXVolume", Mathf.Clamp(Mathf.Log10(value) * 20, -80, 0));
+                break;
+            default:
+                Debug.LogWarning("Unknown audio mixer group: " +
+                                 audioSource.outputAudioMixerGroup.name);
+                break;
+        }
+        //audioSource.volume = value;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÔ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 }

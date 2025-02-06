@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
@@ -30,8 +31,8 @@ namespace Tsuki.Managers
 
     public class AudioManager : Singleton<AudioManager>
     {
-        [Header("音频组件")] public AudioSource bgmAudioSource;
-        public AudioSource soundEffectAudioSource;
+        private AudioSource _bgmAudioSource;
+        private AudioSource _sfxAudioSource;
 
         [Header("渐入渐出时间")] public float fadeInTime;
         public float fadeOutTime;
@@ -43,11 +44,10 @@ namespace Tsuki.Managers
         [Header("失败音效")] public AudioClip failSoundEffect;
 
         [Header("BGM")] public List<AudioClip> bgmList;
-        
+
         [Header("生日BGM")] public AudioClip birthdayBgm;
 
-        [HideInInspector]
-        public bool allowRandomBgm = true;
+        [HideInInspector] public bool allowRandomBgm = true;
 
         //[CanBeNull] private AudioClip _lastMoveSoundEffect;
         private AudioFade _audioFade;
@@ -60,10 +60,14 @@ namespace Tsuki.Managers
 
         private void Start()
         {
-            bgmAudioSource.loop = false;
-            soundEffectAudioSource.loop = false;
+            _bgmAudioSource = GameObject.FindWithTag("Audio")
+                .GetComponents<AudioSource>()[0];
+            _sfxAudioSource = GameObject.FindWithTag("Audio")
+                .GetComponents<AudioSource>()[1];
+            _bgmAudioSource.loop = false;
+            _sfxAudioSource.loop = false;
             //_lastMoveSoundEffect = null;
-            bgmAudioSource.volume = 0;
+            _bgmAudioSource.volume = 0;
             StartCoroutine(PlayBgm());
         }
 
@@ -88,16 +92,16 @@ namespace Tsuki.Managers
             while (allowRandomBgm)
             {
                 RandomPlayBgm();
-                yield return new WaitForSeconds(bgmAudioSource.clip.length -
+                yield return new WaitForSeconds(_bgmAudioSource.clip.length -
                                                 fadeOutTime);
-                _audioFade.FadeOut(bgmAudioSource);
+                _audioFade.FadeOut(_bgmAudioSource);
                 yield return new WaitForSeconds(fadeOutTime);
             }
         }
 
         private void PlayMoveSoundEffect()
         {
-            soundEffectAudioSource.PlayOneShot(moveSoundEffect);
+            _sfxAudioSource.PlayOneShot(moveSoundEffect);
         }
 
         /// <summary>
@@ -127,7 +131,7 @@ namespace Tsuki.Managers
         private void RandomPlayBgm()
         {
             SetRandomBgm();
-            _audioFade.FadeIn(bgmAudioSource);
+            _audioFade.FadeIn(_bgmAudioSource);
         }
 
         /// <summary>
@@ -162,10 +166,10 @@ namespace Tsuki.Managers
                     PlayMoveSoundEffect();
                     break;
                 case SoundEffectType.Win:
-                    soundEffectAudioSource.PlayOneShot(winSoundEffect);
+                    _sfxAudioSource.PlayOneShot(winSoundEffect);
                     break;
                 case SoundEffectType.Fail:
-                    soundEffectAudioSource.PlayOneShot(failSoundEffect);
+                    _sfxAudioSource.PlayOneShot(failSoundEffect);
                     break;
                 default:
                     Debug.LogError($"{soundEffectType.ToString()}音效类型不存在");
@@ -175,14 +179,14 @@ namespace Tsuki.Managers
 
         private void SetRandomBgm()
         {
-            AudioClip lastClip = bgmAudioSource.clip;
+            AudioClip lastClip = _bgmAudioSource.clip;
             AudioClip clip = lastClip;
             while (clip == lastClip)
             {
                 clip = bgmList[Random.Range(0, bgmList.Count - 1)];
             }
 
-            bgmAudioSource.clip = clip;
+            _bgmAudioSource.clip = clip;
         }
 
         /// <summary>
@@ -192,10 +196,10 @@ namespace Tsuki.Managers
         {
             allowRandomBgm = false;
             StopCoroutine(PlayBgm());
-            _audioFade.FadeOut(bgmAudioSource, () =>
+            _audioFade.FadeOut(_bgmAudioSource, () =>
             {
-                bgmAudioSource.clip = birthdayBgm;
-                _audioFade.FadeIn(bgmAudioSource);
+                _bgmAudioSource.clip = birthdayBgm;
+                _audioFade.FadeIn(_bgmAudioSource);
             });
         }
     }

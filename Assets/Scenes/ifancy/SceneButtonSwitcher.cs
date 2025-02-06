@@ -10,4 +10,9 @@ public class SceneButtonSwitcher : MonoBehaviour
         SceneManager.LoadScene(SceneName);
     }
 
+    public void Hide()
+    {
+        gameObject.transform.parent.parent.gameObject.SetActive(false);
+    }
+
 }
