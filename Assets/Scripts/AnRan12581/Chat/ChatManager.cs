@@ -8,6 +8,8 @@ using TMPro;
 [System.Serializable]
 public class ChatInfo
 {
+
+    public string name;
     [TextArea]
     public string chatContent;  // 聊天内容
     public List<SelectBtn> selectsbtn;  // 选择按钮列表
@@ -185,8 +187,11 @@ public class ChatManager : MonoBehaviour
 
         chatContent.text = string.Empty;  // 清空当前聊天内容文本框
 
+        
+
         for (int i = 0; i < chatInfos[currentIndex].chatContent.Length; i++)  // 遍历聊天内容中的每个字符
         {
+            chatName.text = chatInfos[currentIndex].name;
             chatContent.text += chatInfos[currentIndex].chatContent[i];  // 显示一个字符
             if (chatContent.text.Length >= chatInfos[currentIndex].chatContent.Length * ChatContentRot)
             {
