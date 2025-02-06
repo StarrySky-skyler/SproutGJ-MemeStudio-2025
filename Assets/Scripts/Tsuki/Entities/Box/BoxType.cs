@@ -13,6 +13,7 @@ namespace Tsuki.Entities.Box
     /// </summary>
     public enum BoxType
     {
+        None = 0,
         Zero = 1,
         One,
         Two,
