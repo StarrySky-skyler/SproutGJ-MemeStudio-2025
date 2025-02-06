@@ -20,11 +20,22 @@ namespace Tsuki.MVC.Models.Player
 
         [Header("单元格大小")] public float girdSize;
 
-        [Header("血量")] public int maxHp;
-
         [Header("障碍物")] public LayerMask obstacleLayer;
 
         [Header("地面")] public LayerMask groundLayer;
+
+        [Header("最大移动步数")] public int maxMoveStep;
+
+        public int CurrentLeftStep
+        {
+            get => _currentLeftStep;
+            private set
+            {
+                if (_currentLeftStep == value) return;
+                _currentLeftStep = value;
+                onStepChanged?.Invoke(_currentLeftStep);
+            }
+        }
 
         public bool IsMoving
         {
@@ -38,43 +49,38 @@ namespace Tsuki.MVC.Models.Player
         }
 
         public UnityEvent<bool> onMoveStatusChanged;
+        
+        public UnityEvent<int> onStepChanged;
 
         public Vector2Int LastDirection { get; set; } // 移动方向
         public Vector3 CurrentPos { get; set; }
         public Stack<Vector3> LastPosStack { get; private set; } // 上一次的位置
 
-        private int _currentHp;
         private bool _isMoving;
+        
+        private int _currentLeftStep;
 
         /// <summary>
         /// 初始化
         /// </summary>
         public void Init()
         {
-            _currentHp = maxHp;
+            CurrentLeftStep = maxMoveStep;
             _isMoving = false;
             LastPosStack = new Stack<Vector3>();
             CurrentPos = GameObject.FindWithTag("Player").transform.position;
         }
 
-        /// <summary>
-        /// 玩家受到伤害
-        /// </summary>
-        /// <param name="damage">伤害值</param>
-        public void TakeDamage(int damage)
+        public void AddStep(int step = 1)
         {
-            if (damage <= 0) return;
-            _currentHp = Mathf.Clamp(_currentHp - damage, 0, maxHp);
+            CurrentLeftStep =
+                Mathf.Clamp(CurrentLeftStep + step, 0, maxMoveStep);
         }
 
-        /// <summary>
-        /// 玩家回复生命值
-        /// </summary>
-        /// <param name="heal">回复量</param>
-        public void Heal(int heal)
+        public void ReduceStep(int step = 1)
         {
-            if (heal <= 0) return;
-            _currentHp = Mathf.Clamp(_currentHp + heal, 0, maxHp);
+            CurrentLeftStep =
+                Mathf.Clamp(CurrentLeftStep - step, 0, maxMoveStep);
         }
     }
 }

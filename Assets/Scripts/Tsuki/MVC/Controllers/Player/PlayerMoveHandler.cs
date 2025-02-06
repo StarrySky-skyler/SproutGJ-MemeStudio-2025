@@ -105,6 +105,8 @@ namespace Tsuki.MVC.Controllers.Player
         private void StartMove()
         {
             if (_playerController.transform.position == _newPos) return;
+            if (ModelsManager.Instance.PlayerMod.CurrentLeftStep == 0) return;
+            ModelsManager.Instance.PlayerMod.ReduceStep();
             ModelsManager.Instance.PlayerMod.LastPosStack.Push(_originalPos);
             ModelsManager.Instance.PlayerMod.IsMoving = true;
             _playerController.transform.DOMove(_newPos,
@@ -160,6 +162,8 @@ namespace Tsuki.MVC.Controllers.Player
             if (ModelsManager.Instance.PlayerMod.LastPosStack.TryPop(
                     out Vector3 result))
                 _playerController.transform.position = result;
+            // 增加步数
+            ModelsManager.Instance.PlayerMod.AddStep();
         }
 
         public void Pause()

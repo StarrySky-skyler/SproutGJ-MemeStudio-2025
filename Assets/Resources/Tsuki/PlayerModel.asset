@@ -14,13 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 0.3
   girdSize: 0.5
-  maxHp: 100
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 384
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
+  maxMoveStep: 10
   onMoveStatusChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepChanged:
     m_PersistentCalls:
       m_Calls: []
