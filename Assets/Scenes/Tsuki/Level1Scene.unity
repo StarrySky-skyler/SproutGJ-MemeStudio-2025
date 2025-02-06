@@ -933,6 +933,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2455387343136348490, guid: 8fab3205c4b112444a2ed87c53192e05, type: 3}
+      propertyPath: isMultipleGhost
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455387343136348490, guid: 8fab3205c4b112444a2ed87c53192e05, type: 3}
+      propertyPath: isChromaticAberration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455387343136348490, guid: 8fab3205c4b112444a2ed87c53192e05, type: 3}
+      propertyPath: chromaticAberrationStrength
+      value: 0.002
+      objectReference: {fileID: 0}
     - target: {fileID: 6316712216334124896, guid: 8fab3205c4b112444a2ed87c53192e05, type: 3}
       propertyPath: m_Name
       value: Camera
