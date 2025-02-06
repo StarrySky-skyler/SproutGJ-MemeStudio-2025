@@ -21,6 +21,7 @@ namespace Tsuki.Entities.TPPoint
         public void Tp(Transform self)
         {
             self.position = targetP.position;
+            self.position = new Vector3(self.position.x, self.position.y, 0);
         }
     }
 }

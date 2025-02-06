@@ -114,7 +114,7 @@ namespace Tsuki.Entities.Box
                     () =>
                     {
                         if (HandleTp()) return;
-                        if (!HandleIceSlide()) return;
+                        HandleIceSlide();
                     });
         }
 
@@ -134,14 +134,13 @@ namespace Tsuki.Entities.Box
             return false;
         }
 
-        private bool HandleIceSlide()
+        private void HandleIceSlide()
         {
             // 冰层移动
             Collider2D hit =
                 Physics2D.OverlapPoint(_newPos, 1 << 3);
-            if (!hit) return false;
-            if (!TryPushBox(_lastPushDirection)) return false;
-            return true;
+            if (!hit) return;
+            TryPushBox(_lastPushDirection);
         }
 
         public void Undo()

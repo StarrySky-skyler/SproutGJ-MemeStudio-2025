@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tsuki/Level2Scene.unity
     guid: e901dd980bd700043b43067eb70005dc
+  - enabled: 1
+    path: Assets/Scenes/Tsuki/Level3Scene.unity
+    guid: fbf584887c8b66842a4b004aeafc573a
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

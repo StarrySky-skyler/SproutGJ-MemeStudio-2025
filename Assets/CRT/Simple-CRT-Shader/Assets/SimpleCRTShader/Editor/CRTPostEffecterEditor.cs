@@ -6,7 +6,7 @@ using static CRTPostEffecter;
 using static UnityEditor.EditorGUILayout;
 
 [CustomEditor(typeof(CRTPostEffecter))]
-public class CRTPostEffecterEditor : Editor
+public class CRTPostEffecterEditor : UnityEditor.Editor
 {
     public override void OnInspectorGUI()
     {

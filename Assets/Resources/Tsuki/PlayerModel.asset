@@ -20,7 +20,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 72
-  maxMoveStep: 10
+  maxMoveStep: 999
   onMoveStatusChanged:
     m_PersistentCalls:
       m_Calls: []
