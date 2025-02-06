@@ -12,7 +12,7 @@ public class SaveCell : MonoBehaviour
     {
         this.title.text = title;
         this.time.text = time;
-        this.load.text = $"进度:{(load / 10f).ToString("F0")}%";
+        this.load.text = $"进度:{(load * 10f).ToString("F0")}%";
         load_slider.fillAmount = load / 10f;
     }
 
