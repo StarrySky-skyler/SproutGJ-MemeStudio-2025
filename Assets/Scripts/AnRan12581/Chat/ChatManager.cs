@@ -8,6 +8,7 @@ using TMPro;
 [System.Serializable]
 public class ChatInfo
 {
+    [TextArea]
     public string chatContent;  // 聊天内容
     public List<SelectBtn> selectsbtn;  // 选择按钮列表
     public bool isStop;  // 是否停止聊天（如暂停或结束）
