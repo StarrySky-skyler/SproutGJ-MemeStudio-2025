@@ -13,12 +13,12 @@ namespace Tsuki.Managers
 {
     public class ModelsManager : Singleton<ModelsManager>
     {
-        public PlayerModel playerModel;
+        public PlayerModel PlayerMod { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            playerModel = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+            PlayerMod = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
         }
     }
 }

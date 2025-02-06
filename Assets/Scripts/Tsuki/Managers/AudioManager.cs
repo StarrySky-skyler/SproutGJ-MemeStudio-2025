@@ -70,7 +70,7 @@ namespace Tsuki.Managers
         private void OnEnable()
         {
             // 注册事件
-            ModelsManager.Instance.playerModel.onMoveStatusChanged.AddListener(
+            ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
         }
@@ -78,7 +78,7 @@ namespace Tsuki.Managers
         private void OnDisable()
         {
             // 注销事件
-            ModelsManager.Instance.playerModel.onMoveStatusChanged
+            ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
         }

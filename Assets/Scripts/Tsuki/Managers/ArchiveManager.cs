@@ -44,7 +44,7 @@ namespace Tsuki.Managers
             _userDataList[archiveIndex] = new UserData(
                 _archiveFileNameFormatter + archiveIndex,
                 LevelManager.Instance.GetCurrentLevel(),
-                ModelsManager.Instance.playerModel.CurrentPos,
+                ModelsManager.Instance.PlayerMod.CurrentPos,
                 DateTime.Now.ToString("yyyy/M/d-H:mm:ss"));
         }
 

@@ -57,7 +57,7 @@ namespace Tsuki.Managers
         public void OnUndo(InputValue context)
         {
             // 如果正在移动则不允许撤销
-            if (ModelsManager.Instance.playerModel.IsMoving) return;
+            if (ModelsManager.Instance.PlayerMod.IsMoving) return;
             onGameUndo?.Invoke();
         }
     }
