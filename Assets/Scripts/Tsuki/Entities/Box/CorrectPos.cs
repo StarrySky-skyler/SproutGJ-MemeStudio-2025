@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using System;
 using Tsuki.Managers;
 using UnityEngine;
 
@@ -15,14 +16,23 @@ namespace Tsuki.Entities.Box
     {
         public BoxType boxType;
 
+        private SpriteRenderer _spriteRenderer;
         private Vector3 _originalPos;
 
         private void Start()
         {
             _originalPos = transform.position;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Update()
+        {
+            // 死锁位置
+            if (transform.position != _originalPos)
+                transform.position = _originalPos;
+        }
+
+        private void LateUpdate()
         {
             // 死锁位置
             if (transform.position != _originalPos)
@@ -33,14 +43,20 @@ namespace Tsuki.Entities.Box
         {
             if (!other.CompareTag("Box")) return;
             if (other.gameObject.GetComponent<BoxEntity>().boxType == boxType)
+            {
+                _spriteRenderer.enabled = false;
                 BoxManager.Instance.AddCorrectBox();
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("Box")) return;
             if (other.gameObject.GetComponent<BoxEntity>().boxType == boxType)
+            {
+                _spriteRenderer.enabled = true;
                 BoxManager.Instance.RemoveCorrectBox();
+            }
         }
     }
 }

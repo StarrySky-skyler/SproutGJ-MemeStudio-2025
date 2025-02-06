@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2723098963454380663, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.b
+      value: 0.13725491
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723098963454380663, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723098963454380663, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8980393
+      objectReference: {fileID: 0}
     - target: {fileID: 3491339499962500398, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: boxType
       value: 3
@@ -56,6 +68,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 8048648124978230840, guid: e494d8cad3652bd46937e5bacaf97f0f, type: 3}
+    - target: {fileID: 5142341359151225997, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142341359151225997, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142341359151225997, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5358689708564423324, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: m_Name
       value: Box2
