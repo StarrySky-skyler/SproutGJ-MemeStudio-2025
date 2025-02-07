@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Tsuki.Base;
+using Tsuki.Entities.IceLine;
 using Tsuki.Entities.TPPoint;
 using Tsuki.Interface;
 using Tsuki.Managers;
@@ -20,7 +21,12 @@ namespace Tsuki.Entities.Box
 {
     public class BoxEntity : MonoBehaviour, IPushable, IUndoable
     {
-        public BoxType boxType;
+        [Header("箱子类型")] public BoxType boxType;
+
+        [Header("冰块层")] public LayerMask groundIceLayer;
+        public LayerMask groundIceLineLayer;
+
+        [Header("TP层")] public LayerMask tpLayer;
 
         private Vector3 _newPos;
         private Vector3 _startPos;
@@ -115,6 +121,7 @@ namespace Tsuki.Entities.Box
                     {
                         if (HandleTp()) return;
                         HandleIceSlide();
+                        HandleIceLineSlide();
                     });
         }
 
@@ -124,22 +131,39 @@ namespace Tsuki.Entities.Box
         private bool HandleTp()
         {
             Collider2D hit1 =
-                Physics2D.OverlapPoint(_newPos, 1 << 9);
-            if (hit1)
-            {
-                hit1.GetComponent<TpPoint>().Tp(transform);
-                return true;
-            }
+                Physics2D.OverlapPoint(_newPos, tpLayer);
+            if (!hit1) return false;
+            TpPoint tpPoint = hit1.GetComponent<TpPoint>();
+            tpPoint.Tp(transform, _lastPushDirection);
+            return true;
 
-            return false;
         }
 
+        /// <summary>
+        /// 处理单格冰滑动
+        /// </summary>
         private void HandleIceSlide()
         {
             // 冰层移动
             Collider2D hit =
-                Physics2D.OverlapPoint(_newPos, 1 << 3);
+                Physics2D.OverlapPoint(_newPos, groundIceLayer);
             if (!hit) return;
+            TryPushBox(_lastPushDirection);
+        }
+
+        /// <summary>
+        /// 处理冰线滑动
+        /// </summary>
+        private void HandleIceLineSlide()
+        {
+            Debug.Log("开始检测冰线滑动");
+            Collider2D hit =
+                Physics2D.OverlapPoint(_newPos, groundIceLineLayer);
+            if (!hit) return;
+            IceSingleLine iceLine = hit.GetComponent<IceSingleLine>();
+            Debug.Log("检测到冰线");
+            if (!iceLine.AllowSlide(_lastPushDirection)) return;
+            // 冰线移动
             TryPushBox(_lastPushDirection);
         }
 
