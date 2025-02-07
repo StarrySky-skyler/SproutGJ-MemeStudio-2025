@@ -106,13 +106,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 1daa5a834babeca49aad070cc502314b, type: 2}
-  whiteNoiseFrequency: 1
+  whiteNoiseFrequency: 0
   whiteNoiseLength: 0.1
-  screenJumpFrequency: 1
+  screenJumpFrequency: 0
   screenJumpLength: 0.2
   screenJumpMinLevel: 0.1
   screenJumpMaxLevel: 0.9
-  flickeringStrength: 0.002
+  flickeringStrength: 0
   flickeringCycle: 111
   isSlippage: 1
   isSlippageNoise: 1
@@ -120,11 +120,11 @@ MonoBehaviour:
   slippageInterval: 1
   slippageScrollSpeed: 33
   slippageSize: 11
-  chromaticAberrationStrength: 0.002
+  chromaticAberrationStrength: 0.001
   isChromaticAberration: 1
   isMultipleGhost: 0
   multipleGhostStrength: 0.01
-  isScanline: 1
+  isScanline: 0
   isMonochrome: 0
   isLetterBox: 0
   isLetterBoxEdgeBlur: 0
