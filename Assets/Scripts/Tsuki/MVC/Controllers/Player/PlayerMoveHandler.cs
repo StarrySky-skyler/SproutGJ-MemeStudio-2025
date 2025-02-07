@@ -53,6 +53,7 @@ namespace Tsuki.MVC.Controllers.Player
         public void Move(Vector2 inputV2, bool movableX = true,
             bool movableY = true)
         {
+            if (ModelsManager.Instance.PlayerMod.CurrentLeftStep == 0) return;
             if (ModelsManager.Instance.PlayerMod.IsMoving ||
                 inputV2 == Vector2.zero ||
                 !_allowMove) return;
@@ -105,7 +106,6 @@ namespace Tsuki.MVC.Controllers.Player
         private void StartMove()
         {
             if (_playerController.transform.position == _newPos) return;
-            if (ModelsManager.Instance.PlayerMod.CurrentLeftStep == 0) return;
             ModelsManager.Instance.PlayerMod.ReduceStep();
             ModelsManager.Instance.PlayerMod.LastPosStack.Push(_originalPos);
             ModelsManager.Instance.PlayerMod.IsMoving = true;

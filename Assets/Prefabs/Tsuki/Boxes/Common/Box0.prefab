@@ -149,6 +149,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxType: 1
+  groundIceLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundIceLineLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  tpLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &6808240211379255695
 GameObject:
   m_ObjectHideFlags: 0
