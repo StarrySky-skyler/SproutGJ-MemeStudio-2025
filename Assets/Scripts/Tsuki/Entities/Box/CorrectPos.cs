@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System;
+using Tsuki.Entities.Box.Types;
 using Tsuki.Managers;
 using UnityEngine;
 

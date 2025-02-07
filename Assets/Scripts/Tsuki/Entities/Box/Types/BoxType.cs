@@ -6,7 +6,7 @@
 // @description:
 // *****************************************************************************
 
-namespace Tsuki.Entities.Box
+namespace Tsuki.Entities.Box.Types
 {
     /// <summary>
     /// 箱子类型

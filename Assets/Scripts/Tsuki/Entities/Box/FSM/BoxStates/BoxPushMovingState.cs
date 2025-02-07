@@ -19,7 +19,6 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
     public class BoxPushMovingState : BoxState, IBoxState
     {
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
-        private Vector3 _newPos;
 
         public BoxPushMovingState(BoxEntity boxEntity) : base(boxEntity)
         {
@@ -57,18 +56,20 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         //     Move();
         //     return true;
         // }
-        
         private void Move()
         {
             // 移动
-            BoxEntity.MoveTween = BoxEntity.transform.DOMove(_newPos,
+            BoxEntity.MoveTween = BoxEntity.transform.DOMove(BoxEntity.NewPos,
                     ModelsManager.Instance.PlayerMod.moveTime)
                 .OnComplete(
                     () =>
                     {
-                        if (HandleTp()) return;
-                        HandleGridIceSlide();
-                        HandleIceLineSlide();
+                        // 成功转换TP状态，直接返回
+                        if (BoxEntity.StateMachine.SwitchState(BoxStateType.Tp))
+                            return;
+                        if (BoxEntity.StateMachine.SwitchState(BoxStateType.IceSlide))
+                            return;
+                        BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
                     });
         }
 
@@ -87,7 +88,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                 BoxEntity.transform.position,
                 pushDirection, _hitsBuffer,
                 Vector2.Distance(BoxEntity.transform.position,
-                    _newPos),
+                    BoxEntity.NewPos),
                 ModelsManager.Instance.PlayerMod.obstacleLayer);
 
             for (int i = 0; i < hitCount; i++)
@@ -98,7 +99,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
             }
 
             return Commons.IsOnMap(ModelsManager.Instance.PlayerMod,
-                _newPos);
+                BoxEntity.NewPos);
         }
 
         /// <summary>
@@ -107,13 +108,13 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         private void SetNewPos(Vector2Int pushDirection)
         {
             BoxEntity.lastPushDirection = pushDirection;
-            _newPos = BoxEntity.transform.position +
-                      new Vector3(
-                          pushDirection.x *
-                          ModelsManager.Instance.PlayerMod.girdSize,
-                          pushDirection.y *
-                          ModelsManager.Instance.PlayerMod.girdSize,
-                          0);
+            BoxEntity.NewPos = BoxEntity.transform.position +
+                               new Vector3(
+                                   pushDirection.x *
+                                   ModelsManager.Instance.PlayerMod.girdSize,
+                                   pushDirection.y *
+                                   ModelsManager.Instance.PlayerMod.girdSize,
+                                   0);
         }
 
         /// <summary>
@@ -122,41 +123,11 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         private bool HandleTp()
         {
             Collider2D hit1 =
-                Physics2D.OverlapPoint(_newPos, BoxEntity.tpLayer);
+                Physics2D.OverlapPoint(BoxEntity.NewPos, BoxEntity.tpLayer);
             if (!hit1) return false;
             TpPoint tpPoint = hit1.GetComponent<TpPoint>();
             tpPoint.Tp(BoxEntity.transform, BoxEntity.lastPushDirection);
             return true;
-        }
-
-        /// <summary>
-        /// 处理单格冰滑动
-        /// </summary>
-        private void HandleGridIceSlide()
-        {
-            // 冰层移动
-            Collider2D hit =
-                Physics2D.OverlapPoint(_newPos, BoxEntity.groundIceLayer);
-            if (!hit) return;
-            BoxEntity.StateMachine.SwitchState(BoxStateType.PushMoving,
-                new Context() { PushDirection = BoxEntity.lastPushDirection });
-        }
-
-        /// <summary>
-        /// 处理冰线滑动
-        /// </summary>
-        private void HandleIceLineSlide()
-        {
-            Debug.Log("开始检测冰线滑动");
-            Collider2D hit =
-                Physics2D.OverlapPoint(_newPos, BoxEntity.groundIceLineLayer);
-            if (!hit) return;
-            IceSingleLine iceLine = hit.GetComponent<IceSingleLine>();
-            Debug.Log("检测到冰线");
-            if (!iceLine.AllowSlide(BoxEntity.lastPushDirection)) return;
-            // 冰线移动
-            BoxEntity.StateMachine.SwitchState(BoxStateType.PushMoving,
-                new Context() { PushDirection = BoxEntity.lastPushDirection });
         }
     }
 }

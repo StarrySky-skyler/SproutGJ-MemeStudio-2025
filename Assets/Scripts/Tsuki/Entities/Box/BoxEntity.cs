@@ -12,6 +12,7 @@ using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Entities.Box.FSM;
 using Tsuki.Entities.Box.FSM.BoxStates;
+using Tsuki.Entities.Box.Types;
 using Tsuki.Entities.IceLine;
 using Tsuki.Entities.TPPoint;
 using Tsuki.Interface;
@@ -34,6 +35,7 @@ namespace Tsuki.Entities.Box
         private bool _added;
         [HideInInspector] public Vector2Int lastPushDirection;
         public Tween MoveTween { get; set; }
+        public Vector3 NewPos { get; set; }
 
         public BoxStateMachine StateMachine;
 

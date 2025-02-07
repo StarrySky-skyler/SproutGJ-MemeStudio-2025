@@ -151,7 +151,7 @@ namespace Tsuki.MVC.Controllers.Player
             BoxStateMachine box = hit.collider.GetComponent<BoxEntity>()
                 .StateMachine;
             return box.SwitchState(BoxStateType.PushMoving,
-                new Context()
+                new Context
                 {
                     PushDirection =
                         ModelsManager.Instance.PlayerMod.LastDirection
