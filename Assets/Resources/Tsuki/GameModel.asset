@@ -29,9 +29,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   bgmList:
-  - {fileID: 8300000, guid: 95ad1776454e4e04bad27cbb4e8736a7, type: 3}
-  - {fileID: 8300000, guid: e7f1853d08d16254eadf4913d0f69837, type: 3}
   - {fileID: 8300000, guid: 9bfafbb88f4bb204784b0e5047b1ff26, type: 3}
+  - {fileID: 8300000, guid: 9bfafbb88f4bb204784b0e5047b1ff26, type: 3}
+  - {fileID: 8300000, guid: e7f1853d08d16254eadf4913d0f69837, type: 3}
   - {fileID: 8300000, guid: 8b654e8330428744ab3c3c3ab7d4777e, type: 3}
-  - {fileID: 8300000, guid: c9a229e58a7452145891b59922968e2a, type: 3}
-  - {fileID: 8300000, guid: 98e9b804ab88fea449194adbf99ce39a, type: 3}
+  - {fileID: 8300000, guid: 3227192ca9c22b6418cdbac20241d1ca, type: 3}
