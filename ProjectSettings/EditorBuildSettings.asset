@@ -18,14 +18,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Tsuki/Level1Scene.unity
     guid: ded23d9b0fa129a4d940be20046cfe38
   - enabled: 1
-    path: Assets/Scenes/Tsuki/Level5Scene.unity
-    guid: d7a56f14e7569194d965a9145951e413
+    path: Assets/Scenes/Tsuki/Level2Scene.unity
+    guid: a90c4a77f64611042b3903a3d3ca5a92
   - enabled: 1
     path: Assets/Scenes/Tsuki/Level3Scene.unity
     guid: fbf584887c8b66842a4b004aeafc573a
   - enabled: 1
     path: Assets/Scenes/Tsuki/Level4Scene.unity
     guid: 7a664dfcfe93768429a0b72af2e5f706
+  - enabled: 1
+    path: Assets/Scenes/Tsuki/Level5Scene.unity
+    guid: 36b7ffdc89d5c314f926a4154005dc9f
   - enabled: 1
     path: "Assets/Scenes/\u51B0\u90E8\u4F8D\u72FC/Level1Start.unity"
     guid: 652193ebf8fe2d04091c259866daa914
