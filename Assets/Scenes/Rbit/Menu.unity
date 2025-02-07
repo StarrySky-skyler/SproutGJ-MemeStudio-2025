@@ -2593,7 +2593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d479a76a16c7e04c832f1269888d34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: Select
+  SceneName: SaveSystem
 --- !u!114 &1460638725
 MonoBehaviour:
   m_ObjectHideFlags: 0
