@@ -1,19 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using Tsuki.Managers;
 public class SaveCell : MonoBehaviour
 {
-    public TMP_Text title;
+    public Button enter;
     public TMP_Text time;
     public TMP_Text load;
     public Image load_slider;
 
-    public void LoadData(string title,string time,float load)
+    public void LoadData(UserData userdata)
     {
-        this.title.text = title;
-        this.time.text = time;
-        this.load.text = $"进度:{(load * 10f).ToString("F0")}%";
-        load_slider.fillAmount = load / 10f;
+        this.time.text = userdata.time;
+        this.load.text = $"进度:{(userdata.process * 10f).ToString("F0")}%";
+        load_slider.fillAmount = userdata.process / 10f;
+        enter.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("ChatLevel" + userdata.level);
+        });
     }
 
 }

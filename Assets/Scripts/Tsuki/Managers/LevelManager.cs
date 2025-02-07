@@ -71,9 +71,9 @@ namespace Tsuki.Managers
         private void SetObjsPos(Scene scene, LoadSceneMode mode)
         {
             GameObject.FindWithTag("Player").transform.position =
-                _loadData.PlayerPosition;
+                _loadData.pos;
             SceneManager.sceneLoaded -= SetObjsPos;
-            Debug.Log("玩家位置为：" + _loadData.PlayerPosition);
+            Debug.Log("玩家位置为：" + _loadData.pos);
         }
 
         /// <summary>

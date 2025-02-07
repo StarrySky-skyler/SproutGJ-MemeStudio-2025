@@ -35,7 +35,7 @@ public class GameJamSaveSystem
             System.IO.Directory.CreateDirectory(Application.streamingAssetsPath + "/GameJamSaveSystem");
         }
 
-        usersData[userData.Filename] = userData;
+        usersData[userData.filename] = userData;
 
         string jsonData = JsonConvert.SerializeObject(userData);
 #if UNITY_EDITOR
@@ -44,7 +44,7 @@ public class GameJamSaveSystem
      Encrypt(jsonData);
 #endif
 
-        File.WriteAllText(Application.streamingAssetsPath + string.Format("/GameJamSaveSystem/{0}.json", userData.Filename), jsonData);
+        File.WriteAllText(Application.streamingAssetsPath + string.Format("/GameJamSaveSystem/{0}.json", userData.filename), jsonData);
     }
 
     public static UserData LoadData(string userName)
@@ -78,20 +78,24 @@ public class GameJamSaveSystem
 
 public class UserData
 {
-    public string Filename;
-
-    public int level;
-
-    public Vector2 PlayerPosition;
+    public string filename;
 
     public string time;
 
-    public UserData(string filename,int level, Vector2 playerPos,string time)
+    public int level;
+
+    public float process;
+
+    public Vector2 pos;
+
+
+    public UserData(string filename,string time,int level,float process,Vector2 pos)
     {
-        Filename = filename;
-        this.level = level;
-        PlayerPosition = playerPos;
+        this.filename = filename;
         this.time = time;
+        this.level = level;
+        this.process = process;
+        this.pos = pos;
     }
 }
 

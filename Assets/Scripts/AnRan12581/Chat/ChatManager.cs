@@ -5,16 +5,20 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using TMPro;
+using UnityEngine.SceneManagement;
 [System.Serializable]
 public class ChatInfo
 {
-
+    [Header("对话名称")]
     public string name;
+    [Header("对话内容")]
     [TextArea]
     public string chatContent;  // 聊天内容
     public List<SelectBtn> selectsbtn;  // 选择按钮列表
     public bool isStop;  // 是否停止聊天（如暂停或结束）
+    [Header("开始对话时")]
     public UnityEvent chatStartEvent;  // 聊天开始事件
+    [Header("文本显示完整时")]
     public UnityEvent chatEndEvent;  // 聊天结束事件
 }
 [System.Serializable]
@@ -27,8 +31,10 @@ public class SelectBtn
 
 public class ChatManager : MonoBehaviour
 {
+    [Header("显示字符间隔时间")]
     public float chatContentTime = 0.1f;  // 每次显示一个字符的时间间隔（单位：秒）
 
+    [Header("文本到达一定进度后可完整显示")]
     [Range(0.1f, 1.0f)] public float ChatContentRot = 0.5f;  // 每次显示字符的旋转速度，控制字符显示的平滑度
 
     public List<ChatInfo> chatInfos = new List<ChatInfo>();  // 聊天信息列表，存储多个聊天的内容和按钮等信息
@@ -204,5 +210,10 @@ public class ChatManager : MonoBehaviour
         chatInfos[currentIndex].chatEndEvent?.Invoke();  // 执行聊天结束事件
         currentIndex++;  // 更新聊天索引，准备显示下一个聊天内容
         isChat = false;  // 标记聊天已结束
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

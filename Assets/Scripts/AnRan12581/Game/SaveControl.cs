@@ -19,7 +19,12 @@ public class SaveControl : MonoBehaviour
         {
             for(int i = 0; i < 5; i++)
             {
-                GameJamSaveSystem.SaveData(new UserData(_archiveFileNameFormatter + i, i, new Vector2(UnityEngine.Random.Range(1f, 2f), UnityEngine.Random.Range(1f, 2f)),DateTime.Now.ToString("yyyy/M/d-H:mm:ss")));
+                GameJamSaveSystem.SaveData(new UserData(_archiveFileNameFormatter + i,
+                    DateTime.Now.ToString("yyyy/M/d-H:mm:ss"),
+                    1,
+                    i,
+                    new Vector2(UnityEngine.Random.Range(1f, 2f), UnityEngine.Random.Range(1f, 2f)))
+                    );
             }
         }
 
@@ -36,7 +41,7 @@ public class SaveControl : MonoBehaviour
         for (int i = 0; i < files.Length; i++)
         {
             UserData data = GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
-            cells[i].LoadData(data.Filename, data.time, data.level);
+            cells[i].LoadData(data);
         }
 
     }
