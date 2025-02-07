@@ -24,7 +24,7 @@ namespace Editor.Tsuki
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)
         {
-            Debug.Log("播放状态改变");
+            Debug.Log("播放状态改变"+state.ToString());
             if (state == PlayModeStateChange.ExitingEditMode)
             {
                 Debug.Log("开始添加物体");

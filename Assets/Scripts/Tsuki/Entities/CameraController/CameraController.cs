@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.Base;
+using Tsuki.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -108,7 +109,7 @@ namespace Tsuki.Entities.CameraController
         IEnumerator SelectScene()
         {
             yield return null;
-            SceneManager.LoadScene("ChatLevel" + AnRan.GameManager.Instance.selectSaveData.level);
+            LevelManager.Instance.LoadLevel( AnRan.GameManager.Instance.selectSaveData);
         }
     }
 
