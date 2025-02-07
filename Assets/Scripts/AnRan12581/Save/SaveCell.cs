@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using Tsuki.Managers;
 public class SaveCell : MonoBehaviour
 {
     public Button enter;
@@ -17,7 +16,9 @@ public class SaveCell : MonoBehaviour
         load_slider.fillAmount = userdata.process / 10f;
         enter.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("ChatLevel" + userdata.level);
+            AnRan.GameManager.Instance.selectSaveData = userdata;
+            SceneManager.LoadScene("Select");//Ñ¡ÔñµØÍ¼
+    
         });
     }
 

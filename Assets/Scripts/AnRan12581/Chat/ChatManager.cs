@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Reflection;
+
 [System.Serializable]
 public class ChatInfo
 {
@@ -63,6 +65,14 @@ public class ChatManager : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(LoadChatContent());
+        chatInfos[chatInfos.Count - 1].chatEndEvent.RemoveAllListeners();
+
+        chatInfos[chatInfos.Count - 1].chatEndEvent.AddListener(LoadGame);
+    }
+
+    void LoadGame()
+    {
+        Tsuki.Managers.LevelManager.Instance.LoadLevel(AnRan.GameManager.Instance.selectSaveData);
     }
 
     public void ExitChat()
@@ -116,6 +126,7 @@ public class ChatManager : MonoBehaviour
             {
                 StopAllCoroutines();  // 停止所有协程
                 chatContent.text = chatInfos[currentIndex].chatContent;  // 直接显示完整的聊天内容
+                chatInfos[currentIndex].chatEndEvent?.Invoke();  // 执行聊天结束事件
                 StartCoroutine(CreateChatBtns(currentIndex));  // 开始生成聊天选项按钮
                 isChat = false;  // 标记为聊天已结束
                 currentIndex++;  // 增加聊天索引，显示下一个聊天内容
@@ -210,10 +221,5 @@ public class ChatManager : MonoBehaviour
         chatInfos[currentIndex].chatEndEvent?.Invoke();  // 执行聊天结束事件
         currentIndex++;  // 更新聊天索引，准备显示下一个聊天内容
         isChat = false;  // 标记聊天已结束
-    }
-
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
     }
 }

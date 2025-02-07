@@ -7,11 +7,13 @@
 // *****************************************************************************
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.Base;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Tsuki.Entities.CameraController
@@ -78,11 +80,21 @@ namespace Tsuki.Entities.CameraController
         {
             Vector3 newPos = Commons.GetModifiedPos(targetPos);
             // 移动
-            transform.DOMove(newPos, moveTime).SetEase(Ease.InOutQuad);
-            // 聚焦
-            DOTween.To(() => _camera.orthographicSize,
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(transform.DOMove(newPos, moveTime).SetEase(Ease.InOutQuad));
+
+            sequence.Append(DOTween.To(() => _camera.orthographicSize,
                 x => _camera.orthographicSize = x,
-                targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad);
+                targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad).OnComplete(() =>
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(SelectScene());
+                }));
+            
+
+            // 聚焦
+
         }
 
         public void Reset()
@@ -91,6 +103,12 @@ namespace Tsuki.Entities.CameraController
             DOTween.To(() => _camera.orthographicSize,
                 x => _camera.orthographicSize = x,
                 _originFieldOfView, zoomTime).SetEase(Ease.InOutQuad);
+        }
+
+        IEnumerator SelectScene()
+        {
+            yield return null;
+            SceneManager.LoadScene("ChatLevel" + AnRan.GameManager.Instance.selectSaveData.level);
         }
     }
 
