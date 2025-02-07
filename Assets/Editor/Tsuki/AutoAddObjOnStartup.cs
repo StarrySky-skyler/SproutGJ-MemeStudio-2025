@@ -24,7 +24,7 @@ namespace Editor.Tsuki
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)
         {
-            Debug.Log("播放状态改变"+state.ToString());
+            Debug.Log("播放状态改变"+state);
             if (state == PlayModeStateChange.ExitingEditMode)
             {
                 Debug.Log("开始添加物体");
@@ -61,6 +61,7 @@ namespace Editor.Tsuki
 
         private static void RemoveObj()
         {
+            if (SceneManager.GetActiveScene().buildIndex < 3) return;
             GameObject obj = GameObject.Find("Managers");
             if (!obj)
             {

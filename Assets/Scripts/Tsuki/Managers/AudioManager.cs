@@ -14,6 +14,7 @@ using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -70,7 +71,15 @@ namespace Tsuki.Managers
             _sfxAudioSource.loop = false;
             //_lastMoveSoundEffect = null;
             _bgmAudioSource.volume = 0;
-            StartCoroutine(PlayBgm());
+            // StartCoroutine(PlayBgm());
+            SceneManager.sceneLoaded += (scene, mode) =>
+            {
+                _audioFade.FadeOut(_bgmAudioSource, () =>
+                {
+                    _bgmAudioSource.clip = GetCurrentLevelBgm();
+                    _audioFade.FadeIn(_bgmAudioSource);
+                });
+            };
         }
 
         private void OnEnable()
@@ -87,6 +96,12 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
+        }
+
+        private AudioClip GetCurrentLevelBgm()
+        {
+            int level = LevelManager.Instance.GetCurrentLevel();
+            return bgmList[level - 1];
         }
 
         private IEnumerator PlayBgm()
