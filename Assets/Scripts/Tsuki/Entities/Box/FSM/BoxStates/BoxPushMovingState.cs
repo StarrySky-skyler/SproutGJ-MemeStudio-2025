@@ -46,31 +46,15 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
             return GetPushable(context.PushDirection);
         }
 
-        /// <summary>
-        /// 推动箱子
-        /// </summary>
-        /// <returns></returns>
-        // private bool TryPushBox(Vector2Int pushDirection)
-        // {
-        //     if (!GetPushable(pushDirection)) return false;
-        //     Move();
-        //     return true;
-        // }
         private void Move()
         {
             // 移动
             BoxEntity.MoveTween = BoxEntity.transform.DOMove(BoxEntity.NewPos,
-                    ModelsManager.Instance.PlayerMod.moveTime)
-                .OnComplete(
-                    () =>
-                    {
-                        // 成功转换TP状态，直接返回
-                        if (BoxEntity.StateMachine.SwitchState(BoxStateType.Tp))
-                            return;
-                        if (BoxEntity.StateMachine.SwitchState(BoxStateType.IceSlide))
-                            return;
-                        BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
-                    });
+                ModelsManager.Instance.PlayerMod.moveTime);
+            BoxEntity.MoveTween.onComplete += () =>
+            {
+                BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
+            };
         }
 
         /// <summary>
@@ -115,19 +99,6 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                                    pushDirection.y *
                                    ModelsManager.Instance.PlayerMod.girdSize,
                                    0);
-        }
-
-        /// <summary>
-        /// 处理TP
-        /// </summary>
-        private bool HandleTp()
-        {
-            Collider2D hit1 =
-                Physics2D.OverlapPoint(BoxEntity.NewPos, BoxEntity.tpLayer);
-            if (!hit1) return false;
-            TpPoint tpPoint = hit1.GetComponent<TpPoint>();
-            tpPoint.Tp(BoxEntity.transform, BoxEntity.lastPushDirection);
-            return true;
         }
     }
 }

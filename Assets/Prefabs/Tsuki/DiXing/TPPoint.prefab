@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4185365447772553573}
   - component: {fileID: 573197076459278634}
-  - component: {fileID: 4827923936198038662}
+  - component: {fileID: 5817228642393189185}
   m_Layer: 9
   m_Name: P1
   m_TagString: Untagged
@@ -46,10 +46,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -63,7 +63,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -79,7 +79,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.31549287, y: 0.30897683}
   m_EdgeRadius: 0
---- !u!114 &4827923936198038662
+--- !u!114 &5817228642393189185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,10 +88,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6258809835456592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce4ffd6e7924ee43b1fef620efdf7e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 24332b1684874fb792db6dc2be91cf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetP: {fileID: 1545358537102715588}
+  tpType: 0
 --- !u!1 &1218326943847149731
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1545358537102715588}
   - component: {fileID: 3754109246063149360}
-  - component: {fileID: 754325398005085460}
+  - component: {fileID: 3504490529879807249}
   m_Layer: 9
   m_Name: P2
   m_TagString: Untagged
@@ -138,10 +139,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -155,7 +156,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -171,7 +172,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.34717312, y: 0.30850437}
   m_EdgeRadius: 0
---- !u!114 &754325398005085460
+--- !u!114 &3504490529879807249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,10 +181,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1218326943847149731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce4ffd6e7924ee43b1fef620efdf7e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 24332b1684874fb792db6dc2be91cf14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetP: {fileID: 4185365447772553573}
+  tpType: 0
 --- !u!1 &6489407252882315239
 GameObject:
   m_ObjectHideFlags: 0

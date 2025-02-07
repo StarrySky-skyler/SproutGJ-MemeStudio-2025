@@ -120,9 +120,9 @@ MonoBehaviour:
   slippageInterval: 1
   slippageScrollSpeed: 33
   slippageSize: 11
-  chromaticAberrationStrength: 0.005
+  chromaticAberrationStrength: 0.002
   isChromaticAberration: 1
-  isMultipleGhost: 1
+  isMultipleGhost: 0
   multipleGhostStrength: 0.01
   isScanline: 1
   isMonochrome: 0

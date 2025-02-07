@@ -143,7 +143,7 @@ namespace Tsuki.MVC.Controllers.Player
                 Vector2.Distance(_playerController.transform.position, _newPos),
                 ModelsManager.Instance.PlayerMod.obstacleLayer);
             if (!hit.collider) return true;
-            if (hit.collider.gameObject.layer == _playerController.wallLayer)
+            if (1 << hit.collider.gameObject.layer == _playerController.wallLayer)
                 return false;
             // IPushable box = hit.collider.GetComponent<IPushable>();
             // return box.TryPushBox(ModelsManager.Instance.PlayerMod

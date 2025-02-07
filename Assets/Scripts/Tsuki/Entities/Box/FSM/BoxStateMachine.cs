@@ -6,8 +6,10 @@
 // @description:
 // *****************************************************************************
 
+using System;
 using System.Collections.Generic;
 using Tsuki.Entities.Box.FSM.Interface;
+using Tsuki.Entities.IceLine;
 using UnityEngine;
 
 namespace Tsuki.Entities.Box.FSM
@@ -18,6 +20,9 @@ namespace Tsuki.Entities.Box.FSM
     public class Context
     {
         public Vector2Int PushDirection;
+        public IceType IceType;
+        public Action<Transform> Tp;
+        public Func<Vector2Int, bool> CheckTp;
     }
 
     public class BoxStateMachine

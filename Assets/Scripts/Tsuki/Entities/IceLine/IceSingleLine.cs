@@ -6,10 +6,19 @@
 // @description:
 // *****************************************************************************
 
+using System;
+using Tsuki.Entities.Box;
+using Tsuki.Entities.Box.FSM;
 using UnityEngine;
 
 namespace Tsuki.Entities.IceLine
 {
+    public enum IceType
+    {
+        Line = 1,
+        Grid
+    }
+
     /// <summary>
     /// 冰弦方向类型
     /// </summary>
@@ -22,7 +31,22 @@ namespace Tsuki.Entities.IceLine
 
     public class IceSingleLine : MonoBehaviour
     {
+        [HideInInspector] public IceType iceType;
         public IceLineType iceLineType;
+
+        private void Awake()
+        {
+            iceType = IceType.Line;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Box")) return;
+            BoxEntity box = other.GetComponent<BoxEntity>();
+            Context context = new() { IceType = iceType };
+            box.StateMachine.SwitchState(BoxStateType.IceSlide,
+                context, context);
+        }
 
         /// <summary>
         /// 获取是否允许滑动

@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using DG.Tweening;
 using Tsuki.Entities.Box.FSM.Interface;
 using Tsuki.Entities.TPPoint;
 using UnityEngine;
@@ -22,8 +23,14 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         
         public void OnEnter(Context context)
         {
-            _tpPoint.Tp(BoxEntity.transform, BoxEntity.lastPushDirection);
-            BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
+            BoxEntity.MoveTween.OnKill(() =>
+            {
+                context.Tp(BoxEntity.transform);
+                BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
+            });
+            BoxEntity.MoveTween.Kill();
+            //_tpPoint.Tp(BoxEntity.transform, BoxEntity.lastPushDirection);
+            
         }
         
         public void OnUpdate(Context context)
@@ -38,11 +45,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         
         public bool OnCheck(Context context)
         {
-            Collider2D hit1 =
-                Physics2D.OverlapPoint(BoxEntity.NewPos, BoxEntity.tpLayer);
-            if (!hit1) return false;
-            _tpPoint = hit1.GetComponent<TpPoint>();
-            return true;
+            return context.CheckTp(BoxEntity.lastPushDirection);
         }
     }
 }
