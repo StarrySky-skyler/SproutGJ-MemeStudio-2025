@@ -38,12 +38,26 @@ namespace Tsuki.Entities.AutoWall
         private Vector3 _startPos;
         private BoxCollider2D _boxCollider2D;
         private Tween _hideTween;
+        private bool _allowShow;
 
         private void Start()
         {
             _spriteTrans = transform.Find("Sprite");
             _startPos = _spriteTrans.position;
             _boxCollider2D = GetComponent<BoxCollider2D>();
+            _allowShow = true;
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Box")) return;
+            _allowShow = false;
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (!other.gameObject.CompareTag("Box")) return;
+            _allowShow = true;
         }
 
         private void OnEnable()
@@ -88,11 +102,17 @@ namespace Tsuki.Entities.AutoWall
             }
         }
 
-        private void HandleDisplay(int leftStep)
+        private HandleType GetHandleType(int leftStep)
         {
             int costStep = ModelsManager.Instance.PlayerMod.maxMoveStep -
                            leftStep;
-            HandleType wwallType = (HandleType)(costStep % 4);
+            return (HandleType)(costStep % 4);
+        }
+
+        private void HandleDisplay(int leftStep)
+        {
+            if (!_allowShow) return;
+            HandleType wwallType = GetHandleType(leftStep);
 
             switch (wwallType)
             {
@@ -116,9 +136,8 @@ namespace Tsuki.Entities.AutoWall
 
         private void HandleDisplayReverse(int leftStep)
         {
-            int costStep = ModelsManager.Instance.PlayerMod.maxMoveStep -
-                           leftStep;
-            HandleType wwallType = (HandleType)(costStep % 4);
+            if (!_allowShow) return;
+            HandleType wwallType = GetHandleType(leftStep);
 
             switch (wwallType)
             {

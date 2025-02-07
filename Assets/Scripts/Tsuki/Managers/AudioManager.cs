@@ -82,6 +82,8 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
+            BoxManager.Instance.onBoxCorrectAdded.AddListener(() =>
+                PlayWinSoundEffect(true));
         }
 
         private void OnDisable()
@@ -102,7 +104,8 @@ namespace Tsuki.Managers
         /// </summary>
         /// <param name="fadeOutLast">是否先渐出</param>
         /// <param name="targetAudio">目标Bgm</param>
-        public void MannulPlayBgm(AudioClip targetAudio, bool fadeOutLast = true)
+        public void MannulPlayBgm(AudioClip targetAudio,
+            bool fadeOutLast = true)
         {
             if (fadeOutLast)
             {
