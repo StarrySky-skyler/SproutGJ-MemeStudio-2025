@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Rbit/Menu.unity
     guid: bf620ff5292a13642a47a0ef93c31858
   - enabled: 1
-    path: Assets/Scenes/Rbit/Map select.unity
+    path: Assets/Scenes/Rbit/Select.unity
     guid: 63ef1aa56b705eb4bae139f4d27fe166
   - enabled: 1
     path: "Assets/Scenes/\u51B0\u90E8\u4F8D\u72FC/SaveSystem.unity"

@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 67019267}
   - component: {fileID: 67019266}
   - component: {fileID: 67019268}
+  - component: {fileID: 67019269}
   m_Layer: 5
   m_Name: BG_of_u1
   m_TagString: Untagged
@@ -333,6 +334,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &67019269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67019264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37146eb41f3442d459a1a3a4f6152134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutiple: 1.15
+  dotimer: 0.1
+  Enter_style: 7
+  Exit_style: 7
 --- !u!1 &106870104
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +441,7 @@ GameObject:
   - component: {fileID: 166711674}
   - component: {fileID: 166711673}
   - component: {fileID: 166711675}
+  - component: {fileID: 166711676}
   m_Layer: 5
   m_Name: BG_of_u 4
   m_TagString: Untagged
@@ -547,6 +565,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &166711676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166711671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37146eb41f3442d459a1a3a4f6152134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutiple: 1.15
+  dotimer: 0.1
+  Enter_style: 7
+  Exit_style: 7
 --- !u!1 &241711457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1024,6 +1058,7 @@ GameObject:
   - component: {fileID: 653481819}
   - component: {fileID: 653481818}
   - component: {fileID: 653481820}
+  - component: {fileID: 653481821}
   m_Layer: 5
   m_Name: BG_of_u 3
   m_TagString: Untagged
@@ -1147,6 +1182,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &653481821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653481816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37146eb41f3442d459a1a3a4f6152134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutiple: 1.15
+  dotimer: 0.1
+  Enter_style: 7
+  Exit_style: 7
 --- !u!1 &760320230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,6 +1428,7 @@ GameObject:
   - component: {fileID: 1072982372}
   - component: {fileID: 1072982371}
   - component: {fileID: 1072982373}
+  - component: {fileID: 1072982374}
   m_Layer: 5
   m_Name: BG_of_u 5
   m_TagString: Untagged
@@ -1500,6 +1552,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1072982374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072982369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37146eb41f3442d459a1a3a4f6152134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutiple: 1.15
+  dotimer: 0.1
+  Enter_style: 7
+  Exit_style: 7
 --- !u!1 &1183013879
 GameObject:
   m_ObjectHideFlags: 0
@@ -1795,6 +1863,7 @@ GameObject:
   - component: {fileID: 1602098942}
   - component: {fileID: 1602098941}
   - component: {fileID: 1602098943}
+  - component: {fileID: 1602098944}
   m_Layer: 5
   m_Name: BG_of_u 2
   m_TagString: Untagged
@@ -1918,6 +1987,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1602098944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602098939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37146eb41f3442d459a1a3a4f6152134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutiple: 1.15
+  dotimer: 0.1
+  Enter_style: 7
+  Exit_style: 7
 --- !u!1 &1743045360
 GameObject:
   m_ObjectHideFlags: 0
