@@ -72,7 +72,7 @@ public class ChatManager : MonoBehaviour
 
     void LoadGame()
     {
-        Tsuki.Managers.LevelManager.Instance.LoadLevel(AnRan.GameManager.Instance.selectSaveData);
+        transform.root.gameObject.SetActive(false);
     }
 
     public void ExitChat()

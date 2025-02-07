@@ -32,6 +32,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
         if (_instance != null && _instance != this)
         {
+            Debug.Log("µ¥ÀýÉ¾³ý:" + gameObject.name);
             Destroy(gameObject); 
         }
         else

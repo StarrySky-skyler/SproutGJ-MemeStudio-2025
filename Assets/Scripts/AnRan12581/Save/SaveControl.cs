@@ -16,18 +16,18 @@ public class SaveControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            for(int i = 0; i < 5; i++)
-            {
-                GameJamSaveSystem.SaveData(new UserData(_archiveFileNameFormatter + i,
-                    DateTime.Now.ToString("yyyy/M/d-H:mm:ss"),
-                    1,
-                    i,
-                    new Vector2(UnityEngine.Random.Range(1f, 2f), UnityEngine.Random.Range(1f, 2f)))
-                    );
-            }
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    for(int i = 0; i < 5; i++)
+        //    {
+        //        GameJamSaveSystem.SaveData(new UserData(_archiveFileNameFormatter + i,
+        //            DateTime.Now.ToString("yyyy/M/d-H:mm:ss"),
+        //            1,
+        //            i,
+        //            new Vector2(UnityEngine.Random.Range(1f, 2f), UnityEngine.Random.Range(1f, 2f)))
+        //            );
+        //    }
+        //}
     }
 
     void LoadData()
