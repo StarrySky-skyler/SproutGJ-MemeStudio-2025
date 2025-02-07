@@ -2,6 +2,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class GameJamSaveSystem
 {
@@ -76,6 +77,7 @@ public class GameJamSaveSystem
     }
 }
 
+[Serializable]
 public class UserData
 {
     public string filename;

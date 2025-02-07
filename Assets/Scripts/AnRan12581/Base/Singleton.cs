@@ -6,6 +6,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
 
+    //private static bool isDontDestroyOnLoad;
+
     public static T Instance
     {
         get
@@ -27,6 +29,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
+
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject); 
@@ -35,6 +38,17 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             _instance = this as T;  
         }
+
+        //if (!isDontDestroyOnLoad)
+        //{
+        //    isDontDestroyOnLoad = true;
+        //    DontDestroyOnLoad(gameObject);
+
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     protected virtual void OnDestroy()

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using Vector2Json.SaveSystem;
+using AnRan;
 public class SaveControl : MonoBehaviour
 {
     public SaveCell[] cells;
@@ -9,7 +10,7 @@ public class SaveControl : MonoBehaviour
     void Start()
     {
         AddSerializedJson.AddAllConverter();
-
+        LoadData();
     }
 
     // Update is called once per frame
@@ -27,11 +28,6 @@ public class SaveControl : MonoBehaviour
                     );
             }
         }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            LoadData();
-        }
     }
 
     void LoadData()
@@ -41,6 +37,7 @@ public class SaveControl : MonoBehaviour
         for (int i = 0; i < files.Length; i++)
         {
             UserData data = GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
+
             cells[i].LoadData(data);
         }
 
