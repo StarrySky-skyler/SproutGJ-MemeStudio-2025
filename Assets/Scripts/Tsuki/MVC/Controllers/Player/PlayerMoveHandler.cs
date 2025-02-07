@@ -8,6 +8,8 @@
 
 using DG.Tweening;
 using Tsuki.Base;
+using Tsuki.Entities.Box;
+using Tsuki.Entities.Box.FSM;
 using Tsuki.Interface;
 using Tsuki.Managers;
 using Tsuki.MVC.Models.Player;
@@ -134,23 +136,26 @@ namespace Tsuki.MVC.Controllers.Player
         /// <returns></returns>
         private bool DetectObstacle()
         {
-            bool canMove = true;
             Debug.DrawRay(_playerController.transform.position,
                 _scaledDirection, Color.red, 3f);
             RaycastHit2D hit = Physics2D.Raycast(
                 _playerController.transform.position, _scaledDirection,
                 Vector2.Distance(_playerController.transform.position, _newPos),
                 ModelsManager.Instance.PlayerMod.obstacleLayer);
-            if (hit.collider)
-            {
-                if (hit.collider.gameObject.layer == 8) return false;
-                IPushable box = hit.collider.GetComponent<IPushable>();
-                canMove =
-                    box.TryPushBox(ModelsManager.Instance.PlayerMod
-                        .LastDirection);
-            }
-
-            return canMove;
+            if (!hit.collider) return true;
+            if (hit.collider.gameObject.layer == _playerController.wallLayer)
+                return false;
+            // IPushable box = hit.collider.GetComponent<IPushable>();
+            // return box.TryPushBox(ModelsManager.Instance.PlayerMod
+            //     .LastDirection);
+            BoxStateMachine box = hit.collider.GetComponent<BoxEntity>()
+                .StateMachine;
+            return box.SwitchState(BoxStateType.PushMoving,
+                new Context()
+                {
+                    PushDirection =
+                        ModelsManager.Instance.PlayerMod.LastDirection
+                });
         }
 
         /// <summary>

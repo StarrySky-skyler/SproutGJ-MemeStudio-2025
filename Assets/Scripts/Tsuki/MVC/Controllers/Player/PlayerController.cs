@@ -19,6 +19,7 @@ namespace Tsuki.MVC.Controllers.Player
     {
         // TODO: 使用状态机管理玩家流程
         [HideInInspector] public PlayerView playerView;
+        public LayerMask wallLayer;
 
         private PlayerMoveHandler _moveHandler;
 
