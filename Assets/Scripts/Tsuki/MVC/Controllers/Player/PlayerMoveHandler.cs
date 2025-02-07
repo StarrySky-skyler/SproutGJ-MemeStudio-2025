@@ -9,6 +9,7 @@
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Entities.Box;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
 using Tsuki.Interface;
 using Tsuki.Managers;
@@ -69,7 +70,7 @@ namespace Tsuki.MVC.Controllers.Player
             // 检测是否在地图范围内
             // if (newPos.x % 1 != 0 && newPos.y % 1 != 0) return;
 
-            if (!Commons.IsOnMap(ModelsManager.Instance.PlayerMod, _newPos))
+            if (!Commons.IsOnMap(ModelsManager.Instance.GameMod, _newPos))
                 return;
 
             if (!CanMoveAfterDetect()) return;
@@ -86,7 +87,7 @@ namespace Tsuki.MVC.Controllers.Player
                 Vector2Int.RoundToInt(input);
             _scaledDirection =
                 (Vector2)ModelsManager.Instance.PlayerMod.LastDirection *
-                ModelsManager.Instance.PlayerMod.girdSize;
+                ModelsManager.Instance.GameMod.girdSize;
         }
 
         /// <summary>
@@ -127,7 +128,7 @@ namespace Tsuki.MVC.Controllers.Player
         private bool CanMoveAfterDetect()
         {
             return DetectObstacle() &&
-                   Commons.IsOnMap(ModelsManager.Instance.PlayerMod, _newPos);
+                   Commons.IsOnMap(ModelsManager.Instance.GameMod, _newPos);
         }
 
         /// <summary>
@@ -141,14 +142,17 @@ namespace Tsuki.MVC.Controllers.Player
             RaycastHit2D hit = Physics2D.Raycast(
                 _playerController.transform.position, _scaledDirection,
                 Vector2.Distance(_playerController.transform.position, _newPos),
-                ModelsManager.Instance.PlayerMod.obstacleLayer);
+                ModelsManager.Instance.GameMod.obstacleLayer);
             if (!hit.collider) return true;
-            if (1 << hit.collider.gameObject.layer == _playerController.wallLayer)
+            if (((1 << hit.collider.gameObject.layer) &
+                 (_playerController.wallLayer |
+                  _playerController.grassLayer)) != 0)
                 return false;
+
             // IPushable box = hit.collider.GetComponent<IPushable>();
             // return box.TryPushBox(ModelsManager.Instance.PlayerMod
             //     .LastDirection);
-            BoxStateMachine box = hit.collider.GetComponent<BoxEntity>()
+            BoxStateMachine box = hit.collider.GetComponent<BaseObj>()
                 .StateMachine;
             return box.SwitchState(BoxStateType.PushMoving,
                 new Context

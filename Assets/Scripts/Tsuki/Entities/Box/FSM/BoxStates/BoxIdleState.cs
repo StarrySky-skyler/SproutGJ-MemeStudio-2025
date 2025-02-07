@@ -6,13 +6,14 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM.Interface;
 
 namespace Tsuki.Entities.Box.FSM.BoxStates
 {
     public class BoxIdleState : BoxState, IBoxState
     {
-        public BoxIdleState(BoxEntity boxEntity) : base(boxEntity)
+        public BoxIdleState(BaseObj baseObj) : base(baseObj)
         {
         }
 

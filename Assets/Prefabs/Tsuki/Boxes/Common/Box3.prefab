@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5233704250962515118, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: boxType
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5358689708564423324, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: m_Name
       value: Box3

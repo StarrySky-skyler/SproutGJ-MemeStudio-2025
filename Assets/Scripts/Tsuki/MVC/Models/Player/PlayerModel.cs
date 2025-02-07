@@ -18,12 +18,6 @@ namespace Tsuki.MVC.Models.Player
     {
         [Header("移动一格的时间（箱子也是）")] public float moveTime;
 
-        [Header("单元格大小")] public float girdSize;
-
-        [Header("障碍物")] public LayerMask obstacleLayer;
-
-        [Header("地面")] public LayerMask groundLayer;
-
         [Header("最大移动步数")] public int maxMoveStep;
 
         public int CurrentLeftStep

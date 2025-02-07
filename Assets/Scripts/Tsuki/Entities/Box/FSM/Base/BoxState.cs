@@ -6,17 +6,18 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM.Interface;
 
 namespace Tsuki.Entities.Box.FSM
 {
     public abstract class BoxState
     {
-        protected BoxEntity BoxEntity;
+        protected BaseObj BaseObj;
 
-        protected BoxState(BoxEntity boxEntity)
+        protected BoxState(BaseObj baseObj)
         {
-            BoxEntity = boxEntity;
+            BaseObj = baseObj;
         }
     }
 }

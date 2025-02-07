@@ -9,6 +9,7 @@
 using System;
 using JetBrains.Annotations;
 using Tsuki.Entities.Box;
+using Tsuki.Entities.Box.Base;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -106,7 +107,7 @@ namespace Tsuki.Managers
             GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
             foreach (GameObject box in boxes)
             {
-                box.GetComponent<BoxEntity>().RepeatPos();
+                box.GetComponent<BaseObj>().RepeatPos();
             }
         }
     }

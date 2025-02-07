@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.MVC.Models.Game;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
@@ -14,11 +15,13 @@ namespace Tsuki.Managers
     public class ModelsManager : Singleton<ModelsManager>
     {
         public PlayerModel PlayerMod { get; private set; }
+        public GameModel GameMod { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
             PlayerMod = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
+            GameMod = Resources.Load<GameModel>("Tsuki/GameModel");
         }
     }
 }

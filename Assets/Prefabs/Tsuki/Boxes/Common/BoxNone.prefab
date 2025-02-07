@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5579043989902314136, guid: 830ec2be7d2a84142a407b3c27a5aedb, type: 3}
+    - target: {fileID: 5233704250962515118, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
+      propertyPath: boxType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5358689708564423324, guid: 6ce64d3405eb080439a84062f1771cc7, type: 3}
       propertyPath: m_Name
       value: BoxNone

@@ -8,15 +8,17 @@
 
 using System;
 using DG.Tweening;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM.Interface;
 using Tsuki.Entities.IceLine;
+using Tsuki.Managers;
 using UnityEngine;
 
 namespace Tsuki.Entities.Box.FSM.BoxStates
 {
     public class BoxIceSlideState : BoxState, IBoxState
     {
-        public BoxIceSlideState(BoxEntity boxEntity) : base(boxEntity)
+        public BoxIceSlideState(BaseObj baseObj) : base(baseObj)
         {
         }
         
@@ -26,18 +28,18 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
             {
                 case IceType.Line:
                     // 冰线移动
-                    BoxEntity.MoveTween.onComplete += () =>
+                    BaseObj.MoveTween.onComplete += () =>
                     {
-                        BoxEntity.StateMachine.SwitchState(BoxStateType.PushMoving,
-                            new Context { PushDirection = BoxEntity.lastPushDirection });
+                        BaseObj.StateMachine.SwitchState(BoxStateType.PushMoving,
+                            new Context { PushDirection = BaseObj.lastPushDirection });
                     };
                     break;
                 case IceType.Grid:
-                    BoxEntity.MoveTween.onComplete += () =>
+                    BaseObj.MoveTween.onComplete += () =>
                     {
-                        BoxEntity.StateMachine.SwitchState(BoxStateType.PushMoving,
+                        BaseObj.StateMachine.SwitchState(BoxStateType.PushMoving,
                             new Context
-                                { PushDirection = BoxEntity.lastPushDirection });
+                                { PushDirection = BaseObj.lastPushDirection });
                     };
                     break;
                 default:
@@ -77,8 +79,8 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         {
             // 冰层移动
             Collider2D hit =
-                Physics2D.OverlapPoint(BoxEntity.NewPos,
-                    BoxEntity.groundIceLayer);
+                Physics2D.OverlapPoint(BaseObj.NewPos,
+                    ModelsManager.Instance.GameMod.groundIceLayer);
             return hit;
         }
 
@@ -89,12 +91,12 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         {
             Debug.Log("开始检测冰线滑动");
             Collider2D hit =
-                Physics2D.OverlapPoint(BoxEntity.NewPos,
-                    BoxEntity.groundIceLineLayer);
+                Physics2D.OverlapPoint(BaseObj.NewPos,
+                    ModelsManager.Instance.GameMod.groundIceLineLayer);
             if (!hit) return false;
             IceSingleLine iceLine = hit.GetComponent<IceSingleLine>();
             Debug.Log("检测到冰线");
-            return iceLine.AllowSlide(BoxEntity.lastPushDirection);
+            return iceLine.AllowSlide(BaseObj.lastPushDirection);
         }
     }
 }

@@ -6,31 +6,20 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using Tsuki.Base;
 using Tsuki.Entities.Box.FSM;
 using Tsuki.Entities.Box.FSM.BoxStates;
 using Tsuki.Entities.Box.Types;
-using Tsuki.Entities.IceLine;
-using Tsuki.Entities.TPPoint;
 using Tsuki.Interface;
 using Tsuki.Managers;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Tsuki.Entities.Box
+namespace Tsuki.Entities.Box.Base
 {
-    public class BoxEntity : MonoBehaviour, IUndoable
+    public class BaseObj : MonoBehaviour, IUndoable
     {
-        [Header("箱子类型")] public BoxType boxType;
-
-        [Header("冰块层")] public LayerMask groundIceLayer;
-        public LayerMask groundIceLineLayer;
-
-        [Header("TP层")] public LayerMask tpLayer;
+        [Header("箱子类型")] [SerializeField] public BoxType boxType;
 
         private bool _added;
         [HideInInspector] public Vector2Int lastPushDirection;
@@ -39,37 +28,33 @@ namespace Tsuki.Entities.Box
 
         public BoxStateMachine StateMachine;
 
-        private Vector3 _newPos;
         private Vector3 _startPos;
         private Stack<Vector3> _lastPosStack;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _lastPosStack = new Stack<Vector3>();
             // 初始化状态机
             StateMachine = new BoxStateMachine();
             StateMachine.AddState(BoxStateType.Idle, new BoxIdleState(this));
-            StateMachine.AddState(BoxStateType.IceSlide,
-                new BoxIceSlideState(this));
-            StateMachine.AddState(BoxStateType.Tp, new BoxTpState(this));
             StateMachine.AddState(BoxStateType.PushMoving,
                 new BoxPushMovingState(this));
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             _startPos = transform.position;
-            _newPos = transform.position;
+            NewPos = transform.position;
             // 初始化状态机
             StateMachine.SwitchState(BoxStateType.Idle);
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             GameManager.Instance.onGameUndo.AddListener(Undo);
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             if (!GameManager.Instance) return;
             GameManager.Instance.onGameUndo.RemoveListener(Undo);

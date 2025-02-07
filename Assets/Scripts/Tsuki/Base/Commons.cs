@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.MVC.Models.Game;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
@@ -16,13 +17,13 @@ namespace Tsuki.Base
         /// <summary>
         /// 获取newpos位置是否在地图内
         /// </summary>
-        /// <param name="playerModel"></param>
+        /// <param name="gameModel"></param>
         /// <param name="newPos"></param>
         /// <returns></returns>
-        public static bool IsOnMap(PlayerModel playerModel, Vector3 newPos)
+        public static bool IsOnMap(GameModel gameModel, Vector3 newPos)
         {
             Collider2D hit =
-                Physics2D.OverlapPoint(newPos, playerModel.groundLayer);
+                Physics2D.OverlapPoint(newPos, gameModel.groundLayer);
             return hit;
         }
 

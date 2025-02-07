@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using Tsuki.Entities.Box;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace Tsuki.Entities.TPPoint
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Box")) return;
-            BoxEntity box = other.gameObject.GetComponent<BoxEntity>();
+            BaseObj box = other.gameObject.GetComponent<BaseObj>();
             switch (gameObject.name)
             {
                 case "P1":

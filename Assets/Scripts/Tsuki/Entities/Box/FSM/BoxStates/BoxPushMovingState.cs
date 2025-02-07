@@ -8,6 +8,7 @@
 
 using DG.Tweening;
 using Tsuki.Base;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM.Interface;
 using Tsuki.Entities.IceLine;
 using Tsuki.Entities.TPPoint;
@@ -20,7 +21,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
     {
         private readonly RaycastHit2D[] _hitsBuffer = new RaycastHit2D[10];
 
-        public BoxPushMovingState(BoxEntity boxEntity) : base(boxEntity)
+        public BoxPushMovingState(BaseObj baseObj) : base(baseObj)
         {
         }
 
@@ -49,11 +50,11 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         private void Move()
         {
             // 移动
-            BoxEntity.MoveTween = BoxEntity.transform.DOMove(BoxEntity.NewPos,
+            BaseObj.MoveTween = BaseObj.transform.DOMove(BaseObj.NewPos,
                 ModelsManager.Instance.PlayerMod.moveTime);
-            BoxEntity.MoveTween.onComplete += () =>
+            BaseObj.MoveTween.onComplete += () =>
             {
-                BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
+                BaseObj.StateMachine.SwitchState(BoxStateType.Idle);
             };
         }
 
@@ -64,26 +65,46 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         private bool GetPushable(Vector2Int pushDirection)
         {
             SetNewPos(pushDirection);
-            Debug.DrawRay(BoxEntity.transform.position,
+            Debug.DrawRay(BaseObj.transform.position,
                 (Vector2)pushDirection,
                 Color.green, 3);
             // 射线检测是否还有箱子或墙
             int hitCount = Physics2D.RaycastNonAlloc(
-                BoxEntity.transform.position,
+                BaseObj.transform.position,
                 pushDirection, _hitsBuffer,
-                Vector2.Distance(BoxEntity.transform.position,
-                    BoxEntity.NewPos),
-                ModelsManager.Instance.PlayerMod.obstacleLayer);
+                Vector2.Distance(BaseObj.transform.position,
+                    BaseObj.NewPos),
+                ModelsManager.Instance.GameMod.obstacleLayer);
 
             for (int i = 0; i < hitCount; i++)
             {
                 if (_hitsBuffer[i].collider !=
-                    BoxEntity.GetComponent<Collider2D>())
+                    BaseObj.GetComponent<Collider2D>())
+                {
                     return false;
+                }
             }
 
-            return Commons.IsOnMap(ModelsManager.Instance.PlayerMod,
-                BoxEntity.NewPos);
+            // 检测草
+            hitCount = Physics2D.RaycastNonAlloc(
+                BaseObj.transform.position,
+                pushDirection, _hitsBuffer,
+                Vector2.Distance(BaseObj.transform.position,
+                    BaseObj.NewPos),
+                ModelsManager.Instance.GameMod.grassLayer);
+
+            for (int i = 0; i < hitCount; i++)
+            {
+                if (_hitsBuffer[i].collider !=
+                    BaseObj.GetComponent<Collider2D>() &&
+                    !BaseObj.CompareTag("Weeders"))
+                {
+                    return false;
+                }
+            }
+
+            return Commons.IsOnMap(ModelsManager.Instance.GameMod,
+                BaseObj.NewPos);
         }
 
         /// <summary>
@@ -91,13 +112,13 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         /// </summary>
         private void SetNewPos(Vector2Int pushDirection)
         {
-            BoxEntity.lastPushDirection = pushDirection;
-            BoxEntity.NewPos = BoxEntity.transform.position +
+            BaseObj.lastPushDirection = pushDirection;
+            BaseObj.NewPos = BaseObj.transform.position +
                                new Vector3(
                                    pushDirection.x *
-                                   ModelsManager.Instance.PlayerMod.girdSize,
+                                   ModelsManager.Instance.GameMod.girdSize,
                                    pushDirection.y *
-                                   ModelsManager.Instance.PlayerMod.girdSize,
+                                   ModelsManager.Instance.GameMod.girdSize,
                                    0);
         }
     }

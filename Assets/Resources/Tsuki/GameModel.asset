@@ -9,24 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39c99c58a70a4e60b3ea4ebcf4ad568d, type: 3}
-  m_Name: PlayerModel
+  m_Script: {fileID: 11500000, guid: a08d42e9522e430593c46d9ec0e86084, type: 3}
+  m_Name: GameModel
   m_EditorClassIdentifier: 
-  moveTime: 0.3
   girdSize: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 72
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 384
   grassLayer:
     serializedVersion: 2
     m_Bits: 2048
-  groundLayer:
+  groundIceLayer:
     serializedVersion: 2
-    m_Bits: 72
-  maxMoveStep: 999
-  onMoveStatusChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onStepChanged:
-    m_PersistentCalls:
-      m_Calls: []
+    m_Bits: 8
+  groundIceLineLayer:
+    serializedVersion: 2
+    m_Bits: 1024

@@ -1,25 +1,18 @@
 ﻿// *****************************************************************************
 // @author: 绘星tsuki
 // @email: xiaoyuesun915@gmail.com
-// @creationDate: 2025/01/30 18:01
+// @creationDate: 2025/02/07 18:02
 // @version: 1.0
 // @description:
 // *****************************************************************************
 
-namespace Tsuki.Entities.Box.Types
+using Tsuki.Entities.Box.Base;
+using UnityEngine;
+
+namespace Tsuki.Entities.Weeders
 {
-    /// <summary>
-    /// 箱子类型
-    /// </summary>
-    public enum BoxType
+    public class Weeder : BaseObj
     {
-        None = 0,
-        Zero = 1,
-        One,
-        Two,
-        Three,
-        Four,
-        Five,
-        Weeders
+        
     }
 }

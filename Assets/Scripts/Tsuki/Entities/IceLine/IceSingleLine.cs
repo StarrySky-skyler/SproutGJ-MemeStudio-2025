@@ -8,6 +8,7 @@
 
 using System;
 using Tsuki.Entities.Box;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace Tsuki.Entities.IceLine
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Box")) return;
-            BoxEntity box = other.GetComponent<BoxEntity>();
+            BaseObj box = other.GetComponent<BaseObj>();
             Context context = new() { IceType = iceType };
             box.StateMachine.SwitchState(BoxStateType.IceSlide,
                 context, context);

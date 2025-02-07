@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using DG.Tweening;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM.Interface;
 using Tsuki.Entities.TPPoint;
 using UnityEngine;
@@ -17,18 +18,18 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
     {
         private TpPoint _tpPoint;
         
-        public BoxTpState(BoxEntity boxEntity) : base(boxEntity)
+        public BoxTpState(BaseObj baseObj) : base(baseObj)
         {
         }
         
         public void OnEnter(Context context)
         {
-            BoxEntity.MoveTween.OnKill(() =>
+            BaseObj.MoveTween.OnKill(() =>
             {
-                context.Tp(BoxEntity.transform);
-                BoxEntity.StateMachine.SwitchState(BoxStateType.Idle);
+                context.Tp(BaseObj.transform);
+                BaseObj.StateMachine.SwitchState(BoxStateType.Idle);
             });
-            BoxEntity.MoveTween.Kill();
+            BaseObj.MoveTween.Kill();
             //_tpPoint.Tp(BoxEntity.transform, BoxEntity.lastPushDirection);
             
         }
@@ -45,7 +46,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         
         public bool OnCheck(Context context)
         {
-            return context.CheckTp(BoxEntity.lastPushDirection);
+            return context.CheckTp(BaseObj.lastPushDirection);
         }
     }
 }

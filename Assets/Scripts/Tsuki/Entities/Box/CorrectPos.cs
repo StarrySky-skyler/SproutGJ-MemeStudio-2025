@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System;
+using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.Types;
 using Tsuki.Managers;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace Tsuki.Entities.Box
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Box")) return;
-            if (other.gameObject.GetComponent<BoxEntity>().boxType == boxType)
+            if (other.gameObject.GetComponent<BaseObj>().boxType == boxType)
             {
                 _spriteRenderer.enabled = false;
                 BoxManager.Instance.AddCorrectBox();
@@ -55,7 +56,7 @@ namespace Tsuki.Entities.Box
         private void OnTriggerExit2D(Collider2D other)
         {
             if (!other.CompareTag("Box")) return;
-            if (other.gameObject.GetComponent<BoxEntity>().boxType == boxType)
+            if (other.gameObject.GetComponent<BaseObj>().boxType == boxType)
             {
                 _spriteRenderer.enabled = true;
                 BoxManager.Instance.RemoveCorrectBox();

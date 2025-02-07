@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5142341359151225997}
   - component: {fileID: 5924542337562941079}
   - component: {fileID: 7062095576616587135}
-  - component: {fileID: 7662419226466179205}
+  - component: {fileID: 5233704250962515118}
   m_Layer: 7
   m_Name: Box0
   m_TagString: Box
@@ -164,7 +164,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7662419226466179205
+--- !u!114 &5233704250962515118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,19 +173,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5358689708564423324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2c388d80cb54126ae291870a4548073, type: 3}
+  m_Script: {fileID: 11500000, guid: f85914d7609a4ecaa5b2170d1ddd766a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boxType: 1
-  groundIceLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundIceLineLayer:
-    serializedVersion: 2
-    m_Bits: 1024
-  tpLayer:
-    serializedVersion: 2
-    m_Bits: 512
   lastPushDirection: {x: 0, y: 0}
 --- !u!1 &6808240211379255695
 GameObject:
