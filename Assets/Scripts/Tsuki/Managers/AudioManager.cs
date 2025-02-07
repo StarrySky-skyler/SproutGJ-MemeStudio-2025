@@ -67,19 +67,13 @@ namespace Tsuki.Managers
             if (!audioGo) audioGo = Instantiate(audioPrefab);
             _bgmAudioSource = audioGo.GetComponents<AudioSource>()[0];
             _sfxAudioSource = audioGo.GetComponents<AudioSource>()[1];
-            _bgmAudioSource.loop = false;
+            _bgmAudioSource.loop = true;
             _sfxAudioSource.loop = false;
             //_lastMoveSoundEffect = null;
             _bgmAudioSource.volume = 0;
             // StartCoroutine(PlayBgm());
-            SceneManager.sceneLoaded += (scene, mode) =>
-            {
-                _audioFade.FadeOut(_bgmAudioSource, () =>
-                {
-                    _bgmAudioSource.clip = GetCurrentLevelBgm();
-                    _audioFade.FadeIn(_bgmAudioSource);
-                });
-            };
+            PlayLevelBgm(false);
+            SceneManager.sceneLoaded += (scene, mode) => { PlayLevelBgm(); };
         }
 
         private void OnEnable()
@@ -98,10 +92,29 @@ namespace Tsuki.Managers
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
         }
 
+        private void PlayLevelBgm(bool fadeOutLast = true)
+        {
+            if (fadeOutLast)
+            {
+                _audioFade.FadeOut(_bgmAudioSource, () =>
+                {
+                    _bgmAudioSource.clip = GetCurrentLevelBgm();
+                    _audioFade.FadeIn(_bgmAudioSource);
+                });
+            }
+            else
+            {
+                _bgmAudioSource.clip = GetCurrentLevelBgm();
+                _audioFade.FadeIn(_bgmAudioSource);
+            }
+        }
+
         private AudioClip GetCurrentLevelBgm()
         {
             int level = LevelManager.Instance.GetCurrentLevel();
-            return bgmList[level - 1];
+            Debug.Log("音频：当前关卡为" + level);
+            Debug.Log("音频：当前关卡音频为" + bgmList[level - 1]);
+            return ModelsManager.Instance.GameMod.bgmList[level - 1];
         }
 
         private IEnumerator PlayBgm()
