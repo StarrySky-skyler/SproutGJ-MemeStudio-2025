@@ -80,14 +80,20 @@ public class GameJamSaveSystem
 [Serializable]
 public class UserData
 {
+    [Header("文件名")]
+    [ReadOnly]
     public string filename;
-
+    [Header("时间")]
+    [ReadOnly]
     public string time;
-
+    [Header("关卡")]
+    [ReadOnly]
     public int level;
-
+    [Header("进度")]
+    [ReadOnly]
     public float process;
-
+    [Header("玩家位置")]
+    [ReadOnly]
     public Vector2 pos;
 
 
