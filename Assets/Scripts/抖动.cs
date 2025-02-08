@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class 抖动 : MonoBehaviour
@@ -11,7 +9,7 @@ public class 抖动 : MonoBehaviour
     private Vector2 targetPosition;
     private float timer;
 
-    void Start()
+    private void Start()
     {
         // 记录初始位置
         initialPosition = transform.position;
@@ -19,7 +17,7 @@ public class 抖动 : MonoBehaviour
         timer = 0f;
     }
 
-    void Update()
+    private void Update()
     {
         // 更新计时器
         timer += Time.deltaTime;
@@ -32,8 +30,10 @@ public class 抖动 : MonoBehaviour
             float newY = initialPosition.y + Random.Range(-抖动范围, 抖动范围);
 
             // 限制目标位置在初始范围内
-            newX = Mathf.Clamp(newX, initialPosition.x - 抖动范围, initialPosition.x + 抖动范围);
-            newY = Mathf.Clamp(newY, initialPosition.y - 抖动范围, initialPosition.y + 抖动范围);
+            newX = Mathf.Clamp(newX, initialPosition.x - 抖动范围,
+                initialPosition.x + 抖动范围);
+            newY = Mathf.Clamp(newY, initialPosition.y - 抖动范围,
+                initialPosition.y + 抖动范围);
 
             targetPosition = new Vector2(newX, newY);
 
@@ -42,9 +42,7 @@ public class 抖动 : MonoBehaviour
         }
 
         // 使用 Lerp 方法平滑地移动到目标位置
-        transform.position = Vector2.Lerp(transform.position, targetPosition, Time.deltaTime * 抖动速度);
+        transform.position = Vector2.Lerp(transform.position, targetPosition,
+            Time.deltaTime * 抖动速度);
     }
 }
-
-
-

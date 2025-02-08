@@ -1,19 +1,20 @@
 using UnityEditor;
 using UnityEngine;
 
-// ×Ô¶¨ÒåÊôÐÔ»æÖÆÆ÷
+// ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½
 [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
 public class ReadOnlyDrawer : PropertyDrawer
 {
-    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+    public override void OnGUI(Rect position, SerializedProperty property,
+        GUIContent label)
     {
-        // ½«×Ö¶ÎÉèÎªÖ»¶Á£¬½ûÓÃ±à¼­
+        // ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ÎªÖ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã±à¼­
         GUI.enabled = false;
 
-        // »æÖÆÄ¬ÈÏµÄGUI¿Ø¼þ
+        // ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½GUIï¿½Ø¼ï¿½
         EditorGUI.PropertyField(position, property, label);
 
-        // »Ö¸´GUIµÄ½»»¥ÐÔ
+        // ï¿½Ö¸ï¿½GUIï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
         GUI.enabled = true;
     }
 }

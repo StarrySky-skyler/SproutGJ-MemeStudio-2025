@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 public class MsgHandler
 {
     public delegate void DelMsgHandler(Msg msg);
 
-    public static Dictionary<string, DelMsgHandler> delDic = new Dictionary<string, DelMsgHandler>();
+    public static Dictionary<string, DelMsgHandler> delDic = new();
 
     /// <summary>
-    /// Ìí¼Ó¼àÌý
+    /// ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="msg"></param>
     /// <param name="msgHandler"></param>
@@ -21,13 +22,14 @@ public class MsgHandler
     }
 
     /// <summary>
-    /// ÒÆ³ý¼àÌý
+    /// ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="msg"></param>
     /// <param name="msgHandler"></param>
     public static void RemoveListener(string msg, DelMsgHandler msgHandler)
     {
-        if (delDic != null && delDic.ContainsKey(msg)) delDic[msg] -= msgHandler;
+        if (delDic != null && delDic.ContainsKey(msg))
+            delDic[msg] -= msgHandler;
     }
 
     public static void RemoveAllListener()
@@ -36,7 +38,7 @@ public class MsgHandler
     }
 
     /// <summary>
-    /// ·¢ËÍÏûÏ¢
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     /// </summary>
     /// <param name="type"></param>
     /// <param name="msg"></param>
@@ -44,31 +46,28 @@ public class MsgHandler
     {
         DelMsgHandler delMsgHandler;
         if (delDic != null && delDic.TryGetValue(type, out delMsgHandler))
-        {
-            if (msg != null) delMsgHandler(msg);
-        }
+            if (msg != null)
+                delMsgHandler(msg);
     }
 
     /// <summary>
-    /// ¹ã²¥ÏûÏ¢
+    /// ï¿½ã²¥ï¿½ï¿½Ï¢
     /// </summary>
     /// <param name="msg"></param>
     public static void SendAllMsg(Msg msg)
     {
-        foreach (var item in delDic)
-        {
-            item.Value(msg);
-        }
+        foreach (var item in delDic) item.Value(msg);
     }
 }
 
 public class Msg
 {
+    public Animator Animator;
 
     public string Key;
-    public float Value;
-    public Animator Animator;
     public Vector3 Pos;
+    public float Value;
+
     public Msg(string key, float value, Animator ani, Vector3 pos)
     {
         Key = key;

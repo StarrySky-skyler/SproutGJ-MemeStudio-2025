@@ -1,7 +1,9 @@
-using UnityEngine;
-using UnityEngine.UI;
+using AnRan;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 public class SaveCell : MonoBehaviour
 {
     public Button enter;
@@ -11,15 +13,13 @@ public class SaveCell : MonoBehaviour
 
     public void LoadData(UserData userdata)
     {
-        this.time.text = userdata.time;
-        this.load.text = $"½ø¶È:{(userdata.process * 10f).ToString("F0")}%";
+        time.text = userdata.time;
+        load.text = $"ï¿½ï¿½ï¿½ï¿½:{(userdata.process * 10f).ToString("F0")}%";
         load_slider.fillAmount = userdata.process / 10f;
         enter.onClick.AddListener(() =>
         {
-            AnRan.GameManager.Instance.selectSaveData = userdata;
-            SceneManager.LoadScene("Select");//Ñ¡ÔñµØÍ¼
-    
+            GameManager.Instance.selectSaveData = userdata;
+            SceneManager.LoadScene("Select"); //Ñ¡ï¿½ï¿½ï¿½Í¼
         });
     }
-
 }

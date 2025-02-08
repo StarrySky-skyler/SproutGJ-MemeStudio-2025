@@ -3,46 +3,43 @@ using UnityEngine.UI;
 
 public class PopupWindow : MonoBehaviour
 {
-    public GameObject window;  // ÐèÒª¿ØÖÆÏÔÊ¾ºÍÒþ²ØµÄ´°¿Ú
-    public Button closeButton; // ÓÃÓÚ¹Ø±Õ´°¿ÚµÄ·µ»Ø°´Å¥
-    public Button openButton;  // ÓÃÓÚ´ò¿ª´°¿ÚµÄ°´Å¥
+    public GameObject window; // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ØµÄ´ï¿½ï¿½ï¿½
+    public Button closeButton; // ï¿½ï¿½ï¿½Ú¹Ø±Õ´ï¿½ï¿½ÚµÄ·ï¿½ï¿½Ø°ï¿½Å¥
+    public Button openButton; // ï¿½ï¿½ï¿½Ú´ò¿ª´ï¿½ï¿½ÚµÄ°ï¿½Å¥
 
-    void Start()
+    private void Start()
     {
-        // ³õÊ¼Ê±ÉèÖÃ´°¿ÚÎªÒþ²Ø
+        // ï¿½ï¿½Ê¼Ê±ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
         window.SetActive(false);
 
-        // ¸ø·µ»Ø°´Å¥Ìí¼Óµã»÷ÊÂ¼þ¼àÌý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ø°ï¿½Å¥ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
         closeButton.onClick.AddListener(CloseWindow);
 
-        // ¸ø´ò¿ª°´Å¥Ìí¼Óµã»÷ÊÂ¼þ¼àÌý
+        // ï¿½ï¿½ï¿½ò¿ª°ï¿½Å¥ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½
         openButton.onClick.AddListener(ShowWindow);
     }
 
-    void Update()
+    private void Update()
     {
-        // °´ÏÂ ESC ¼üÊ±¹Ø±Õ´°¿Ú
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseWindow();
-        }
+        // ï¿½ï¿½ï¿½ï¿½ ESC ï¿½ï¿½Ê±ï¿½Ø±Õ´ï¿½ï¿½ï¿½
+        if (Input.GetKeyDown(KeyCode.Escape)) CloseWindow();
 
-        //// Èç¹ûÊó±êµã»÷µ½´°¿ÚÍâ²¿ÇøÓò£¬¹Ø±Õ´°¿Ú
+        //// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½ï¿½ò£¬¹Ø±Õ´ï¿½ï¿½ï¿½
         //if (Input.GetMouseButtonDown(0) && !RectTransformUtility.RectangleContainsScreenPoint(window.GetComponent<RectTransform>(), Input.mousePosition, Camera.main))
         //{
         //    CloseWindow();
         //}
     }
 
-    // ¹Ø±Õ´°¿ÚµÄº¯Êý
-    void CloseWindow()
+    // ï¿½Ø±Õ´ï¿½ï¿½ÚµÄºï¿½ï¿½ï¿½
+    private void CloseWindow()
     {
-        window.SetActive(false);  // Òþ²Ø´°¿Ú
+        window.SetActive(false); // ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
     }
 
-    // ÏÔÊ¾´°¿ÚµÄº¯Êý£¨µã»÷Ê±µ÷ÓÃ£©
+    // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ÚµÄºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã£ï¿½
     public void ShowWindow()
     {
-        window.SetActive(true);  // ÏÔÊ¾´°¿Ú
+        window.SetActive(true); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
     }
 }

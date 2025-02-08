@@ -6,7 +6,7 @@ public class VolumeControl : MonoBehaviour
     public Slider volumeSlider; // ����������
     public AudioSource audioSource; // ��ƵԴ�����ڿ�������
 
-    void Start()
+    private void Start()
     {
         // ��ʼ��ʱ���û�������ֵΪ��ǰ��ƵԴ������
         //volumeSlider.value = audioSource.volume;
@@ -33,7 +33,7 @@ public class VolumeControl : MonoBehaviour
     }
 
     // ��������ֵ�ı�ʱ����
-    void OnVolumeChanged(float value)
+    private void OnVolumeChanged(float value)
     {
         switch (audioSource.outputAudioMixerGroup.name)
         {

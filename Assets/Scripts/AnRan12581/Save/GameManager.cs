@@ -6,25 +6,19 @@ namespace AnRan
     {
         private static bool isDontDestroyOnLoad;
 
-        [Header("µ±Ç°Ñ¡Ôñ´æµµ")]
-        public UserData selectSaveData;
+        [Header("ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½æµµ")] public UserData selectSaveData;
 
-        void Start()
+        private void Start()
         {
-
             if (!isDontDestroyOnLoad)
             {
                 isDontDestroyOnLoad = true;
                 DontDestroyOnLoad(gameObject);
-
             }
             else
             {
                 Destroy(gameObject);
             }
-
         }
     }
 }
-
-
