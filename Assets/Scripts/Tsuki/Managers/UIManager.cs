@@ -7,10 +7,12 @@
 // *****************************************************************************
 
 using System;
+using DG.Tweening;
 using TMPro;
 using Tsuki.Base;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
@@ -18,13 +20,41 @@ namespace Tsuki.Managers
     {
         [Header("暂停UI预制体")] public GameObject pausePanel;
 
-        private GameObject _pausePanel;
+        [Header("渐变时间")] public float stepFadeTime;
+        public float stepChangeFadeTime;
+
         private TextMeshProUGUI _stepText;
+        private TextMeshProUGUI _addStepText;
+        private TextMeshProUGUI _reduceStepText;
+
+        private GameObject _pausePanel;
+        private Color _addStepOriginColor;
+        private Color _reduceStepOriginColor;
+        private Color _addStepTargetColor;
+        private Color _reduceStepTargetColor;
+
+        private void Start()
+        {
+            // 获取组件
+            _stepText = GameObject.Find("UI/StepPanel/TMP_Step")
+                .GetComponent<TextMeshProUGUI>();
+            _addStepText = GameObject.Find("UI/StepPanel/TMP_StepAdd")
+                .GetComponent<TextMeshProUGUI>();
+            _reduceStepText = GameObject.Find("UI/StepPanel/TMP_StepReduce")
+                .GetComponent<TextMeshProUGUI>();
+            // 初始化
+            _addStepOriginColor = _addStepText.color;
+            _reduceStepOriginColor = _reduceStepText.color;
+            _addStepTargetColor = new Color(_addStepText.color.r,
+                _addStepText.color.g, _addStepText.color.b, 1);
+            _reduceStepTargetColor = new Color(_reduceStepText.color.r,
+                _reduceStepText.color.g, _reduceStepText.color.b, 1);
+            _stepText.color = new Color(1, 1, 1, 0);
+            UpdateStepText(ModelsManager.Instance.PlayerMod.CurrentLeftStep);
+        }
 
         private void OnEnable()
         {
-            SetStepText();
-            UpdateStepText(ModelsManager.Instance.PlayerMod.CurrentLeftStep);
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
                 ShowPauseUI);
@@ -32,9 +62,12 @@ namespace Tsuki.Managers
                 GameManagerEventType.OnGameResume, HidePauseUI);
             ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
                 UpdateStepText);
-            SceneManager.sceneLoaded += ResetPauseUI;
-            SceneManager.sceneLoaded += SetStepText;
-            SceneManager.sceneLoaded += UpdateStepText;
+            GameManager.Instance.onAllowLoadGame.AddListener((allow) =>
+            {
+                _stepText.DOColor(Color.white, stepFadeTime);
+            });
+            ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
+                UpdateStepColor);
         }
 
         private void OnDisable()
@@ -47,9 +80,6 @@ namespace Tsuki.Managers
                 GameManagerEventType.OnGameResume, HidePauseUI);
             ModelsManager.Instance.PlayerMod.onStepChanged.RemoveListener(
                 UpdateStepText);
-            SceneManager.sceneLoaded -= ResetPauseUI;
-            SceneManager.sceneLoaded -= SetStepText;
-            SceneManager.sceneLoaded -= UpdateStepText;
         }
 
         /// <summary>
@@ -84,19 +114,7 @@ namespace Tsuki.Managers
             _pausePanel.SetActive(false);
         }
 
-        private void SetStepText(Scene scene, LoadSceneMode mode)
-        {
-            _stepText = GameObject.Find("UI/TMP_Step")
-                .GetComponent<TextMeshProUGUI>();
-        }
-
-        private void SetStepText()
-        {
-            _stepText = GameObject.Find("UI/TMP_Step")
-                .GetComponent<TextMeshProUGUI>();
-        }
-
-        private void UpdateStepText(int step)
+        private void UpdateStepText(int step, bool tags = false)
         {
             _stepText.text = "剩余步数：" + step;
         }
@@ -105,6 +123,35 @@ namespace Tsuki.Managers
         {
             _stepText.text =
                 "剩余步数：" + ModelsManager.Instance.PlayerMod.CurrentLeftStep;
+        }
+
+        private void UpdateStepColor(int _, bool show = true)
+        {
+            if (show)
+            {
+                Debug.Log("开始显示");
+                _addStepText.DOColor(_addStepTargetColor, stepChangeFadeTime)
+                    .OnComplete(
+                        () =>
+                        {
+                            _addStepText.DOColor(_addStepOriginColor,
+                                stepChangeFadeTime);
+                        }
+                    );
+            }
+            else
+            {
+                Debug.Log("开始隐藏");
+                _reduceStepText.DOColor(_reduceStepTargetColor,
+                        stepChangeFadeTime)
+                    .OnComplete(
+                        () =>
+                        {
+                            _reduceStepText.DOColor(_reduceStepOriginColor,
+                                stepChangeFadeTime);
+                        }
+                    );
+            }
         }
     }
 }

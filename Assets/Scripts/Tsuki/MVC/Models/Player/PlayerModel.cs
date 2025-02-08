@@ -26,8 +26,10 @@ namespace Tsuki.MVC.Models.Player
             private set
             {
                 if (_currentLeftStep == value) return;
+                int originalStep = _currentLeftStep;
                 _currentLeftStep = value;
-                onStepChanged?.Invoke(_currentLeftStep);
+                onStepChanged?.Invoke(_currentLeftStep,
+                    _currentLeftStep > originalStep);
             }
         }
 
@@ -43,15 +45,15 @@ namespace Tsuki.MVC.Models.Player
         }
 
         public UnityEvent<bool> onMoveStatusChanged;
-        
-        public UnityEvent<int> onStepChanged;
+
+        public UnityEvent<int, bool> onStepChanged;
 
         public Vector2Int LastDirection { get; set; } // 移动方向
         public Vector3 CurrentPos { get; set; }
         public Stack<Vector3> LastPosStack { get; private set; } // 上一次的位置
 
         private bool _isMoving;
-        
+
         private int _currentLeftStep;
 
         /// <summary>

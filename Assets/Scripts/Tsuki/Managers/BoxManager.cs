@@ -34,6 +34,7 @@ namespace Tsuki.Managers
 
         public UnityEvent<bool> onWinChanged;
         public UnityEvent onBoxCorrectAdded;
+        public UnityEvent onBoxCorrectRemoved;
 
         private bool _win;
         private int _boxCount;
@@ -90,6 +91,7 @@ namespace Tsuki.Managers
         public void RemoveCorrectBox()
         {
             _boxCorrectCount = Mathf.Max(_boxCorrectCount - 1, 0);
+            onBoxCorrectRemoved?.Invoke();
             Debug.Log(
                 $"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
         }
