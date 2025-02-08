@@ -9,6 +9,7 @@ TagManager:
   - Weeders
   - Grass
   - UI
+  - ScreenMask
   layers:
   - Default
   - TransparentFX

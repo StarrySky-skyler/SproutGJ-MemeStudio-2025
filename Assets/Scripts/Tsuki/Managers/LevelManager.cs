@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System.Text.RegularExpressions;
+using Tsuki.Entities.ScreenMask;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -85,8 +86,14 @@ namespace Tsuki.Managers
             if (GetCurrentLevel() ==
                 ModelsManager.Instance.GameMod.maxLevel - 1)
                 BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +
-                                   1);
+            GameObject.FindWithTag("ScreenMask").GetComponent<ScreenMask>()
+                .FadeIn(
+                    () =>
+                    {
+                        SceneManager.LoadScene(
+                            SceneManager.GetActiveScene().buildIndex +
+                            1);
+                    });
         }
     }
 }
