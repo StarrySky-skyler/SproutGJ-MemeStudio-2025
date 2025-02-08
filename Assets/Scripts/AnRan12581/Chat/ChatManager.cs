@@ -85,8 +85,9 @@ public class ChatManager : MonoBehaviour
                 StopAllCoroutines(); // 停止所有协程
                 chatContent.text =
                     chatInfos[currentIndex].chatContent; // 直接显示完整的聊天内容
-                chatInfos[currentIndex].chatEndEvent?.Invoke(); // 执行聊天结束事件
+
                 StartCoroutine(CreateChatBtns(currentIndex)); // 开始生成聊天选项按钮
+                chatInfos[currentIndex].chatEndEvent?.Invoke(); // 执行聊天结束事件
                 isChat = false; // 标记为聊天已结束
                 currentIndex++; // 增加聊天索引，显示下一个聊天内容
                 return;
