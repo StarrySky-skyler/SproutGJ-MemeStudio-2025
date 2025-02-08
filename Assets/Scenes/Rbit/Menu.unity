@@ -378,7 +378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &107021312
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3814,7 +3814,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 672390548245680356, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1264754233899070981, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_Pivot.x
@@ -3847,6 +3847,18 @@ PrefabInstance:
     - target: {fileID: 1264754233899070981, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264754233899070981, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264754233899070981, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264754233899070981, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1264754233899070981, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3898,7 +3910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2156191556756119987, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2983361987748829938, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: audioSource
@@ -3906,15 +3918,19 @@ PrefabInstance:
       objectReference: {fileID: 1342445305}
     - target: {fileID: 3277023442250985511, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4801201373388988715, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_Name
       value: OptionPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 4801201373388988715, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5262440833675609739, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5673811021974220435, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: audioSource
