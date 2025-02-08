@@ -350,7 +350,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -585,7 +584,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -1207,7 +1205,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -1717,7 +1714,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -2156,7 +2152,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
