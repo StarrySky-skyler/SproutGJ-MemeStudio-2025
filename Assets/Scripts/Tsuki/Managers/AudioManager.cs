@@ -32,6 +32,7 @@ namespace Tsuki.Managers
         private AudioFade _audioFade;
         private AudioSource _bgmAudioSource;
         private AudioSource _sfxAudioSource;
+        private bool _allowAddCorrectBoxSfx; // 是否允许添加正确箱子音效，用于场切后防止立即播放
 
         protected override void Awake()
         {
@@ -65,7 +66,10 @@ namespace Tsuki.Managers
 
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
             BoxManager.Instance.onBoxCorrectAdded.AddListener(() =>
-                PlayWinSoundEffect(true));
+            {
+                if (_allowAddCorrectBoxSfx) PlayWinSoundEffect(true);
+            });
+
             SceneManager.sceneLoaded += (_, _) =>
             {
                 GameObject audio = GameObject.FindWithTag("Audio");
@@ -75,9 +79,10 @@ namespace Tsuki.Managers
                 _bgmAudioSource.loop = true;
                 _sfxAudioSource.loop = false;
             };
+            SceneManager.sceneLoaded += (_, _) => { PlayLevelBgm(false); };
             SceneManager.sceneLoaded += (_, _) =>
             {
-                PlayLevelBgm(false);
+                StartCoroutine(WaitCorrectBoxSfx());
             };
         }
 
@@ -87,6 +92,13 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
+        }
+
+        private IEnumerator WaitCorrectBoxSfx()
+        {
+            _allowAddCorrectBoxSfx = false;
+            yield return new WaitForSeconds(1.5f);
+            _allowAddCorrectBoxSfx = true;
         }
 
         /// <summary>
