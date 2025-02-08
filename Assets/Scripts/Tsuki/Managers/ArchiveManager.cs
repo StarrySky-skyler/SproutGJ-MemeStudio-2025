@@ -16,6 +16,8 @@ namespace Tsuki.Managers
 {
     public class ArchiveManager : Singleton<ArchiveManager>
     {
+
+        [SerializeField]
         private List<UserData> _userDataList;
         private readonly string _archiveFileNameFormatter = "archive";
 
@@ -24,6 +26,11 @@ namespace Tsuki.Managers
             base.Awake();
             AddSerializedJson.AddAllConverter();
             _userDataList = new List<UserData>();
+
+        }
+
+        private void Start()
+        {
             ReadAllArchive();
         }
 
