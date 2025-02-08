@@ -8,6 +8,7 @@
 
 using System;
 using TMPro;
+using Tsuki.Base;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

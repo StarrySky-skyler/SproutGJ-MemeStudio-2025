@@ -34,9 +34,7 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
             _text = txt;
             _textColoredStr = _text.text;
             _originStr = _text.text;
-            string temp = _textColoredStr.Aggregate("",
-                (current, c) => current + ("<color=#FFFFF>" + c + "</color>"));
-            _textColoredStr = temp;
+            _textColoredStr = $"<color=#FFFFF>{_originStr}</color>";
         }
         else
         {

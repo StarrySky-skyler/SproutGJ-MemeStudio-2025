@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using JetBrains.Annotations;
+using Tsuki.Base;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,9 +82,11 @@ namespace Tsuki.Managers
             // 注册事件
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 RandomPlayMoveSoundEffect);
+
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
             BoxManager.Instance.onBoxCorrectAdded.AddListener(() =>
-                PlayWinSoundEffect(true));
+                    PlayWinSoundEffect(true));
+            
         }
 
         private void OnDisable()
@@ -92,6 +95,7 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
+            
         }
 
         private void PlayLevelBgm(bool fadeOutLast = true)

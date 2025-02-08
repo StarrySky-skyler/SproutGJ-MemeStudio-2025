@@ -8,6 +8,7 @@
 
 using System;
 using JetBrains.Annotations;
+using Tsuki.Base;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -22,12 +23,6 @@ namespace Tsuki.Managers
         public UnityEvent onGamePause;
         public UnityEvent onGameResume;
         public UnityEvent onGameUndo;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            DontDestroyOnLoad(gameObject);
-        }
 
         protected override void OnDestroy()
         {

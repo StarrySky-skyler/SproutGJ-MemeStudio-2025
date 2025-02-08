@@ -8,6 +8,7 @@
 
 using System;
 using JetBrains.Annotations;
+using Tsuki.Base;
 using Tsuki.MVC.Models.Player;
 using Tsuki.Effects;
 using UnityEngine;
