@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c4116924975032648ba760a30e51a1bb
+guid: 39f1b825917811a4b8d58a6fe504fc47
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4159258349873833056
-    second: char_protagonist_shock_0
+      213: 5268303201886938539
+    second: "\u751F\u6210\u4E8C\u6B21\u5143\u534A\u8EAB\u50CFNPC1_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: char_protagonist_shock_0
+      name: "\u751F\u6210\u4E8C\u6B21\u5143\u534A\u8EAB\u50CFNPC1_0"
       rect:
         serializedVersion: 2
-        x: 1
+        x: 464
         y: 0
-        width: 576
-        height: 1008
+        width: 634
+        height: 809
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 064ae49be67a8b930800000000000000
-      internalID: 4159258349873833056
+      spriteID: ba5268579d5cc1940800000000000000
+      internalID: 5268303201886938539
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      char_protagonist_shock_0: 4159258349873833056
+      "\u751F\u6210\u4E8C\u6B21\u5143\u534A\u8EAB\u50CFNPC1_0": 5268303201886938539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
