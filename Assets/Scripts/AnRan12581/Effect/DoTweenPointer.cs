@@ -13,7 +13,6 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
     [Header("整体动画时间")] public float dotimer = 0.1f;
     [Header("进入风格")] public Ease Enter_style = Ease.InOutQuad;
     [Header("退出风格")] public Ease Exit_style = Ease.InOutQuad;
-    [Header("字体动画时间")] public float textDuration=0.1f;
 
     [SerializeField]
     [ReadOnly]
@@ -49,9 +48,9 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
 
         if (_text == null) return;
 
-        _text.DOText(_textColoredStr, textDuration, true).OnComplete(() =>
+        _text.DOText(_textColoredStr, 0.1f, true).OnComplete(() =>
         {
-            _text.DOText(_originStr, textDuration);
+            _text.DOText(_originStr, 0.1f);
         });
     }
 

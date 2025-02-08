@@ -12,6 +12,7 @@ using Tsuki.MVC.Models.Player;
 using Tsuki.MVC.Views.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Tsuki.MVC.Controllers.Player
 {
@@ -23,6 +24,7 @@ namespace Tsuki.MVC.Controllers.Player
         public LayerMask grassLayer;
 
         private PlayerMoveHandler _moveHandler;
+        private bool _moveable = true;
 
         private void Awake()
         {
@@ -39,6 +41,7 @@ namespace Tsuki.MVC.Controllers.Player
 
         public void OnMove(InputValue context)
         {
+            if (!_moveable) return;
             _moveHandler.GetLineMovable(out bool moveX, out bool moveY);
             _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
@@ -52,6 +55,12 @@ namespace Tsuki.MVC.Controllers.Player
                 (_moveHandler as IPauseable).Resume);
             GameManager.Instance.onGameUndo.AddListener(
                 (_moveHandler as IUndoable).Undo);
+            GameManager.Instance.beforeGameReload.AddListener(
+                () => { _moveable = false; });
+            SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>
+            {
+                _moveable = true;
+            };
         }
 
         private void OnDisable()

@@ -74,6 +74,7 @@ namespace Tsuki.Managers
             _bgmAudioSource.volume = 0;
             // StartCoroutine(PlayBgm());
             PlayLevelBgm(false);
+            // 注册事件
             SceneManager.sceneLoaded += (scene, mode) => { PlayLevelBgm(); };
         }
 
@@ -85,8 +86,7 @@ namespace Tsuki.Managers
 
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
             BoxManager.Instance.onBoxCorrectAdded.AddListener(() =>
-                    PlayWinSoundEffect(true));
-            
+                PlayWinSoundEffect(true));
         }
 
         private void OnDisable()
@@ -95,7 +95,6 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
-            
         }
 
         private void PlayLevelBgm(bool fadeOutLast = true)
@@ -228,6 +227,22 @@ namespace Tsuki.Managers
                 _bgmAudioSource.clip = birthdayBgm;
                 _audioFade.FadeIn(_bgmAudioSource);
             });
+        }
+
+        public void WaitPlayFailSFX(Action callback = null)
+        {
+            StartCoroutine(WaitForPlayFailSFX(callback));
+        }
+
+        private IEnumerator WaitForPlayFailSFX(Action callback = null)
+        {
+            PlaySoundEffect(SoundEffectType.Fail);
+            while (_sfxAudioSource.isPlaying)
+            {
+                yield return null;
+            }
+
+            callback?.Invoke();
         }
     }
 }
