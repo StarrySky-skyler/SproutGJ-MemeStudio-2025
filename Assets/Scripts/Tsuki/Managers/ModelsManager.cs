@@ -22,6 +22,7 @@ namespace Tsuki.Managers
             base.Awake();
             PlayerMod = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             GameMod = Resources.Load<GameModel>("Tsuki/GameModel");
+            PlayerMod.Init();
         }
     }
 }

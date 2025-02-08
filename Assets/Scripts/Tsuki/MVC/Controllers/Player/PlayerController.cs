@@ -33,11 +33,6 @@ namespace Tsuki.MVC.Controllers.Player
             _moveHandler = new PlayerMoveHandler(this);
         }
 
-        private void Start()
-        {
-            ModelsManager.Instance.PlayerMod.Init();
-        }
-
         public void OnMove(InputValue context)
         {
             if (!_moveable || !GameManager.Instance.AllowLoadGame) return;

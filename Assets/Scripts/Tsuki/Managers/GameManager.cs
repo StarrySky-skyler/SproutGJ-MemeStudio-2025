@@ -50,7 +50,7 @@ namespace Tsuki.Managers
 
         private void Start()
         {
-            AllowLoadGame = false;
+            if (!GameObject.Find("chatBack")) AllowLoadGame = true;
         }
 
         protected override void OnDestroy()

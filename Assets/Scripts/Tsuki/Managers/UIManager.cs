@@ -36,8 +36,6 @@ namespace Tsuki.Managers
         private void Start()
         {
             // 获取组件
-            _stepText = GameObject.Find("UI/StepPanel/TMP_Step")
-                .GetComponent<TextMeshProUGUI>();
             _addStepText = GameObject.Find("UI/StepPanel/TMP_StepAdd")
                 .GetComponent<TextMeshProUGUI>();
             _reduceStepText = GameObject.Find("UI/StepPanel/TMP_StepReduce")
@@ -55,17 +53,20 @@ namespace Tsuki.Managers
 
         private void OnEnable()
         {
+            _stepText = GameObject.Find("UI/StepPanel/TMP_Step")
+                .GetComponent<TextMeshProUGUI>();
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
                 ShowPauseUI);
             GameManager.Instance.RegisterEvent(
                 GameManagerEventType.OnGameResume, HidePauseUI);
-            ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
-                UpdateStepText);
             GameManager.Instance.onAllowLoadGame.AddListener((allow) =>
             {
-                _stepText.DOColor(Color.white, stepFadeTime);
+                if (allow)
+                    _stepText.DOColor(Color.white, stepFadeTime);
             });
+            ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
+                UpdateStepText);
             ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
                 UpdateStepColor);
         }
@@ -118,7 +119,7 @@ namespace Tsuki.Managers
         {
             _stepText.text = "剩余步数：" + step;
         }
-        
+
         private void UpdateStepText(int step, bool _)
         {
             UpdateStepText(step);

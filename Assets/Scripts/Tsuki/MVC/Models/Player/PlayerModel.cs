@@ -27,10 +27,9 @@ namespace Tsuki.MVC.Models.Player
             private set
             {
                 if (_currentLeftStep == value) return;
-                int originalStep = _currentLeftStep;
+                bool tags = value > _currentLeftStep;
                 _currentLeftStep = value;
-                onStepChanged?.Invoke(_currentLeftStep,
-                    _currentLeftStep > originalStep);
+                onStepChanged?.Invoke(_currentLeftStep, tags);
             }
         }
 
@@ -62,6 +61,7 @@ namespace Tsuki.MVC.Models.Player
         /// </summary>
         public void Init()
         {
+            onStepChanged = new UnityEvent<int, bool>();
             CurrentLeftStep = maxMoveStep;
             _isMoving = false;
             LastPosStack = new Stack<Vector3>();
