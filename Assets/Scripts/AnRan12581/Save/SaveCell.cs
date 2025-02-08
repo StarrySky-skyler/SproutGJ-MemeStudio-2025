@@ -2,13 +2,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-public class SaveCell : MonoBehaviour
+using UnityEngine.EventSystems;
+public class SaveCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
+    public Sprite normal;
+    public Sprite highlight;
     public Button enter;
     public TMP_Text title;
     public TMP_Text time;
     public TMP_Text load;
     public Image load_slider;
+    private Image img;
+
+    void Start()
+    {
+        img = GetComponent<Image>();
+    }
 
     public void LoadData(UserData userdata)
     {
@@ -24,4 +33,13 @@ public class SaveCell : MonoBehaviour
         });
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        img.sprite = highlight;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        img.sprite = normal;
+    }
 }
