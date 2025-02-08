@@ -6,16 +6,10 @@
 // @description: 游戏管理器单例
 // *****************************************************************************
 
-using System;
-using System.Collections;
-using JetBrains.Annotations;
-using Tsuki.Base;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
