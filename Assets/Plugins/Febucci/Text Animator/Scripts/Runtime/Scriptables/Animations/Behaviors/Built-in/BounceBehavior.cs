@@ -1,11 +1,12 @@
 ﻿using Febucci.UI.Core;
-using Febucci.UI.Effects;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Febucci.UI.Effects
 {
-    [UnityEngine.Scripting.Preserve]
-    [CreateAssetMenu(fileName = "Bounce", menuName = "Text Animator/Animations/Behaviors/Bounce")]
+    [Preserve]
+    [CreateAssetMenu(fileName = "Bounce",
+        menuName = "Text Animator/Animations/Behaviors/Bounce")]
     [EffectInfo("bounce", EffectCategory.Behaviors)]
     [DefaultValue(nameof(baseAmplitude), 13.19f)]
     [DefaultValue(nameof(baseFrequency), 1f)]
@@ -13,7 +14,7 @@ namespace Febucci.UI.Effects
     public sealed class BounceBehavior : BehaviorScriptableSine
     {
         //Calculates the tween percentage
-        float BounceTween(float t)
+        private float BounceTween(float t)
         {
             const float stillTime = .2f;
             const float easeIn = .2f;
@@ -29,13 +30,15 @@ namespace Febucci.UI.Effects
             return 0;
         }
 
-        public override void ApplyEffectTo(ref Core.CharacterData character, TAnimCore animator)
+        public override void ApplyEffectTo(ref CharacterData character,
+            TAnimCore animator)
         {
             character.current.positions.MoveChar(
                 Vector3.up * character.uniformIntensity *
-                BounceTween((Mathf.Repeat(animator.time.timeSinceStart * frequency - waveSize * character.index, 1))) * amplitude
-                );
+                BounceTween(Mathf.Repeat(
+                    animator.time.timeSinceStart * frequency -
+                    waveSize * character.index, 1)) * amplitude
+            );
         }
     }
-
 }

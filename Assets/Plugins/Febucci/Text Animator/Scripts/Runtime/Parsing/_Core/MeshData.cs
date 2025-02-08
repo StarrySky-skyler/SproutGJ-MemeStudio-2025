@@ -1,8 +1,10 @@
+using System;
+using System.Text;
 using UnityEngine;
 
 namespace Febucci.UI.Core
 {
-    public struct MeshData : System.IEquatable<MeshData>
+    public struct MeshData : IEquatable<MeshData>
     {
         public Vector3[] positions;
         public Color32[] colors;
@@ -12,24 +14,20 @@ namespace Febucci.UI.Core
         {
             //checks every position with other's position
             for (int i = 0; i < positions.Length; i++)
-            {
                 if (positions[i] != other.positions[i])
                     return false;
-            }
 
             //checks every color with other's color
             for (int i = 0; i < colors.Length; i++)
-            {
                 if (!colors[i].Equals(other.colors[i]))
                     return false;
-            }
 
             return true;
         }
 
         public override string ToString()
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            StringBuilder sb = new();
             //prints positions and colors
             for (int i = 0; i < positions.Length; i++)
             {
@@ -38,6 +36,7 @@ namespace Febucci.UI.Core
                 sb.Append(colors[i].ToString());
                 sb.Append(" - ");
             }
+
             return sb.ToString();
         }
     }

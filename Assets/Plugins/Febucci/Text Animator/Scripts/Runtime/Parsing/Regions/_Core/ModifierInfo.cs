@@ -2,7 +2,7 @@
 
 namespace Febucci.UI
 {
-    public struct ModifierInfo: IEquatable<ModifierInfo>
+    public struct ModifierInfo : IEquatable<ModifierInfo>
     {
         public string name;
         public float value;
@@ -13,9 +13,14 @@ namespace Febucci.UI
             this.value = value;
         }
 
-        public bool Equals(ModifierInfo other) => value.Equals(other.value) && name.Equals(other.name);
+        public bool Equals(ModifierInfo other)
+        {
+            return value.Equals(other.value) && name.Equals(other.name);
+        }
 
-        public override string ToString() => $"{name}={value}";
+        public override string ToString()
+        {
+            return $"{name}={value}";
+        }
     }
-
 }

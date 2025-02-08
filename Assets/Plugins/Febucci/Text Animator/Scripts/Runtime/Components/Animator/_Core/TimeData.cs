@@ -1,9 +1,11 @@
+using System;
+
 namespace Febucci.UI
 {
     /// <summary>
     /// Contains TextAnimator's current time values.
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public struct TimeData
     {
         /// <summary>
@@ -21,7 +23,10 @@ namespace Febucci.UI
             timeSinceStart = 0;
         }
 
-        internal void IncreaseTime() => timeSinceStart += deltaTime;
+        internal void IncreaseTime()
+        {
+            timeSinceStart += deltaTime;
+        }
 
         internal void UpdateDeltaTime(float deltaTime)
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace Febucci.UI.Core
 {
@@ -18,7 +19,8 @@ namespace Febucci.UI.Core
         /// <param name="defValue">default value, assigned if the parsing is not successful</param>
         /// <param name="result">result from the parsing</param>
         /// <returns><c>true</c> if successful</returns>
-        public static bool TryGetFloat(List<string> attributes, int index, float defValue, out float result)
+        public static bool TryGetFloat(List<string> attributes, int index,
+            float defValue, out float result)
         {
             if (index >= attributes.Count || index < 0)
             {
@@ -30,7 +32,8 @@ namespace Febucci.UI.Core
         }
 
         //TODO Docs
-        public static bool TryGetFloat(string attribute, float defValue, out float result)
+        public static bool TryGetFloat(string attribute, float defValue,
+            out float result)
         {
             if (ParseFloat(attribute, out result))
                 return true;
@@ -47,8 +50,8 @@ namespace Febucci.UI.Core
         /// <returns></returns>
         public static bool ParseFloat(string value, out float result)
         {
-            return float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out result);
+            return float.TryParse(value, NumberStyles.Float,
+                CultureInfo.InvariantCulture, out result);
         }
     }
-
 }

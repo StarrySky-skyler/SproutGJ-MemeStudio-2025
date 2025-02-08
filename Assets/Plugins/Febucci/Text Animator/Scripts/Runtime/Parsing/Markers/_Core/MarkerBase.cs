@@ -1,13 +1,17 @@
+using System;
+using System.Text;
+
 namespace Febucci.UI.Core.Parsing
 {
-    public abstract class MarkerBase : System.IComparable<MarkerBase>
+    public abstract class MarkerBase : IComparable<MarkerBase>
     {
-        public readonly string name;
         public readonly int index;
         internal readonly int internalOrder;
+        public readonly string name;
         public string[] parameters;
 
-        public MarkerBase(string name, int index, int internalOrder, string[] parameters)
+        public MarkerBase(string name, int index, int internalOrder,
+            string[] parameters)
         {
             this.name = name;
             this.index = index;
@@ -29,9 +33,9 @@ namespace Febucci.UI.Core.Parsing
 
         public override string ToString()
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            StringBuilder sb = new();
             sb.Append(name);
-            sb.Append(" internal order:"); 
+            sb.Append(" internal order:");
             sb.Append(internalOrder);
             sb.Append(" index:");
             sb.Append(index);
@@ -41,6 +45,7 @@ namespace Febucci.UI.Core.Parsing
                 sb.Append(parameters[i]);
                 sb.Append('\n');
             }
+
             return sb.ToString();
         }
     }

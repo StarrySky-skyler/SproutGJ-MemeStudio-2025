@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 namespace Febucci.UI.Core.Parsing
 {
@@ -29,5 +29,4 @@ namespace Febucci.UI.Core.Parsing
                 this.ranges[i] = new TagRange(ranges[i]);
         }
     }
-
 }

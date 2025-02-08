@@ -1,16 +1,17 @@
-using UnityEngine;
+using System;
 using UnityEditor;
+using UnityEngine;
 
 namespace Febucci.UI.Core
 {
     //handles drawing of each single effect
     //with possibility to expand and directly draw the scriptable object as well
-    [System.Serializable]
-    class DatabaseSharedDrawer : SharedDrawer
+    [Serializable]
+    internal class DatabaseSharedDrawer : SharedDrawer
     {
-        SerializedProperty pairsProperty;
-        [SerializeField] AnimationElementDrawer[] elements;
-        
+        [SerializeField] private AnimationElementDrawer[] elements;
+        private SerializedProperty pairsProperty;
+
         protected override void OnEnabled(SerializedObject baseObject)
         {
             base.OnEnabled(baseObject);
@@ -18,22 +19,22 @@ namespace Febucci.UI.Core
             MatchEffectsWithArray();
         }
 
-        void MatchEffectsWithArray()
+        private void MatchEffectsWithArray()
         {
             if (elements == null || elements.Length != pairsProperty.arraySize)
             {
                 elements = new AnimationElementDrawer[pairsProperty.arraySize];
                 for (int i = 0; i < elements.Length; i++)
-                {
-                    elements[i] = new AnimationElementDrawer(pairsProperty.GetArrayElementAtIndex(i));
-                }
+                    elements[i] =
+                        new AnimationElementDrawer(
+                            pairsProperty.GetArrayElementAtIndex(i));
             }
         }
 
         protected override void _OnInspectorGUI()
         {
             MatchEffectsWithArray(); //putting this one here since might change after Undo
-            
+
             for (var i = 0; i < elements.Length; i++)
             {
                 var effect = elements[i];
@@ -52,22 +53,21 @@ namespace Febucci.UI.Core
                     effect.somethingChanged = false;
                 }
             }
-            
+
             //Adds new effect if there isn't any available slot already //TODO check every position
-            if (elements.Length == 0 || elements[elements.Length - 1].hasScriptable)
-            {
-                if(EditorGUILayout.Foldout(false, "->[Add new effect]", true))
+            if (elements.Length == 0 ||
+                elements[elements.Length - 1].hasScriptable)
+                if (EditorGUILayout.Foldout(false, "->[Add new effect]", true))
                 {
-                    pairsProperty.InsertArrayElementAtIndex(pairsProperty.arraySize);
+                    pairsProperty.InsertArrayElementAtIndex(pairsProperty
+                        .arraySize);
                     MatchEffectsWithArray();
                     //Sets last element as empty
-                    elements[elements.Length - 1].propertyScriptable.objectReferenceValue = null;
+                    elements[elements.Length - 1].propertyScriptable
+                        .objectReferenceValue = null;
                     ApplyChanges();
                     elements[elements.Length - 1].expanded = true;
-                    return;
                 }
-            }
         }
     }
-
 }

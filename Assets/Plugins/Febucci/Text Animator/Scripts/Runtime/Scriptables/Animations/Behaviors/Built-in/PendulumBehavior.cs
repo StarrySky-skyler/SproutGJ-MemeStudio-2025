@@ -1,10 +1,12 @@
 ﻿using Febucci.UI.Core;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Febucci.UI.Effects
 {
-    [UnityEngine.Scripting.Preserve]
-    [CreateAssetMenu(fileName = "Pendulum Behavior", menuName = "Text Animator/Animations/Behaviors/Pendulum")]
+    [Preserve]
+    [CreateAssetMenu(fileName = "Pendulum Behavior",
+        menuName = "Text Animator/Animations/Behaviors/Pendulum")]
     [EffectInfo("pend", EffectCategory.Behaviors)]
     [DefaultValue(nameof(baseAmplitude), 24.7f)]
     [DefaultValue(nameof(baseFrequency), 3.1f)]
@@ -13,8 +15,8 @@ namespace Febucci.UI.Effects
     {
         public bool anchorBottom;
 
-        int targetVertex1;
-        int targetVertex2;
+        private int targetVertex1;
+        private int targetVertex2;
 
         public override void ResetContext(TAnimCore animator)
         {
@@ -34,13 +36,16 @@ namespace Febucci.UI.Effects
             }
         }
 
-        public override void ApplyEffectTo(ref Core.CharacterData character, TAnimCore animator)
+        public override void ApplyEffectTo(ref CharacterData character,
+            TAnimCore animator)
         {
             character.current.positions.RotateChar(
-                Mathf.Sin(-animator.time.timeSinceStart * frequency + waveSize * character.index) * amplitude,
-                (character.current.positions[targetVertex1] + character.current.positions[targetVertex2]) / 2 //bottom center as their rotation pivot
-                );
+                Mathf.Sin(-animator.time.timeSinceStart * frequency +
+                          waveSize * character.index) * amplitude,
+                (character.current.positions[targetVertex1] +
+                 character.current.positions[targetVertex2]) /
+                2 //bottom center as their rotation pivot
+            );
         }
     }
-
 }

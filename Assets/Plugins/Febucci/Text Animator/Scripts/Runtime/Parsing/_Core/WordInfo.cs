@@ -6,7 +6,8 @@ namespace Febucci.UI.Core
         public readonly int lastCharacterIndex;
         public readonly string text;
 
-        public WordInfo(int firstCharacterIndex, int lastCharacterIndex, string text)
+        public WordInfo(int firstCharacterIndex, int lastCharacterIndex,
+            string text)
         {
             this.firstCharacterIndex = firstCharacterIndex;
             this.lastCharacterIndex = lastCharacterIndex;

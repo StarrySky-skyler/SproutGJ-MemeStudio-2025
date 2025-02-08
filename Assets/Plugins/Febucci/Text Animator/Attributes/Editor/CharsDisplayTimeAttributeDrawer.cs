@@ -1,29 +1,32 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Febucci.Attributes
 {
     [CustomPropertyDrawer(typeof(CharsDisplayTimeAttribute))]
     public class CharsDisplayTimeAttributeDrawer : PropertyDrawer
     {
-        const float minWaitTime = 0.0001f;
+        private const float minWaitTime = 0.0001f;
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty property,
+            GUIContent label)
         {
             //delay in seconds
-            Rect delayValueRect = new Rect(position.x, position.y, 70 + 230 - position.x, position.height);
-            delayValueRect.width = Mathf.Clamp(position.width * 0.6f, 170, position.width);
+            Rect delayValueRect = new(position.x, position.y,
+                70 + 230 - position.x, position.height);
+            delayValueRect.width =
+                Mathf.Clamp(position.width * 0.6f, 170, position.width);
 
-            Rect delayLabel = new Rect(delayValueRect);
+            Rect delayLabel = new(delayValueRect);
             delayLabel.x += delayLabel.width - 15;
             delayLabel.width = 77;
 
-            Rect charPerSecValueRect = new Rect(delayLabel);
+            Rect charPerSecValueRect = new(delayLabel);
             charPerSecValueRect.x += charPerSecValueRect.width - 15;
             charPerSecValueRect.width = 65;
 
 
-            Rect charPerSecLabelRect = new Rect(charPerSecValueRect);
+            Rect charPerSecLabelRect = new(charPerSecValueRect);
             charPerSecLabelRect.x += charPerSecLabelRect.width - 15;
             charPerSecLabelRect.width = 120;
 
@@ -31,22 +34,22 @@ namespace Febucci.Attributes
             {
                 case SerializedPropertyType.Float:
 
-                    property.floatValue = EditorGUI.FloatField(delayValueRect, label, property.floatValue);
+                    property.floatValue = EditorGUI.FloatField(delayValueRect,
+                        label, property.floatValue);
 
-                    EditorGUI.LabelField(delayLabel, $"s delay, ≈");
+                    EditorGUI.LabelField(delayLabel, "s delay, \u2248");
 
 
-
-                    int charPerSecond = Mathf.RoundToInt(1 / property.floatValue);
+                    int charPerSecond =
+                        Mathf.RoundToInt(1 / property.floatValue);
 
                     EditorGUI.LabelField(charPerSecLabelRect, "chars per sec");
                     EditorGUI.BeginChangeCheck();
-                    charPerSecond = EditorGUI.IntField(charPerSecValueRect, charPerSecond);
+                    charPerSecond = EditorGUI.IntField(charPerSecValueRect,
+                        charPerSecond);
 
                     if (EditorGUI.EndChangeCheck())
-                    {
-                        property.floatValue = 1f/charPerSecond;
-                    }
+                        property.floatValue = 1f / charPerSecond;
 
                     if (property.floatValue < minWaitTime)
                         property.floatValue = minWaitTime;
@@ -58,9 +61,6 @@ namespace Febucci.Attributes
                     EditorGUI.PropertyField(position, property, label);
                     return;
             }
-
         }
-
     }
-
 }

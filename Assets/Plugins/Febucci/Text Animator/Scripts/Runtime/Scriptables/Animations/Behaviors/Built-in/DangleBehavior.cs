@@ -1,10 +1,12 @@
 ﻿using Febucci.UI.Core;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Febucci.UI.Effects
 {
-    [UnityEngine.Scripting.Preserve]
-    [CreateAssetMenu(menuName = "Text Animator/Animations/Behaviors/Dangle", fileName = "Dangle Behavior")]
+    [Preserve]
+    [CreateAssetMenu(menuName = "Text Animator/Animations/Behaviors/Dangle",
+        fileName = "Dangle Behavior")]
     [EffectInfo("dangle", EffectCategory.Behaviors)]
     [DefaultValue(nameof(baseAmplitude), 7.87f)]
     [DefaultValue(nameof(baseFrequency), 3.37f)]
@@ -12,10 +14,10 @@ namespace Febucci.UI.Effects
     public sealed class DangleBehavior : BehaviorScriptableSine
     {
         public bool anchorBottom;
-        float sin;
+        private float sin;
 
-        int targetIndex1;
-        int targetIndex2;
+        private int targetIndex1;
+        private int targetIndex2;
 
         public override void ResetContext(TAnimCore animator)
         {
@@ -34,10 +36,12 @@ namespace Febucci.UI.Effects
             }
         }
 
-        public override void ApplyEffectTo(ref Core.CharacterData character, TAnimCore animator)
+        public override void ApplyEffectTo(ref CharacterData character,
+            TAnimCore animator)
         {
-
-            sin = Mathf.Sin(frequency * animator.time.timeSinceStart + character.index * waveSize) * amplitude * character.uniformIntensity;
+            sin = Mathf.Sin(frequency * animator.time.timeSinceStart +
+                            character.index * waveSize) * amplitude *
+                  character.uniformIntensity;
 
             //moves one side (top or bottom) torwards one direction
             character.current.positions[targetIndex1] += Vector3.right * sin;

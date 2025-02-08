@@ -15,18 +15,20 @@ namespace Febucci.UI.Core
     public class TagInfoAttribute : Attribute
     {
         public readonly string tagID;
+
         public TagInfoAttribute(string tagID)
         {
             this.tagID = tagID;
         }
     }
-    
+
     [AttributeUsage(AttributeTargets.Class)]
     public class EffectInfoAttribute : TagInfoAttribute
     {
         public readonly EffectCategory category;
-        
-        public EffectInfoAttribute(string tagID, EffectCategory category) : base(tagID)
+
+        public EffectInfoAttribute(string tagID, EffectCategory category) :
+            base(tagID)
         {
             this.category = category;
         }

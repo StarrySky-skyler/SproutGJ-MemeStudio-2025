@@ -1,19 +1,20 @@
 ﻿using Febucci.UI.Core;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Febucci.UI.Effects
 {
-    [UnityEngine.Scripting.Preserve]
-    [CreateAssetMenu(menuName = "Text Animator/Animations/Behaviors/Rotation", fileName = "Rotation Behavior")]
+    [Preserve]
+    [CreateAssetMenu(menuName = "Text Animator/Animations/Behaviors/Rotation",
+        fileName = "Rotation Behavior")]
     [EffectInfo("rot", EffectCategory.Behaviors)]
     public sealed class RotationBehavior : BehaviorScriptableBase
     {
-
         public float baseRotSpeed = 180;
         public float baseDiffBetweenChars = 10;
+        private float angleDiffBetweenChars;
 
-        float angleSpeed;
-        float angleDiffBetweenChars;
+        private float angleSpeed;
 
         public override void SetModifier(ModifierInfo modifier)
         {
@@ -22,7 +23,9 @@ namespace Febucci.UI.Effects
                 //frequency
                 case "f": angleSpeed = baseRotSpeed * modifier.value; break;
                 //angle diff
-                case "w": angleDiffBetweenChars = baseDiffBetweenChars * modifier.value; break;
+                case "w":
+                    angleDiffBetweenChars =
+                        baseDiffBetweenChars * modifier.value; break;
             }
         }
 
@@ -32,11 +35,12 @@ namespace Febucci.UI.Effects
             angleDiffBetweenChars = baseDiffBetweenChars;
         }
 
-        public override void ApplyEffectTo(ref Core.CharacterData character, TAnimCore animator)
+        public override void ApplyEffectTo(ref CharacterData character,
+            TAnimCore animator)
         {
-            character.current.positions.RotateChar(-animator.time.timeSinceStart * angleSpeed 
+            character.current.positions.RotateChar(
+                -animator.time.timeSinceStart * angleSpeed
                 + angleDiffBetweenChars * character.index);
         }
     }
-
 }

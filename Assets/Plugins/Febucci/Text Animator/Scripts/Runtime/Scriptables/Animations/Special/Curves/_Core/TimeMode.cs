@@ -1,6 +1,8 @@
+using System;
+
 namespace Febucci.UI.Effects
 {
-    [System.Serializable]
+    [Serializable]
     public struct TimeMode
     {
         public float startDelay;
@@ -17,10 +19,13 @@ namespace Febucci.UI.Effects
             tempTime = 0;
         }
 
-        float tempTime;
+        private float tempTime;
+
         public float GetTime(float animatorTime, float charTime, int charIndex)
         {
-            tempTime = ((useUniformTime ? animatorTime : charTime) - startDelay) * timeSpeed - waveSize * charIndex;
+            tempTime =
+                ((useUniformTime ? animatorTime : charTime) - startDelay) *
+                timeSpeed - waveSize * charIndex;
             if (tempTime < startDelay)
                 return -1;
             return tempTime;

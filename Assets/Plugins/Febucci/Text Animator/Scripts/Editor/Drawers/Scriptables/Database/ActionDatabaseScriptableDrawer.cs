@@ -1,13 +1,12 @@
 using Febucci.UI.Actions;
-using Febucci.UI.Core.Parsing;
 using UnityEditor;
 
 namespace Febucci.UI.Core
 {
     [CustomEditor(typeof(ActionDatabase), true)]
-    class ActionDatabaseScriptableDrawer : Editor
+    internal class ActionDatabaseScriptableDrawer : Editor
     {
-        DatabaseSharedDrawer drawer = new DatabaseSharedDrawer();
+        private readonly DatabaseSharedDrawer drawer = new();
 
         public override void OnInspectorGUI()
         {

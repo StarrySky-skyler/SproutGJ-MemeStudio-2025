@@ -4,96 +4,92 @@ using UnityEngine;
 namespace Febucci.UI.Core.Editors
 {
     [CustomEditor(typeof(TypewriterCore), true)]
-    class TypewriterCoreDrawer : Editor
+    internal class TypewriterCoreDrawer : Editor
     {
-        SerializedProperty useTypewriter;
-        SerializedProperty startTypewriterMode;
-        SerializedProperty hideAppearancesOnSkip;
-        SerializedProperty hideDisappearancesOnSkip;
-        SerializedProperty triggerEventsOnSkip;
-        SerializedProperty disappearanceOrientation;
+        private SerializedProperty disappearanceOrientation;
+        private SerializedProperty hideAppearancesOnSkip;
+        private SerializedProperty hideDisappearancesOnSkip;
+        private SerializedProperty onCharacterVisible;
+        private SerializedProperty onMessage;
+        private SerializedProperty onTextDisappeared;
 
-        SerializedProperty onTextShowed;
-        SerializedProperty onTypewriterStart;
-        SerializedProperty onCharacterVisible;
-        SerializedProperty onTextDisappeared;
-        SerializedProperty onMessage;
+        private SerializedProperty onTextShowed;
+        private SerializedProperty onTypewriterStart;
 
-        SerializedProperty resetTypingSpeedAtStartup;
-        SerializedProperty waitForFullAppearance;
-        SerializedProperty waitForFullDisappearance;
+        private string[] propertiesToExclude = new string[0];
 
-        string[] propertiesToExclude = new string[0];
-
-        
-        protected struct PropertyWithDifferentLabel
-        {
-            public SerializedProperty property;
-            public GUIContent label;
-
-            public PropertyWithDifferentLabel(SerializedObject obj, string property, string label)
-            {
-                this.property = obj.FindProperty(property);
-                this.label = new GUIContent(label);
-            }
-
-            public void PropertyField()
-            {
-                EditorGUILayout.PropertyField(property, label);
-            }
-        }
-
-        
-        protected virtual string[] GetPropertiesToExclude()
-        {
-            return new string[] {
-            "m_Script",
-            "useTypeWriter",
-            "startTypewriterMode",
-            nameof(TypewriterCore.hideAppearancesOnSkip),
-            nameof(TypewriterCore.hideDisappearancesOnSkip),
-            "triggerEventsOnSkip",
-            "onTextShowed",
-            "onTypewriterStart",
-            "onCharacterVisible",
-            "resetTypingSpeedAtStartup",
-            "onTextDisappeared",
-            "disappearanceOrientation",
-            "onMessage",
-            nameof(TypewriterCore.triggerShowedAfterEffectsEnd),
-            nameof(TypewriterCore.triggerDisappearedAfterEffectsEnd),
-            };
-        }
+        private SerializedProperty resetTypingSpeedAtStartup;
+        private SerializedProperty startTypewriterMode;
+        private SerializedProperty triggerEventsOnSkip;
+        private SerializedProperty useTypewriter;
+        private SerializedProperty waitForFullAppearance;
+        private SerializedProperty waitForFullDisappearance;
 
         protected virtual void OnEnable()
         {
             useTypewriter = serializedObject.FindProperty("useTypeWriter");
-            startTypewriterMode = serializedObject.FindProperty("startTypewriterMode");
-            hideAppearancesOnSkip = serializedObject.FindProperty("hideAppearancesOnSkip");
-            hideDisappearancesOnSkip = serializedObject.FindProperty("hideDisappearancesOnSkip");
-            triggerEventsOnSkip = serializedObject.FindProperty("triggerEventsOnSkip");
-            disappearanceOrientation = serializedObject.FindProperty("disappearanceOrientation");
+            startTypewriterMode =
+                serializedObject.FindProperty("startTypewriterMode");
+            hideAppearancesOnSkip =
+                serializedObject.FindProperty("hideAppearancesOnSkip");
+            hideDisappearancesOnSkip =
+                serializedObject.FindProperty("hideDisappearancesOnSkip");
+            triggerEventsOnSkip =
+                serializedObject.FindProperty("triggerEventsOnSkip");
+            disappearanceOrientation =
+                serializedObject.FindProperty("disappearanceOrientation");
 
 
             onTextShowed = serializedObject.FindProperty("onTextShowed");
-            onTypewriterStart = serializedObject.FindProperty("onTypewriterStart");
-            onCharacterVisible = serializedObject.FindProperty("onCharacterVisible");
-            onTextDisappeared = serializedObject.FindProperty("onTextDisappeared");
+            onTypewriterStart =
+                serializedObject.FindProperty("onTypewriterStart");
+            onCharacterVisible =
+                serializedObject.FindProperty("onCharacterVisible");
+            onTextDisappeared =
+                serializedObject.FindProperty("onTextDisappeared");
             onMessage = serializedObject.FindProperty("onMessage");
 
-            resetTypingSpeedAtStartup = serializedObject.FindProperty("resetTypingSpeedAtStartup");
-            waitForFullAppearance = serializedObject.FindProperty(nameof(TypewriterCore.triggerShowedAfterEffectsEnd));
-            waitForFullDisappearance = serializedObject.FindProperty(nameof(TypewriterCore.triggerDisappearedAfterEffectsEnd));
+            resetTypingSpeedAtStartup =
+                serializedObject.FindProperty("resetTypingSpeedAtStartup");
+            waitForFullAppearance =
+                serializedObject.FindProperty(
+                    nameof(TypewriterCore.triggerShowedAfterEffectsEnd));
+            waitForFullDisappearance = serializedObject.FindProperty(
+                nameof(TypewriterCore.triggerDisappearedAfterEffectsEnd));
 
             propertiesToExclude = GetPropertiesToExclude();
         }
 
-        bool ButtonPlaymode(string label)
+
+        protected virtual string[] GetPropertiesToExclude()
+        {
+            return new[]
+            {
+                "m_Script",
+                "useTypeWriter",
+                "startTypewriterMode",
+                nameof(TypewriterCore.hideAppearancesOnSkip),
+                nameof(TypewriterCore.hideDisappearancesOnSkip),
+                "triggerEventsOnSkip",
+                "onTextShowed",
+                "onTypewriterStart",
+                "onCharacterVisible",
+                "resetTypingSpeedAtStartup",
+                "onTextDisappeared",
+                "disappearanceOrientation",
+                "onMessage",
+                nameof(TypewriterCore.triggerShowedAfterEffectsEnd),
+                nameof(TypewriterCore.triggerDisappearedAfterEffectsEnd)
+            };
+        }
+
+        private bool ButtonPlaymode(string label)
         {
             bool prevGUI = GUI.enabled;
             GUI.enabled = Application.isPlaying;
 
-            bool value = GUILayout.Button(label, EditorStyles.miniButton, GUILayout.MaxWidth(70));
+            bool value = GUILayout.Button(label, EditorStyles.miniButton,
+                GUILayout.MaxWidth(70));
 
             GUI.enabled = prevGUI;
             return value;
@@ -101,9 +97,9 @@ namespace Febucci.UI.Core.Editors
 
         public override void OnInspectorGUI()
         {
-
             {
-                EditorGUILayout.LabelField("Main Settings", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Main Settings",
+                    EditorStyles.boldLabel);
 
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(useTypewriter);
@@ -117,18 +113,15 @@ namespace Febucci.UI.Core.Editors
 
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Typewriter", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Typewriter",
+                    EditorStyles.boldLabel);
 
                 if (useTypewriter.boolValue)
                 {
                     if (ButtonPlaymode("Start"))
-                    {
                         ((TypewriterCore)target).StartShowingText(true);
-                    }
                     if (ButtonPlaymode("Stop"))
-                    {
                         ((TypewriterCore)target).StopShowingText();
-                    }
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -142,25 +135,24 @@ namespace Febucci.UI.Core.Editors
 
                 EditorGUILayout.PropertyField(resetTypingSpeedAtStartup);
 
-                EditorGUILayout.BeginHorizontal(); 
-                EditorGUILayout.LabelField("Typewriter Skip & Events", EditorStyles.boldLabel);
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField("Typewriter Skip & Events",
+                    EditorStyles.boldLabel);
 
 
                 if (ButtonPlaymode("Skip"))
-                {
                     ((TypewriterCore)target).SkipTypewriter();
-                }
                 EditorGUILayout.EndHorizontal();
 
 
                 EditorGUILayout.LabelField("Appearing");
-                
+
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(hideAppearancesOnSkip);
                 EditorGUILayout.PropertyField(triggerEventsOnSkip);
                 EditorGUILayout.PropertyField(waitForFullAppearance);
                 EditorGUI.indentLevel--;
-                
+
                 EditorGUILayout.LabelField("Disappearing");
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(hideDisappearancesOnSkip);
@@ -168,7 +160,6 @@ namespace Febucci.UI.Core.Editors
                 EditorGUI.indentLevel--;
 
                 EditorGUI.indentLevel--;
-
             }
             else
             {
@@ -194,7 +185,6 @@ namespace Febucci.UI.Core.Editors
 
                     if (useTypewriter.boolValue)
                     {
-
                         EditorGUI.indentLevel++;
                         EditorGUILayout.PropertyField(onTypewriterStart);
                         EditorGUILayout.PropertyField(onCharacterVisible);
@@ -205,18 +195,21 @@ namespace Febucci.UI.Core.Editors
 
                     //GUI.enabled = true;
                 }
-
             }
 
             EditorGUILayout.Space();
 
             //Typewriter
             {
-                EditorGUILayout.LabelField("Typewriter Wait", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Typewriter Wait",
+                    EditorStyles.boldLabel);
 
                 EditorGUI.indentLevel++;
                 GUI.enabled = false;
-                if(!useTypewriter.boolValue) EditorGUILayout.LabelField("[!] 'Use Typewriter' option is disabled, so these settings might not apply", EditorStyles.wordWrappedMiniLabel);
+                if (!useTypewriter.boolValue)
+                    EditorGUILayout.LabelField(
+                        "[!] 'Use Typewriter' option is disabled, so these settings might not apply",
+                        EditorStyles.wordWrappedMiniLabel);
                 GUI.enabled = true;
                 OnTypewriterSectionGUI();
                 EditorGUI.indentLevel--;
@@ -227,24 +220,26 @@ namespace Febucci.UI.Core.Editors
             //Disappearance
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Disappearances", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("Disappearances",
+                    EditorStyles.boldLabel);
 
                 if (ButtonPlaymode("Start"))
-                {
                     ((TypewriterCore)target).StartDisappearingText();
-                }
                 if (ButtonPlaymode("Stop"))
-                {
                     ((TypewriterCore)target).StopDisappearingText();
-                }
 
                 EditorGUILayout.EndHorizontal();
-                
+
 
                 EditorGUI.indentLevel++;
                 GUI.enabled = false;
-                if(!useTypewriter.boolValue) EditorGUILayout.LabelField("[!] 'Use Typewriter' option is disabled, so these settings might not apply", EditorStyles.wordWrappedMiniLabel);
-                EditorGUILayout.LabelField("To start disappearances, please call the 'StartDisappearingText()' method. See the docs for more.", EditorStyles.wordWrappedMiniLabel);
+                if (!useTypewriter.boolValue)
+                    EditorGUILayout.LabelField(
+                        "[!] 'Use Typewriter' option is disabled, so these settings might not apply",
+                        EditorStyles.wordWrappedMiniLabel);
+                EditorGUILayout.LabelField(
+                    "To start disappearances, please call the 'StartDisappearingText()' method. See the docs for more.",
+                    EditorStyles.wordWrappedMiniLabel);
                 GUI.enabled = true;
 
                 EditorGUILayout.PropertyField(disappearanceOrientation);
@@ -259,20 +254,34 @@ namespace Febucci.UI.Core.Editors
 
 
             if (serializedObject.hasModifiedProperties)
-            {
                 serializedObject.ApplyModifiedProperties();
-            }
-
         }
 
         protected virtual void OnTypewriterSectionGUI()
         {
-
         }
 
         protected virtual void OnDisappearanceSectionGUI()
         {
+        }
 
+
+        protected struct PropertyWithDifferentLabel
+        {
+            public SerializedProperty property;
+            public GUIContent label;
+
+            public PropertyWithDifferentLabel(SerializedObject obj,
+                string property, string label)
+            {
+                this.property = obj.FindProperty(property);
+                this.label = new GUIContent(label);
+            }
+
+            public void PropertyField()
+            {
+                EditorGUILayout.PropertyField(property, label);
+            }
         }
     }
 }

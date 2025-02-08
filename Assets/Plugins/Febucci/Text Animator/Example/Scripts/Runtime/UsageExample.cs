@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Febucci.UI.Examples
 {
@@ -8,12 +9,12 @@ namespace Febucci.UI.Examples
     {
         public TypewriterByCharacter textAnimatorPlayer;
 
-        [TextArea(3, 50), SerializeField]
-        string textToShow = " ";
+        [TextArea(3, 50)] [SerializeField] private string textToShow = " ";
 
         private void Awake()
         {
-            UnityEngine.Assertions.Assert.IsNotNull(textAnimatorPlayer, $"Text Animator Player component is null in {gameObject.name}");
+            Assert.IsNotNull(textAnimatorPlayer,
+                $"Text Animator Player component is null in {gameObject.name}");
         }
 
         private void Start()
@@ -25,6 +26,5 @@ namespace Febucci.UI.Examples
         {
             textAnimatorPlayer.ShowText(textToShow);
         }
-
     }
 }

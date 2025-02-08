@@ -7,8 +7,16 @@ namespace Febucci.UI.Effects
     /// </summary>
     public abstract class BehaviorScriptableBase : AnimationScriptableBase
     {
-        public override float GetMaxDuration() => -1; //infinite
-        public override bool CanApplyEffectTo(CharacterData character, TAnimCore animator) => true;
-    }
+        public override float GetMaxDuration()
+        {
+            return -1;
+            //infinite
+        }
 
+        public override bool CanApplyEffectTo(CharacterData character,
+            TAnimCore animator)
+        {
+            return true;
+        }
+    }
 }
