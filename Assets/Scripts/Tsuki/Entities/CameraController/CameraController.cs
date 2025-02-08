@@ -90,7 +90,7 @@ namespace Tsuki.Entities.CameraController
                 x => _camera.orthographicSize = x,
                 targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad));
 
-            if (Vector3.Distance(transform.position, newPos) < 0.1f)
+            if (Vector3.Distance(transform.position, newPos) < 0.1f && (_camera.orthographicSize - targetFieldOfView) < 0.1f)
             {
                 StopAllCoroutines();
                 StartCoroutine(SelectScene());
