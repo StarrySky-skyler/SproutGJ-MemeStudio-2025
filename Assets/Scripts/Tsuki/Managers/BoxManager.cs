@@ -32,9 +32,9 @@ namespace Tsuki.Managers
             }
         }
 
-        public UnityEvent<bool> onWinChanged;
-        public UnityEvent onBoxCorrectAdded;
-        public UnityEvent onBoxCorrectRemoved;
+        public UnityEvent<bool> onWinChanged = new();
+        public UnityEvent onBoxCorrectAdded = new();
+        public UnityEvent onBoxCorrectRemoved = new();
 
         private bool _win;
         private int _boxCount;

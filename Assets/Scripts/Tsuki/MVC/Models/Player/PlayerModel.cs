@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -44,9 +45,9 @@ namespace Tsuki.MVC.Models.Player
             }
         }
 
-        public UnityEvent<bool> onMoveStatusChanged;
+        public UnityEvent<bool> onMoveStatusChanged = new();
 
-        public UnityEvent<int, bool> onStepChanged;
+        public UnityEvent<int, bool> onStepChanged = new();
 
         public Vector2Int LastDirection { get; set; } // 移动方向
         public Vector3 CurrentPos { get; set; }

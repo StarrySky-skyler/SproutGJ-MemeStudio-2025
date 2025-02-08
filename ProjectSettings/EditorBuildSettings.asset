@@ -18,16 +18,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Tsuki/Level0-1Scene1.unity
     guid: ded23d9b0fa129a4d940be20046cfe38
   - enabled: 1
-    path: Assets/Scenes/Tsuki/Level2-1Scene3.unity
+    path: Assets/Scenes/Tsuki/Level2-1Scene4.unity
     guid: a90c4a77f64611042b3903a3d3ca5a92
   - enabled: 1
-    path: Assets/Scenes/Tsuki/Level3-1Scene4.unity
+    path: Assets/Scenes/Tsuki/Level3-1Scene6.unity
     guid: fbf584887c8b66842a4b004aeafc573a
   - enabled: 1
-    path: Assets/Scenes/Tsuki/Level3-2Scene5.unity
+    path: Assets/Scenes/Tsuki/Level3-2Scene7.unity
     guid: 7a664dfcfe93768429a0b72af2e5f706
   - enabled: 1
-    path: Assets/Scenes/Tsuki/Level4-1Scene6.unity
+    path: Assets/Scenes/Tsuki/Level4-1Scene8.unity
     guid: 36b7ffdc89d5c314f926a4154005dc9f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

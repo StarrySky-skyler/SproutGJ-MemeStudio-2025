@@ -29,11 +29,11 @@ namespace Tsuki.Managers
 
     public class GameManager : Singleton<GameManager>
     {
-        public UnityEvent onGamePause;
-        public UnityEvent onGameResume;
-        public UnityEvent onGameUndo;
-        public UnityEvent beforeGameReload;
-        public UnityEvent<bool> onAllowLoadGame;
+        public UnityEvent onGamePause = new();
+        public UnityEvent onGameResume = new();
+        public UnityEvent onGameUndo = new();
+        public UnityEvent beforeGameReload = new();
+        public UnityEvent<bool> onAllowLoadGame = new();
 
         public bool AllowLoadGame
         {
@@ -47,7 +47,7 @@ namespace Tsuki.Managers
         }
 
         private bool _allowLoadGame;
-        
+
         private void Start()
         {
             AllowLoadGame = false;

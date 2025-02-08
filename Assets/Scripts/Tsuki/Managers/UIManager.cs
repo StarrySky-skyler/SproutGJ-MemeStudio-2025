@@ -114,9 +114,14 @@ namespace Tsuki.Managers
             _pausePanel.SetActive(false);
         }
 
-        private void UpdateStepText(int step, bool tags = false)
+        private void UpdateStepText(int step)
         {
             _stepText.text = "剩余步数：" + step;
+        }
+        
+        private void UpdateStepText(int step, bool _)
+        {
+            UpdateStepText(step);
         }
 
         private void UpdateStepText(Scene scene, LoadSceneMode mode)
