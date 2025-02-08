@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using DG.Tweening;
 using Tsuki.Managers;
 using UnityEngine;
@@ -18,7 +17,7 @@ namespace Tsuki.Entities.AutoWall
         A,
         B,
         C,
-        D,
+        D
     }
 
     public enum HandleType
@@ -27,36 +26,24 @@ namespace Tsuki.Entities.AutoWall
         A = 1,
         B = 2,
         C = 3,
-        D = 4,
+        D = 4
     }
 
     public class AutoWall : MonoBehaviour
     {
         public WallType wallType;
+        private bool _allowShow;
+        private BoxCollider2D _boxCollider2D;
+        private Tween _hideTween;
 
         private Transform _spriteTrans;
         private Vector3 _startPos;
-        private BoxCollider2D _boxCollider2D;
-        private Tween _hideTween;
-        private bool _allowShow;
 
         private void Start()
         {
             _spriteTrans = transform.Find("Sprite");
             _startPos = _spriteTrans.position;
             _boxCollider2D = GetComponent<BoxCollider2D>();
-            _allowShow = true;
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (!other.gameObject.CompareTag("Box")) return;
-            _allowShow = false;
-        }
-
-        private void OnCollisionExit(Collision other)
-        {
-            if (!other.gameObject.CompareTag("Box")) return;
             _allowShow = true;
         }
 
@@ -100,6 +87,18 @@ namespace Tsuki.Entities.AutoWall
                     Debug.LogError("自动墙类型错误");
                     break;
             }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("Box")) return;
+            _allowShow = false;
+        }
+
+        private void OnCollisionExit(Collision other)
+        {
+            if (!other.gameObject.CompareTag("Box")) return;
+            _allowShow = true;
         }
 
         private HandleType GetHandleType(int leftStep)

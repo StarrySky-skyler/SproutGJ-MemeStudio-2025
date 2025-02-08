@@ -6,20 +6,23 @@
 // @description:
 // *****************************************************************************
 
-using System;
-using JetBrains.Annotations;
-using Tsuki.Entities.Box;
 using Tsuki.Entities.Box.Base;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
     public class BoxManager : Singleton<BoxManager>
     {
+        public UnityEvent<bool> onWinChanged = new();
+        public UnityEvent onBoxCorrectAdded = new();
+        public UnityEvent onBoxCorrectRemoved = new();
+        private int _boxCorrectCount;
+        private int _boxCount;
+
+        private bool _win;
+
         public bool Win
         {
             get => _win;
@@ -27,18 +30,10 @@ namespace Tsuki.Managers
             {
                 if (_win == value) return;
                 _win = value;
-                Debug.Log(_win ? $"所有箱子已归位" : $"所有箱子未归位");
+                Debug.Log(_win ? "所有箱子已归位" : "所有箱子未归位");
                 onWinChanged?.Invoke(_win);
             }
         }
-
-        public UnityEvent<bool> onWinChanged = new();
-        public UnityEvent onBoxCorrectAdded = new();
-        public UnityEvent onBoxCorrectRemoved = new();
-
-        private bool _win;
-        private int _boxCount;
-        private int _boxCorrectCount;
 
         private void Start()
         {
@@ -74,7 +69,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 增加正确的箱子
+        ///     增加正确的箱子
         /// </summary>
         public void AddCorrectBox()
         {
@@ -87,7 +82,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 减少正确的箱子
+        ///     减少正确的箱子
         /// </summary>
         public void RemoveCorrectBox()
         {
@@ -103,7 +98,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 重复所有箱子的最后位置
+        ///     重复所有箱子的最后位置
         /// </summary>
         /// <param name="moveStatus"></param>
         private void RepeatAllBoxLastPos(bool moveStatus)
@@ -111,9 +106,7 @@ namespace Tsuki.Managers
             if (!moveStatus) return;
             GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
             foreach (GameObject box in boxes)
-            {
                 box.GetComponent<BaseObj>().RepeatPos();
-            }
         }
     }
 }

@@ -7,7 +7,8 @@
 // *****************************************************************************
 
 using Tsuki.Entities.Box.Base;
-using Tsuki.Entities.Box.FSM.Interface;
+using Tsuki.Entities.Box.FSM.Base;
+using Tsuki.Entities.Box.FSM.Interfaces;
 
 namespace Tsuki.Entities.Box.FSM.BoxStates
 {
@@ -18,22 +19,18 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         }
 
 
-
         public void OnEnter(Context context)
         {
         }
 
 
-
         public void OnUpdate(Context context)
         {
-            
         }
 
 
         public void OnExit(Context context)
         {
-            
         }
 
 

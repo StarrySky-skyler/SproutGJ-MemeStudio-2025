@@ -9,7 +9,7 @@
 namespace Tsuki.Entities.Box.Types
 {
     /// <summary>
-    /// 箱子类型
+    ///     箱子类型
     /// </summary>
     public enum BoxType
     {

@@ -17,8 +17,8 @@ namespace Tsuki.Effects
 
         public void DestorySelf()
         {
-            if(gameObject.activeSelf)
-            footPool.Release(gameObject);
+            if (gameObject.activeSelf)
+                footPool.Release(gameObject);
         }
 
         //public void DestorySelf()

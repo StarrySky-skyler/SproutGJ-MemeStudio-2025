@@ -8,12 +8,11 @@
 
 using DG.Tweening;
 using Tsuki.Base;
-using Tsuki.Entities.Box;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
+using Tsuki.Entities.Box.FSM.Types;
 using Tsuki.Interface;
 using Tsuki.Managers;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Controllers.Player
@@ -21,22 +20,45 @@ namespace Tsuki.MVC.Controllers.Player
     public class PlayerMoveHandler : IUndoable, IPauseable
     {
         private readonly PlayerController _playerController;
+        private bool _allowMove = true;
+        private bool _movableX;
+        private bool _movableY;
+        private Vector3 _newPos; // 新位置
+        private Vector3 _originalPos; // 原始位置
 
         // 移动
         private Vector2 _scaledDirection; // 移动方向向量 * 格子大小
-        private Vector3 _originalPos; // 原始位置
-        private Vector3 _newPos; // 新位置
-        private bool _movableX;
-        private bool _movableY;
-        private bool _allowMove = true;
 
         public PlayerMoveHandler(PlayerController playerController)
         {
             _playerController = playerController;
         }
 
+        public void Pause()
+        {
+            _allowMove = false;
+        }
+
+        public void Resume()
+        {
+            _allowMove = true;
+        }
+
         /// <summary>
-        /// 获取是否在线上，用于判断是否可以移动
+        ///     撤销移动操作
+        /// </summary>
+        public void Undo()
+        {
+            // 回到上一个位置
+            if (ModelsManager.Instance.PlayerMod.LastPosStack.TryPop(
+                    out Vector3 result))
+                _playerController.transform.position = result;
+            // 增加步数
+            ModelsManager.Instance.PlayerMod.AddStep();
+        }
+
+        /// <summary>
+        ///     获取是否在线上，用于判断是否可以移动
         /// </summary>
         /// <param name="movableX"></param>
         /// <param name="movableY"></param>
@@ -48,7 +70,7 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 移动
+        ///     移动
         /// </summary>
         /// <param name="inputV2"></param>
         /// <param name="movableX"></param>
@@ -78,7 +100,7 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 设置移动方向
+        ///     设置移动方向
         /// </summary>
         /// <param name="input"></param>
         private void SetDirection(Vector2 input)
@@ -91,7 +113,7 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 设置新位置
+        ///     设置新位置
         /// </summary>
         private void SetNewPos()
         {
@@ -104,7 +126,7 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 开始移动
+        ///     开始移动
         /// </summary>
         private void StartMove()
         {
@@ -122,7 +144,7 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 检测是否可以移动
+        ///     检测是否可以移动
         /// </summary>
         /// <returns></returns>
         private bool CanMoveAfterDetect()
@@ -132,7 +154,7 @@ namespace Tsuki.MVC.Controllers.Player
         }
 
         /// <summary>
-        /// 检测墙和箱子
+        ///     检测墙和箱子
         /// </summary>
         /// <returns></returns>
         private bool DetectObstacle()
@@ -160,29 +182,6 @@ namespace Tsuki.MVC.Controllers.Player
                     PushDirection =
                         ModelsManager.Instance.PlayerMod.LastDirection
                 });
-        }
-
-        /// <summary>
-        /// 撤销移动操作
-        /// </summary>
-        public void Undo()
-        {
-            // 回到上一个位置
-            if (ModelsManager.Instance.PlayerMod.LastPosStack.TryPop(
-                    out Vector3 result))
-                _playerController.transform.position = result;
-            // 增加步数
-            ModelsManager.Instance.PlayerMod.AddStep();
-        }
-
-        public void Pause()
-        {
-            _allowMove = false;
-        }
-
-        public void Resume()
-        {
-            _allowMove = true;
         }
     }
 }

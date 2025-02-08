@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
 using Vector2Json.SaveSystem;
 
@@ -16,9 +15,8 @@ namespace Tsuki.Managers
 {
     public class ArchiveManager : Singleton<ArchiveManager>
     {
+        [SerializeField] private List<UserData> _userDataList;
 
-        [SerializeField]
-        private List<UserData> _userDataList;
         private readonly string _archiveFileNameFormatter = "archive";
 
         protected override void Awake()
@@ -26,7 +24,6 @@ namespace Tsuki.Managers
             base.Awake();
             AddSerializedJson.AddAllConverter();
             _userDataList = new List<UserData>();
-
         }
 
         private void Start()
@@ -35,8 +32,8 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 保存当前游戏存档
-        /// <param name="archiveIndex">存档槽位索引，从0开始</param>
+        ///     保存当前游戏存档
+        ///     <param name="archiveIndex">存档槽位索引，从0开始</param>
         /// </summary>
         public void SaveCurrentArchive(int archiveIndex = 0)
         {
@@ -57,7 +54,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 读取所有存档
+        ///     读取所有存档
         /// </summary>
         private void ReadAllArchive()
         {
@@ -80,7 +77,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 加载存档
+        ///     加载存档
         /// </summary>
         /// <param name="archiveIndex">存档槽位索引，从0开始</param>
         public void LoadArchive(int archiveIndex)

@@ -8,7 +8,6 @@
 
 using Tsuki.Interface;
 using Tsuki.Managers;
-using Tsuki.MVC.Models.Player;
 using Tsuki.MVC.Views.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,9 +20,9 @@ namespace Tsuki.MVC.Controllers.Player
         [HideInInspector] public PlayerView playerView;
         public LayerMask wallLayer;
         public LayerMask grassLayer;
+        private bool _moveable = true;
 
         private PlayerMoveHandler _moveHandler;
-        private bool _moveable = true;
 
         private void Awake()
         {
@@ -31,13 +30,6 @@ namespace Tsuki.MVC.Controllers.Player
             playerView = GetComponent<PlayerView>();
             // 初始化处理器
             _moveHandler = new PlayerMoveHandler(this);
-        }
-
-        public void OnMove(InputValue context)
-        {
-            if (!_moveable || !GameManager.Instance.AllowLoadGame) return;
-            _moveHandler.GetLineMovable(out bool moveX, out bool moveY);
-            _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
 
         private void OnEnable()
@@ -55,10 +47,7 @@ namespace Tsuki.MVC.Controllers.Player
                 GameManagerEventType.BeforeGameReload,
                 () => { _moveable = false; }
             );
-            SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>
-            {
-                _moveable = true;
-            };
+            SceneManager.sceneLoaded += (_, _) => { _moveable = true; };
         }
 
         private void OnDisable()
@@ -73,6 +62,13 @@ namespace Tsuki.MVC.Controllers.Player
             GameManager.Instance.UnregisterEvent(
                 GameManagerEventType.OnGameUndo,
                 (_moveHandler as IUndoable).Undo);
+        }
+
+        public void OnMove(InputValue context)
+        {
+            if (!_moveable || !GameManager.Instance.AllowLoadGame) return;
+            _moveHandler.GetLineMovable(out bool moveX, out bool moveY);
+            _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
     }
 }

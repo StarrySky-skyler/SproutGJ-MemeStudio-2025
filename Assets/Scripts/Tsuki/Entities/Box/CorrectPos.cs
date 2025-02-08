@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.Types;
 using Tsuki.Managers;
@@ -17,9 +16,9 @@ namespace Tsuki.Entities.Box
     public class CorrectPos : MonoBehaviour
     {
         public BoxType boxType;
+        private Vector3 _originalPos;
 
         private SpriteRenderer _spriteRenderer;
-        private Vector3 _originalPos;
 
         private void Start()
         {

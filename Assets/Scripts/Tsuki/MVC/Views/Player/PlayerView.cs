@@ -8,7 +8,6 @@
 
 using Tsuki.Interface;
 using Tsuki.Managers;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Views.Player

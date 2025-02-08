@@ -6,10 +6,9 @@
 // @description:
 // *****************************************************************************
 
-using System;
-using Tsuki.Entities.Box;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
+using Tsuki.Entities.Box.FSM.Types;
 using UnityEngine;
 
 namespace Tsuki.Entities.IceLine
@@ -21,7 +20,7 @@ namespace Tsuki.Entities.IceLine
     }
 
     /// <summary>
-    /// 冰弦方向类型
+    ///     冰弦方向类型
     /// </summary>
     public enum IceLineType
     {
@@ -50,7 +49,7 @@ namespace Tsuki.Entities.IceLine
         }
 
         /// <summary>
-        /// 获取是否允许滑动
+        ///     获取是否允许滑动
         /// </summary>
         /// <param name="enterDirection"></param>
         /// <returns></returns>

@@ -6,27 +6,27 @@
 // @description:
 // *****************************************************************************
 
-namespace Tsuki.Entities.Box.FSM.Interface
+namespace Tsuki.Entities.Box.FSM.Interfaces
 {
     public interface IBoxState
     {
         /// <summary>
-        /// 进入状态调用
+        ///     进入状态调用
         /// </summary>
         public void OnEnter(Context context = null);
 
         /// <summary>
-        /// 更新状态每帧调用
+        ///     更新状态每帧调用
         /// </summary>
         public void OnUpdate(Context context = null);
         // public void OnLateUpdate();
 
         /// <summary>
-        /// 退出状态调用
+        ///     退出状态调用
         /// </summary>
         public void OnExit(Context context = null);
         // public void OnFixedUpdate();
-        
+
         public bool OnCheck(Context context = null);
     }
 }

@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +14,7 @@ namespace Tsuki.Entities.Audio
     public class AudioEntity : MonoBehaviour
     {
         private AudioSource[] _audioSource;
-        
+
         private void Start()
         {
             _audioSource = GetComponents<AudioSource>();

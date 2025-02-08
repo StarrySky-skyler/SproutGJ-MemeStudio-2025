@@ -9,9 +9,9 @@
 using DG.Tweening;
 using Tsuki.Base;
 using Tsuki.Entities.Box.Base;
-using Tsuki.Entities.Box.FSM.Interface;
-using Tsuki.Entities.IceLine;
-using Tsuki.Entities.TPPoint;
+using Tsuki.Entities.Box.FSM.Base;
+using Tsuki.Entities.Box.FSM.Interfaces;
+using Tsuki.Entities.Box.FSM.Types;
 using Tsuki.Managers;
 using UnityEngine;
 
@@ -59,7 +59,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         }
 
         /// <summary>
-        /// 获取箱子是否可推动
+        ///     获取箱子是否可推动
         /// </summary>
         /// <returns></returns>
         private bool GetPushable(Vector2Int pushDirection)
@@ -77,13 +77,9 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                 ModelsManager.Instance.GameMod.obstacleLayer);
 
             for (int i = 0; i < hitCount; i++)
-            {
                 if (_hitsBuffer[i].collider !=
                     BaseObj.GetComponent<Collider2D>())
-                {
                     return false;
-                }
-            }
 
             // 检测草
             hitCount = Physics2D.RaycastNonAlloc(
@@ -94,32 +90,28 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                 ModelsManager.Instance.GameMod.grassLayer);
 
             for (int i = 0; i < hitCount; i++)
-            {
                 if (_hitsBuffer[i].collider !=
                     BaseObj.GetComponent<Collider2D>() &&
                     !BaseObj.CompareTag("Weeders"))
-                {
                     return false;
-                }
-            }
 
             return Commons.IsOnMap(ModelsManager.Instance.GameMod,
                 BaseObj.NewPos);
         }
 
         /// <summary>
-        /// 设置新位置
+        ///     设置新位置
         /// </summary>
         private void SetNewPos(Vector2Int pushDirection)
         {
             BaseObj.lastPushDirection = pushDirection;
             BaseObj.NewPos = BaseObj.transform.position +
-                               new Vector3(
-                                   pushDirection.x *
-                                   ModelsManager.Instance.GameMod.girdSize,
-                                   pushDirection.y *
-                                   ModelsManager.Instance.GameMod.girdSize,
-                                   0);
+                             new Vector3(
+                                 pushDirection.x *
+                                 ModelsManager.Instance.GameMod.girdSize,
+                                 pushDirection.y *
+                                 ModelsManager.Instance.GameMod.girdSize,
+                                 0);
         }
     }
 }

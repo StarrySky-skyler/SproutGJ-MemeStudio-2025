@@ -7,9 +7,8 @@
 // *****************************************************************************
 
 using Tsuki.Entities.Box.Base;
-using Tsuki.Entities.Box.FSM.Interface;
 
-namespace Tsuki.Entities.Box.FSM
+namespace Tsuki.Entities.Box.FSM.Base
 {
     public abstract class BoxState
     {

@@ -23,7 +23,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 淡入
+        ///     淡入
         /// </summary>
         /// <param name="audioSource"></param>
         /// <param name="onCompleted"></param>
@@ -38,7 +38,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 淡出
+        ///     淡出
         /// </summary>
         /// <param name="audioSource"></param>
         /// <param name="onCompleted"></param>
