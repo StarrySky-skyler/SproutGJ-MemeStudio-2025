@@ -79,6 +79,7 @@ namespace Tsuki.Managers
         public void AddCorrectBox()
         {
             _boxCorrectCount = Mathf.Min(_boxCorrectCount + 1, _boxCount);
+            if (!GameManager.Instance.AllowLoadGame) return;
             onBoxCorrectAdded?.Invoke();
             Debug.Log(
                 $"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");

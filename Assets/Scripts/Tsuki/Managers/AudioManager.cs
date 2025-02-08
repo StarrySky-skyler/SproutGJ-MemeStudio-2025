@@ -9,15 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using DG.Tweening;
-using JetBrains.Annotations;
-using Tsuki.Base;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Tsuki.Managers
 {
@@ -47,7 +39,7 @@ namespace Tsuki.Managers
 
         [Header("撤回音效")] public AudioClip undoSoundEffect;
 
-        [Header("BGM")] public List<AudioClip> bgmList;
+        [Header("关卡BGM配置")] public List<AudioClip> bgmList;
 
         [Header("生日BGM")] public AudioClip birthdayBgm;
 
@@ -78,7 +70,6 @@ namespace Tsuki.Managers
             // StartCoroutine(PlayBgm());
             PlayLevelBgm(false);
             // 注册事件
-            SceneManager.sceneLoaded += (_, _) => { PlayLevelBgm(); };
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
                 () => { PlaySoundEffect(SoundEffectType.Undo); });
         }
@@ -134,21 +125,22 @@ namespace Tsuki.Managers
         {
             int level = LevelManager.Instance.GetCurrentLevel();
             Debug.Log("音频：当前关卡为" + level);
-            Debug.Log("音频：当前关卡音频为" + bgmList[level - 1]);
-            return ModelsManager.Instance.GameMod.bgmList[level - 1];
+            Debug.Log("音频：当前关卡音频为" +
+                      bgmList[level - 1]);
+            return bgmList[level - 1];
         }
 
-        private IEnumerator PlayBgm()
-        {
-            while (allowRandomBgm)
-            {
-                RandomPlayBgm();
-                yield return new WaitForSeconds(_bgmAudioSource.clip.length -
-                                                fadeOutTime);
-                _audioFade.FadeOut(_bgmAudioSource);
-                yield return new WaitForSeconds(fadeOutTime);
-            }
-        }
+        // private IEnumerator PlayBgm()
+        // {
+        //     while (allowRandomBgm)
+        //     {
+        //         RandomPlayBgm();
+        //         yield return new WaitForSeconds(_bgmAudioSource.clip.length -
+        //                                         fadeOutTime);
+        //         _audioFade.FadeOut(_bgmAudioSource);
+        //         yield return new WaitForSeconds(fadeOutTime);
+        //     }
+        // }
 
         private void PlayMoveSoundEffect()
         {
@@ -179,11 +171,11 @@ namespace Tsuki.Managers
         /// <summary>
         /// 随机循环播放Bgm
         /// </summary>
-        private void RandomPlayBgm()
-        {
-            SetRandomBgm();
-            _audioFade.FadeIn(_bgmAudioSource);
-        }
+        // private void RandomPlayBgm()
+        // {
+        //     SetRandomBgm();
+        //     _audioFade.FadeIn(_bgmAudioSource);
+        // }
 
         /// <summary>
         /// 播放一次音效
@@ -211,17 +203,17 @@ namespace Tsuki.Managers
             }
         }
 
-        private void SetRandomBgm()
-        {
-            AudioClip lastClip = _bgmAudioSource.clip;
-            AudioClip clip = lastClip;
-            while (clip == lastClip)
-            {
-                clip = bgmList[Random.Range(0, bgmList.Count - 1)];
-            }
-
-            _bgmAudioSource.clip = clip;
-        }
+        // private void SetRandomBgm()
+        // {
+        //     AudioClip lastClip = _bgmAudioSource.clip;
+        //     AudioClip clip = lastClip;
+        //     while (clip == lastClip)
+        //     {
+        //         clip = bgmList[Random.Range(0, bgmList.Count - 1)];
+        //     }
+        //
+        //     _bgmAudioSource.clip = clip;
+        // }
 
         /// <summary>
         /// 播放生日Bgm
@@ -229,7 +221,7 @@ namespace Tsuki.Managers
         public void PlayBirthdayBgm()
         {
             allowRandomBgm = false;
-            StopCoroutine(PlayBgm());
+            //StopCoroutine(PlayBgm());
             _audioFade.FadeOut(_bgmAudioSource, () =>
             {
                 _bgmAudioSource.clip = birthdayBgm;

@@ -2105,18 +2105,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7598173457621621186, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
-      propertyPath: stepText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7598173457621621186, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
-      propertyPath: addStepText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7598173457621621186, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
-      propertyPath: reduceStepText
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

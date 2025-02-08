@@ -21,9 +21,6 @@ namespace Tsuki.MVC.Models.Game
         [Header("草层")] public LayerMask grassLayer;
         [Header("冰块层")] public LayerMask groundIceLayer;
         public LayerMask groundIceLineLayer;
-
-        [Header("关卡BGM配置")]
-        public List<AudioClip> bgmList;
         
         [Header("存档槽位总数")] public int archiveCount;
         [Header("最大关卡数")] public int maxLevel;
