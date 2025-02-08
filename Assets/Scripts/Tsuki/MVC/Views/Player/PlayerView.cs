@@ -29,9 +29,10 @@ namespace Tsuki.MVC.Views.Player
             // 注册事件
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 _animationHandler.PlayAnimation);
-            GameManager.Instance.onGamePause.AddListener(
+            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
                 (_animationHandler as IPauseable).Pause);
-            GameManager.Instance.onGameResume.AddListener(
+            GameManager.Instance.RegisterEvent(
+                GameManagerEventType.OnGameResume,
                 (_animationHandler as IPauseable).Resume);
         }
 
@@ -41,10 +42,11 @@ namespace Tsuki.MVC.Views.Player
             // 注销事件
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(_animationHandler.PlayAnimation);
-            if (!GameManager.Instance) return;
-            GameManager.Instance.onGamePause.RemoveListener(
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGamePause,
                 (_animationHandler as IPauseable).Pause);
-            GameManager.Instance.onGameResume.RemoveListener(
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGameResume,
                 (_animationHandler as IPauseable).Resume);
         }
     }

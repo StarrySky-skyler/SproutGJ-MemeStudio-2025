@@ -51,13 +51,12 @@ namespace Tsuki.Entities.Box.Base
 
         protected virtual void OnEnable()
         {
-            GameManager.Instance.onGameUndo.AddListener(Undo);
+            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo, Undo);
         }
 
         protected virtual void OnDisable()
         {
-            if (!GameManager.Instance) return;
-            GameManager.Instance.onGameUndo.RemoveListener(Undo);
+            GameManager.Instance.UnregisterEvent(GameManagerEventType.OnGameUndo, Undo);
         }
 
         public void Undo()

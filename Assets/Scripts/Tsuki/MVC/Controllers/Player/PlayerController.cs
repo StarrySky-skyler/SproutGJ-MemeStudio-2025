@@ -49,14 +49,18 @@ namespace Tsuki.MVC.Controllers.Player
         private void OnEnable()
         {
             // 注册事件
-            GameManager.Instance.onGamePause.AddListener(
+            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
                 (_moveHandler as IPauseable).Pause);
-            GameManager.Instance.onGameResume.AddListener(
+            GameManager.Instance.RegisterEvent(
+                GameManagerEventType.OnGameResume,
                 (_moveHandler as IPauseable).Resume);
-            GameManager.Instance.onGameUndo.AddListener(
+            GameManager.Instance.RegisterEvent(
+                GameManagerEventType.OnGameUndo,
                 (_moveHandler as IUndoable).Undo);
-            GameManager.Instance.beforeGameReload.AddListener(
-                () => { _moveable = false; });
+            GameManager.Instance.RegisterEvent(
+                GameManagerEventType.BeforeGameReload,
+                () => { _moveable = false; }
+            );
             SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) =>
             {
                 _moveable = true;
@@ -65,13 +69,15 @@ namespace Tsuki.MVC.Controllers.Player
 
         private void OnDisable()
         {
-            if (!GameManager.Instance) return;
             // 注销事件
-            GameManager.Instance.onGamePause.RemoveListener(
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGamePause,
                 (_moveHandler as IPauseable).Pause);
-            GameManager.Instance.onGameResume.RemoveListener(
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGameResume,
                 (_moveHandler as IPauseable).Resume);
-            GameManager.Instance.onGameUndo.RemoveListener(
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGameUndo,
                 (_moveHandler as IUndoable).Undo);
         }
     }

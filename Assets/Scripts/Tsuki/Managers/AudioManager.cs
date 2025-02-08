@@ -28,7 +28,8 @@ namespace Tsuki.Managers
     {
         Move = 1,
         Win,
-        Fail
+        Fail,
+        Undo
     }
 
     public class AudioManager : Singleton<AudioManager>
@@ -43,6 +44,8 @@ namespace Tsuki.Managers
         [Header("胜利音效")] public AudioClip winSoundEffect;
 
         [Header("失败音效")] public AudioClip failSoundEffect;
+
+        [Header("撤回音效")] public AudioClip undoSoundEffect;
 
         [Header("BGM")] public List<AudioClip> bgmList;
 
@@ -75,7 +78,9 @@ namespace Tsuki.Managers
             // StartCoroutine(PlayBgm());
             PlayLevelBgm(false);
             // 注册事件
-            SceneManager.sceneLoaded += (scene, mode) => { PlayLevelBgm(); };
+            SceneManager.sceneLoaded += (_, _) => { PlayLevelBgm(); };
+            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
+                () => { PlaySoundEffect(SoundEffectType.Undo); });
         }
 
         private void OnEnable()
@@ -196,6 +201,9 @@ namespace Tsuki.Managers
                     break;
                 case SoundEffectType.Fail:
                     _sfxAudioSource.PlayOneShot(failSoundEffect);
+                    break;
+                case SoundEffectType.Undo:
+                    _sfxAudioSource.PlayOneShot(undoSoundEffect);
                     break;
                 default:
                     Debug.LogError($"{soundEffectType.ToString()}音效类型不存在");

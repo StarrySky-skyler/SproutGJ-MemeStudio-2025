@@ -19,6 +19,14 @@ using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
+    public enum GameManagerEventType
+    {
+        OnGamePause = 1,
+        OnGameResume,
+        OnGameUndo,
+        BeforeGameReload
+    }
+
     public class GameManager : Singleton<GameManager>
     {
         public UnityEvent onGamePause;
@@ -60,6 +68,61 @@ namespace Tsuki.Managers
             // 如果正在移动则不允许撤销
             if (ModelsManager.Instance.PlayerMod.IsMoving) return;
             onGameUndo?.Invoke();
+        }
+
+        /// <summary>
+        /// 注册事件
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="action"></param>
+        public void RegisterEvent(GameManagerEventType type, UnityAction action)
+        {
+            switch (type)
+            {
+                case GameManagerEventType.OnGamePause:
+                    onGamePause.AddListener(action);
+                    break;
+                case GameManagerEventType.OnGameResume:
+                    onGameResume.AddListener(action);
+                    break;
+                case GameManagerEventType.OnGameUndo:
+                    onGameUndo.AddListener(action);
+                    break;
+                case GameManagerEventType.BeforeGameReload:
+                    beforeGameReload.AddListener(action);
+                    break;
+                default:
+                    Debug.LogError("注册事件失败");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 注销事件
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="action"></param>
+        public void UnregisterEvent(GameManagerEventType type,
+            UnityAction action)
+        {
+            switch (type)
+            {
+                case GameManagerEventType.OnGamePause:
+                    onGamePause.RemoveListener(action);
+                    break;
+                case GameManagerEventType.OnGameResume:
+                    onGameResume.RemoveListener(action);
+                    break;
+                case GameManagerEventType.OnGameUndo:
+                    onGameUndo.RemoveListener(action);
+                    break;
+                case GameManagerEventType.BeforeGameReload:
+                    beforeGameReload.RemoveListener(action);
+                    break;
+                default:
+                    Debug.LogError("注销事件失败");
+                    break;
+            }
         }
     }
 }

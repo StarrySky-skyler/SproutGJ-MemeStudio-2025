@@ -32,7 +32,7 @@ namespace Tsuki.Managers
 
         private void Start()
         {
-            SceneManager.sceneLoaded += (scene, mode) =>
+            SceneManager.sceneLoaded += (_, _) =>
             {
                 _footPool = new ObjectPool<GameObject>(CreateFunc, ActionOnGet,
                     ActionOnRelease, ActionOnDestroy, true, 30,

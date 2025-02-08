@@ -26,8 +26,10 @@ namespace Tsuki.Managers
             SetStepText();
             UpdateStepText(ModelsManager.Instance.PlayerMod.CurrentLeftStep);
             // 注册事件
-            GameManager.Instance.onGamePause.AddListener(ShowPauseUI);
-            GameManager.Instance.onGameResume.AddListener(HidePauseUI);
+            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
+                ShowPauseUI);
+            GameManager.Instance.RegisterEvent(
+                GameManagerEventType.OnGameResume, HidePauseUI);
             ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
                 UpdateStepText);
             SceneManager.sceneLoaded += ResetPauseUI;
@@ -38,8 +40,11 @@ namespace Tsuki.Managers
         private void OnDisable()
         {
             // 注销事件
-            GameManager.Instance.onGamePause.RemoveListener(ShowPauseUI);
-            GameManager.Instance.onGameResume.RemoveListener(HidePauseUI);
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGamePause,
+                ShowPauseUI);
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGameResume, HidePauseUI);
             ModelsManager.Instance.PlayerMod.onStepChanged.RemoveListener(
                 UpdateStepText);
             SceneManager.sceneLoaded -= ResetPauseUI;
@@ -84,7 +89,7 @@ namespace Tsuki.Managers
             _stepText = GameObject.Find("UI/TMP_Step")
                 .GetComponent<TextMeshProUGUI>();
         }
-        
+
         private void SetStepText()
         {
             _stepText = GameObject.Find("UI/TMP_Step")

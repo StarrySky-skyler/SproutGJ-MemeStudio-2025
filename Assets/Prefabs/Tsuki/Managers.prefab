@@ -99,6 +99,9 @@ MonoBehaviour:
   onGameUndo:
     m_PersistentCalls:
       m_Calls: []
+  beforeGameReload:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6431261240471566386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,7 @@ MonoBehaviour:
   moveSoundEffect: {fileID: 8300000, guid: ee832ea2d4ce3d9458948f9e0abf837c, type: 3}
   winSoundEffect: {fileID: 8300000, guid: 814c7676954fb2d4a912fef0ae98fbb2, type: 3}
   failSoundEffect: {fileID: 8300000, guid: 668c1ab98458a6946b0f607b4fdbcefd, type: 3}
+  undoSoundEffect: {fileID: 8300000, guid: dd91bcb77806a304d91e9f7c61b8b8df, type: 3}
   bgmList:
   - {fileID: 8300000, guid: 0dd230977a8d7e94ea8f6f3df8e44049, type: 3}
   - {fileID: 8300000, guid: bb75517028cc95e4d9afcdbfcc9744a3, type: 3}
