@@ -15,12 +15,7 @@ namespace Tsuki.Entities.Audio
     public class AudioEntity : MonoBehaviour
     {
         private AudioSource[] _audioSource;
-
-        private void Awake()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
+        
         private void Start()
         {
             _audioSource = GetComponents<AudioSource>();

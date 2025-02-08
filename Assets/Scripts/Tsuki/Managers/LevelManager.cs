@@ -15,8 +15,6 @@ namespace Tsuki.Managers
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        [Header("最大关卡数")] public int maxLevel;
-
         private const string LEVEL_NAME_FORMATTER = "Level";
         private const string LEVEL_NAME_LATTER = "Scene";
         private const string PATTERN = @"Level(\d+)Scene";
@@ -26,13 +24,19 @@ namespace Tsuki.Managers
         {
             SceneManager.sceneLoaded += PrintDebug;
             // TODO: 后期胜利应先弹出胜利UI，再加载下一关
-            BoxManager.Instance.onWinChanged.AddListener(LoadNextLevel);
+            if (!BoxManager.Instance)
+            {
+                BoxManager.Instance.onWinChanged.AddListener(LoadNextLevel);
+            }
         }
 
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= PrintDebug;
-            BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
+            if (!BoxManager.Instance)
+            {
+                BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
+            }
         }
 
         private void PrintDebug(Scene scene, LoadSceneMode mode)
@@ -84,7 +88,8 @@ namespace Tsuki.Managers
         {
             if (!win) return;
             // 如果是最后一关，则不加载下一关
-            if (GetCurrentLevel() == maxLevel - 1)
+            if (GetCurrentLevel() ==
+                ModelsManager.Instance.GameMod.maxLevel - 1)
                 BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +
                                    1);

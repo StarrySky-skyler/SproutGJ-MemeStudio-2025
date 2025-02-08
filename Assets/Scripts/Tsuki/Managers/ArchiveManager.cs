@@ -16,8 +16,6 @@ namespace Tsuki.Managers
 {
     public class ArchiveManager : Singleton<ArchiveManager>
     {
-        [Header("存档槽位总数")] public int archiveCount;
-
         private List<UserData> _userDataList;
         private readonly string _archiveFileNameFormatter = "archive";
 
@@ -35,7 +33,8 @@ namespace Tsuki.Managers
         /// </summary>
         public void SaveCurrentArchive(int archiveIndex = 0)
         {
-            if (archiveIndex < 0 || archiveIndex >= archiveCount)
+            if (archiveIndex < 0 || archiveIndex >=
+                ModelsManager.Instance.GameMod.archiveCount)
             {
                 Debug.LogError("存档槽位索引越界");
                 return;
@@ -47,7 +46,7 @@ namespace Tsuki.Managers
                 LevelManager.Instance.GetCurrentLevel(),
                 2f,
                 ModelsManager.Instance.PlayerMod.CurrentPos
-                );
+            );
         }
 
         /// <summary>
@@ -56,7 +55,9 @@ namespace Tsuki.Managers
         private void ReadAllArchive()
         {
             _userDataList.Clear();
-            for (int i = 0; i < archiveCount; i++)
+            for (int i = 0;
+                 i < ModelsManager.Instance.GameMod.archiveCount;
+                 i++)
             {
                 UserData loadedData =
                     GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
