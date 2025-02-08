@@ -29,12 +29,12 @@ namespace Tsuki.Managers
         public float fadeOutTime;
 
         [Header("关卡BGM配置")] public List<AudioClip> bgmList;
+        private bool _allowAddCorrectBoxSfx; // 是否允许添加正确箱子音效，用于场切后防止立即播放
 
         //[CanBeNull] private AudioClip _lastMoveSoundEffect;
         private AudioFade _audioFade;
         private AudioSource _bgmAudioSource;
         private AudioSource _sfxAudioSource;
-        private bool _allowAddCorrectBoxSfx; // 是否允许添加正确箱子音效，用于场切后防止立即播放
 
         protected override void Awake()
         {
@@ -96,13 +96,6 @@ namespace Tsuki.Managers
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
         }
 
-        private IEnumerator WaitCorrectBoxSfx()
-        {
-            _allowAddCorrectBoxSfx = false;
-            yield return new WaitForSeconds(1.5f);
-            _allowAddCorrectBoxSfx = true;
-        }
-
         /// <summary>
         ///     播放音效
         /// </summary>
@@ -148,6 +141,13 @@ namespace Tsuki.Managers
                 _bgmAudioSource.clip = targetAudio;
                 _audioFade.FadeIn(_bgmAudioSource);
             }
+        }
+
+        private IEnumerator WaitCorrectBoxSfx()
+        {
+            _allowAddCorrectBoxSfx = false;
+            yield return new WaitForSeconds(1.5f);
+            _allowAddCorrectBoxSfx = true;
         }
 
         private void PlayLevelBgm(bool fadeOutLast = true)

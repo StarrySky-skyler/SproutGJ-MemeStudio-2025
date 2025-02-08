@@ -24,10 +24,7 @@ namespace Tsuki.Entities.ScreenMask
         private void Awake()
         {
             _img = GetComponent<Image>();
-            SceneManager.sceneLoaded += (_, _) =>
-            {
-                FadeOut();
-            };
+            SceneManager.sceneLoaded += (_, _) => { FadeOut(); };
             DontDestroyOnLoad(transform.parent.gameObject);
         }
 
@@ -46,10 +43,10 @@ namespace Tsuki.Entities.ScreenMask
 
         public void FadeOut(Action onCompleted = null)
         {
-            _img.DOColor(Color.clear, fadeOutTime).OnComplete((() =>
+            _img.DOColor(Color.clear, fadeOutTime).OnComplete(() =>
             {
                 onCompleted?.Invoke();
-            }));
+            });
         }
     }
 }

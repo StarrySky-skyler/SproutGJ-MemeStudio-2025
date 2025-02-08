@@ -65,6 +65,13 @@ public class ChatManager : MonoBehaviour
 
     [ReadOnly] public List<Button> currentSelectBtn = new(); // 当前可用的选择按钮列表
 
+    private void Awake()
+    {
+#if UNITY_EDITOR
+        chatContentTime = 0f;
+#endif
+    }
+
     public void Update()
     {
         if (Input.GetMouseButtonDown(0)) // 判断是否按下了鼠标左键
