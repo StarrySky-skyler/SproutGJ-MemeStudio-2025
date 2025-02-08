@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.Base;
 using Tsuki.Entities.Box.Base;
 using UnityEngine;
 using UnityEngine.Events;

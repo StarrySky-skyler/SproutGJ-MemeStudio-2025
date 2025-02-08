@@ -19,6 +19,8 @@ namespace Tsuki.Managers
     {
         private const string UNDO_SFX_NAME = "Move a cat3";
         private const string MOVE_SFX_NAME = "Move a cat4";
+        private const string MOVE_ON_DRY_SFX_NAME = "Move a cat_On_Dry";
+        private const string MOVE_ON_ICE_SFX_NAME = "Move a cat_On_Ice";
         private const string WIN_SFX_NAME = "Victroy this pat";
         private const string FAIL_SFX_NAME = "Fail this pat";
         [Header("Audio预制体")] public GameObject audioPrefab;
@@ -169,7 +171,27 @@ namespace Tsuki.Managers
         private void RandomPlayMoveSoundEffect(bool moveStatus)
         {
             if (!moveStatus) return;
-            PlaySfx(MOVE_SFX_NAME);
+            switch (LevelManager.Instance.GetCurrentLevel())
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 8:
+                    PlaySfx(MOVE_SFX_NAME);
+                    break;
+                case 4:
+                case 5:
+                    PlaySfx(MOVE_ON_DRY_SFX_NAME);
+                    break;
+                case 6:
+                case 7:
+                    PlaySfx(MOVE_ON_ICE_SFX_NAME);
+                    break;
+                default:
+                    Debug.LogError(
+                        $"[ERROR] AudioManager >>> 播放移动音效时，关卡数{LevelManager.Instance.GetCurrentLevel()}不合法");
+                    break;
+            }
         }
 
         /// <summary>
