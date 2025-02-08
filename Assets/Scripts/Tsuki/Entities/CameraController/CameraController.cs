@@ -23,9 +23,10 @@ namespace Tsuki.Entities.CameraController
     {
         [Header("聚焦物体")] [Header("繁茂城邦")] [CanBeNull]
         public Transform lushCityTrans;
-
         [Header("干旱城邦")] [CanBeNull] public Transform dryCityTrans;
+
         [Header("严寒城邦")] [CanBeNull] public Transform coldCityTrans;
+
         [Header("废土")] [CanBeNull] public Transform wasteLandTrans;
 
         [Header("相机移动时间")] public float moveTime;
@@ -65,7 +66,7 @@ namespace Tsuki.Entities.CameraController
                 return;
             }
 
-            Focus(targetTrans.position);
+            Focus(targetTrans);
         }
 
         /// <summary>
@@ -74,12 +75,12 @@ namespace Tsuki.Entities.CameraController
         /// <param name="trans"></param>
         public void FocusOnTarget(Transform trans)
         {
-            Focus(trans.position);
+            Focus(trans);
         }
 
-        private void Focus(Vector3 targetPos)
+        private void Focus(Transform targetPos)
         {
-            Vector3 newPos = Commons.GetModifiedPos(targetPos);
+            Vector3 newPos = Commons.GetModifiedPos(targetPos.position);
             // 移动
             Sequence sequence = DOTween.Sequence();
 
@@ -87,17 +88,16 @@ namespace Tsuki.Entities.CameraController
 
             sequence.Append(DOTween.To(() => _camera.orthographicSize,
                 x => _camera.orthographicSize = x,
-                targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad).OnComplete(() =>
-                {
-                    StopAllCoroutines();
-                    StartCoroutine(SelectScene());
-                }));
-            
+                targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad));
 
+            if (Vector3.Distance(transform.position, newPos) < 0.1f)
+            {
+                StopAllCoroutines();
+                StartCoroutine(SelectScene());
+            }
             // 聚焦
 
         }
-
         public void Reset()
         {
             transform.DOMove(_originPos, moveTime).SetEase(Ease.InOutQuad);
