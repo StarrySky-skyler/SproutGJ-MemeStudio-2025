@@ -76,7 +76,7 @@ namespace Tsuki.Managers
         public void OnReload(InputValue context)
         {
             beforeGameReload?.Invoke();
-            AudioManager.Instance.WaitPlayFailSFX(() =>
+            AudioManager.Instance.WaitPlayFailSfx(() =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             });
@@ -86,7 +86,10 @@ namespace Tsuki.Managers
         {
             // 如果正在移动则不允许撤销
             if (ModelsManager.Instance.PlayerMod.IsMoving) return;
-            onGameUndo?.Invoke();
+            // 如果回到起点，不允许撤销
+            if (ModelsManager.Instance.PlayerMod.CurrentLeftStep ==
+                ModelsManager.Instance.PlayerMod.maxMoveStep) return;
+                onGameUndo?.Invoke();
         }
 
         /// <summary>
