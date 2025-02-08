@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System;
+using System.Collections;
 using JetBrains.Annotations;
 using Tsuki.Base;
 using Tsuki.MVC.Models.Player;
@@ -23,6 +24,7 @@ namespace Tsuki.Managers
         public UnityEvent onGamePause;
         public UnityEvent onGameResume;
         public UnityEvent onGameUndo;
+        public UnityEvent beforeGameReload;
 
         protected override void OnDestroy()
         {
@@ -46,7 +48,11 @@ namespace Tsuki.Managers
 
         public void OnReload(InputValue context)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            beforeGameReload?.Invoke();
+            AudioManager.Instance.WaitPlayFailSFX(() =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            });
         }
 
         public void OnUndo(InputValue context)

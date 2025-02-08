@@ -24,19 +24,13 @@ namespace Tsuki.Managers
         {
             SceneManager.sceneLoaded += PrintDebug;
             // TODO: 后期胜利应先弹出胜利UI，再加载下一关
-            if (!BoxManager.Instance)
-            {
-                BoxManager.Instance.onWinChanged.AddListener(LoadNextLevel);
-            }
+            BoxManager.Instance.onWinChanged.AddListener(LoadNextLevel);
         }
 
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= PrintDebug;
-            if (!BoxManager.Instance)
-            {
-                BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
-            }
+            BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
         }
 
         private void PrintDebug(Scene scene, LoadSceneMode mode)
