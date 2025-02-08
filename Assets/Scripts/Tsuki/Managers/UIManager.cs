@@ -36,9 +36,11 @@ namespace Tsuki.Managers
         private void Start()
         {
             // 获取组件
-            _addStepText = GameObject.Find("UI/StepPanel/TMP_StepAdd")
+            _addStepText = GameObject.FindWithTag("UI").transform
+                .Find("StepPanel/TMP_StepAdd")
                 .GetComponent<TextMeshProUGUI>();
-            _reduceStepText = GameObject.Find("UI/StepPanel/TMP_StepReduce")
+            _reduceStepText = GameObject.FindWithTag("UI").transform
+                .Find("StepPanel/TMP_StepReduce")
                 .GetComponent<TextMeshProUGUI>();
             // 初始化
             _addStepOriginColor = _addStepText.color;
@@ -53,7 +55,8 @@ namespace Tsuki.Managers
 
         private void OnEnable()
         {
-            _stepText = GameObject.Find("UI/StepPanel/TMP_Step")
+            _stepText = GameObject.FindWithTag("UI").transform
+                .Find("StepPanel/TMP_Step")
                 .GetComponent<TextMeshProUGUI>();
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
