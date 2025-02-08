@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Tsuki.Interface;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tsuki.Managers
 {
@@ -65,6 +66,19 @@ namespace Tsuki.Managers
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
             BoxManager.Instance.onBoxCorrectAdded.AddListener(() =>
                 PlayWinSoundEffect(true));
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                GameObject audio = GameObject.FindWithTag("Audio");
+                if (!audio) audio = Instantiate(audioPrefab);
+                _bgmAudioSource = audio.GetComponents<AudioSource>()[0];
+                _sfxAudioSource = audio.GetComponents<AudioSource>()[1];
+                _bgmAudioSource.loop = true;
+                _sfxAudioSource.loop = false;
+            };
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                PlayLevelBgm(false);
+            };
         }
 
         private void OnDisable()

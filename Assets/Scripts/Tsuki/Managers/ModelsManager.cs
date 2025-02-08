@@ -6,9 +6,11 @@
 // @description:
 // *****************************************************************************
 
+using System;
 using Tsuki.MVC.Models.Game;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Tsuki.Managers
 {
@@ -23,6 +25,11 @@ namespace Tsuki.Managers
             PlayerMod = Resources.Load<PlayerModel>("Tsuki/PlayerModel");
             GameMod = Resources.Load<GameModel>("Tsuki/GameModel");
             PlayerMod.Init();
+        }
+
+        private void Start()
+        {
+            SceneManager.sceneLoaded += (_, _) => { PlayerMod.Init(); };
         }
     }
 }

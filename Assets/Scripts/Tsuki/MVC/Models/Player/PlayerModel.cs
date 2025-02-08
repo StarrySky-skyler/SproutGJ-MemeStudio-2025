@@ -60,7 +60,6 @@ namespace Tsuki.MVC.Models.Player
         /// </summary>
         public void Init()
         {
-            onStepChanged = new UnityEvent<int, bool>();
             CurrentLeftStep = maxMoveStep;
             _isMoving = false;
             LastPosStack = new Stack<Vector3>();

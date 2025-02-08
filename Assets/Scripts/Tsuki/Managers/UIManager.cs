@@ -32,22 +32,7 @@ namespace Tsuki.Managers
 
         private void Start()
         {
-            // 获取组件
-            _addStepText = GameObject.FindWithTag("UI").transform
-                .Find("StepPanel/TMP_StepAdd")
-                .GetComponent<TextMeshProUGUI>();
-            _reduceStepText = GameObject.FindWithTag("UI").transform
-                .Find("StepPanel/TMP_StepReduce")
-                .GetComponent<TextMeshProUGUI>();
-            // 初始化
-            _addStepOriginColor = _addStepText.color;
-            _reduceStepOriginColor = _reduceStepText.color;
-            _addStepTargetColor = new Color(_addStepText.color.r,
-                _addStepText.color.g, _addStepText.color.b, 1);
-            _reduceStepTargetColor = new Color(_reduceStepText.color.r,
-                _reduceStepText.color.g, _reduceStepText.color.b, 1);
-            _stepText.color = new Color(1, 1, 1, 0);
-            UpdateStepText(ModelsManager.Instance.PlayerMod.CurrentLeftStep);
+            Init();
         }
 
         private void OnEnable()
@@ -69,6 +54,10 @@ namespace Tsuki.Managers
                 UpdateStepText);
             ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
                 UpdateStepColor);
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                Init();
+            };
         }
 
         private void OnDisable()
@@ -81,6 +70,29 @@ namespace Tsuki.Managers
                 GameManagerEventType.OnGameResume, HidePauseUI);
             ModelsManager.Instance.PlayerMod.onStepChanged.RemoveListener(
                 UpdateStepText);
+        }
+
+        private void Init()
+        {
+            // 获取组件
+            _stepText = GameObject.FindWithTag("UI").transform
+                .Find("StepPanel/TMP_Step")
+                .GetComponent<TextMeshProUGUI>();
+            _addStepText = GameObject.FindWithTag("UI").transform
+                .Find("StepPanel/TMP_StepAdd")
+                .GetComponent<TextMeshProUGUI>();
+            _reduceStepText = GameObject.FindWithTag("UI").transform
+                .Find("StepPanel/TMP_StepReduce")
+                .GetComponent<TextMeshProUGUI>();
+            // 初始化
+            _addStepOriginColor = _addStepText.color;
+            _reduceStepOriginColor = _reduceStepText.color;
+            _addStepTargetColor = new Color(_addStepText.color.r,
+                _addStepText.color.g, _addStepText.color.b, 1);
+            _reduceStepTargetColor = new Color(_reduceStepText.color.r,
+                _reduceStepText.color.g, _reduceStepText.color.b, 1);
+            _stepText.color = new Color(1, 1, 1, 0);
+            UpdateStepText(ModelsManager.Instance.PlayerMod.CurrentLeftStep);
         }
 
         /// <summary>

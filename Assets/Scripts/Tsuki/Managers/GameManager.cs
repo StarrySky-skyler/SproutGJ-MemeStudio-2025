@@ -6,6 +6,7 @@
 // @description: 游戏管理器单例
 // *****************************************************************************
 
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -42,9 +43,20 @@ namespace Tsuki.Managers
             }
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            DontDestroyOnLoad(transform.parent);
+        }
+
         private void Start()
         {
             if (!GameObject.Find("chatBack")) AllowLoadGame = true;
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                AllowLoadGame = false;
+                if (!GameObject.Find("chatBack")) AllowLoadGame = true;
+            };
         }
 
         protected override void OnDestroy()
@@ -84,6 +96,13 @@ namespace Tsuki.Managers
             if (ModelsManager.Instance.PlayerMod.CurrentLeftStep ==
                 ModelsManager.Instance.PlayerMod.maxMoveStep) return;
             onGameUndo?.Invoke();
+        }
+
+        public void OnNextLevel(InputValue context)
+        {
+#if UNITY_EDITOR
+            LevelManager.Instance.LoadNextLevel(true);
+#endif
         }
 
         /// <summary>

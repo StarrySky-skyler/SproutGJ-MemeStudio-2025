@@ -78,7 +78,7 @@ namespace Tsuki.Managers
         ///     加载下一关
         /// </summary>
         /// <param name="win"></param>
-        private void LoadNextLevel(bool win)
+        public void LoadNextLevel(bool win)
         {
             if (!win) return;
             // 如果是最后一关，则不加载下一关
