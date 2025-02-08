@@ -17,11 +17,12 @@ namespace Tsuki.Managers
     {
         private const string LEVEL_NAME_FORMATTER = "Level";
         private const string LEVEL_NAME_LATTER = "Scene";
-        private const string PATTERN = @"Level(\d+)Scene";
+        private const string PATTERN = @"\d+";
         private UserData _loadData;
 
         private void OnEnable()
         {
+            Debug.Log($"LevelManager>>>当前关卡数：{GetCurrentLevel()}");
             SceneManager.sceneLoaded += PrintDebug;
             // TODO: 后期胜利应先弹出胜利UI，再加载下一关
             BoxManager.Instance.onWinChanged.AddListener(LoadNextLevel);
@@ -46,8 +47,8 @@ namespace Tsuki.Managers
         {
             // 使用正则表达式匹配场景名称中的数字部分
             string sceneName = SceneManager.GetActiveScene().name;
-            Match match = Regex.Match(sceneName, PATTERN);
-            if (match.Success) return int.Parse(match.Groups[1].Value);
+            MatchCollection match = Regex.Matches(sceneName, PATTERN);
+            if (match.Count > 0) return int.Parse(match[^1].Value);
 
             // 如果匹配失败，则返回-1
             Debug.LogError("获取当前关卡数错误，当前场景名称格式不正确");
