@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 
 namespace Febucci.UI
 {
-    [System.Serializable]
+    [Serializable]
     internal class TextAnimatorInstallationData : ScriptableObject
     {
-        [SerializeField] internal string latestVersion = "None"; //stores the latest version
+        [SerializeField]
+        internal string latestVersion = "None"; //stores the latest version
     }
 }

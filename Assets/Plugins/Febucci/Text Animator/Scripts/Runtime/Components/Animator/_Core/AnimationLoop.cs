@@ -5,7 +5,7 @@ namespace Febucci.UI
         Update = 0,
 
         LateUpdate = 1,
-            
+
         /// <summary>
         /// Via Script
         /// </summary>

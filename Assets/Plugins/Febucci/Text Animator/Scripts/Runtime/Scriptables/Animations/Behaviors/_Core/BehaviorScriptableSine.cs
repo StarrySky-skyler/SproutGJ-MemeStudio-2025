@@ -1,4 +1,5 @@
 using Febucci.UI.Core;
+using UnityEngine;
 
 namespace Febucci.UI.Effects
 {
@@ -7,7 +8,7 @@ namespace Febucci.UI.Effects
         //--- BASE VALUES ---
         public float baseAmplitude = 1;
         public float baseFrequency = 1;
-        [UnityEngine.Range(0,1)] public float baseWaveSize = .2f;
+        [Range(0, 1)] public float baseWaveSize = .2f;
 
         //--- EFFECTS INFO ---
         protected float amplitude;
@@ -24,7 +25,7 @@ namespace Febucci.UI.Effects
 
         public override void SetModifier(ModifierInfo modifier)
         {
-            switch(modifier.name)
+            switch (modifier.name)
             {
                 case "a": amplitude = baseAmplitude * modifier.value; break;
                 case "f": frequency = baseFrequency * modifier.value; break;
@@ -34,5 +35,4 @@ namespace Febucci.UI.Effects
             }
         }
     }
-
 }

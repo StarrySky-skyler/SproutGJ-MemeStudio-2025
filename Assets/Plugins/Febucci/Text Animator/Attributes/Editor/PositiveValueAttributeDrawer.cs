@@ -1,15 +1,16 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace Febucci.Attributes
 {
     [CustomPropertyDrawer(typeof(PositiveValueAttribute))]
     public class PositiveValueAttributeDrawer : PropertyDrawer
     {
-        const float minValue = .01f;
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
+        private const float minValue = .01f;
 
+        public override void OnGUI(Rect position, SerializedProperty property,
+            GUIContent label)
+        {
             switch (property.propertyType)
             {
                 case SerializedPropertyType.Integer:
@@ -21,14 +22,17 @@ namespace Febucci.Attributes
 
                 case SerializedPropertyType.Float:
                     float floatValue = property.floatValue;
-                    floatValue = EditorGUI.FloatField(position, label, floatValue);
+                    floatValue =
+                        EditorGUI.FloatField(position, label, floatValue);
 
-                    property.floatValue = Mathf.Clamp(floatValue, minValue, floatValue);
+                    property.floatValue =
+                        Mathf.Clamp(floatValue, minValue, floatValue);
                     break;
 
                 case SerializedPropertyType.Vector2:
                     Vector2 vecValue = property.vector2Value;
-                    vecValue = EditorGUI.Vector2Field(position, label, vecValue);
+                    vecValue =
+                        EditorGUI.Vector2Field(position, label, vecValue);
 
                     vecValue.x = Mathf.Clamp(vecValue.x, minValue, vecValue.x);
                     vecValue.y = Mathf.Clamp(vecValue.y, minValue, vecValue.y);
@@ -40,8 +44,6 @@ namespace Febucci.Attributes
                     base.OnGUI(position, property, label);
                     break;
             }
-
         }
     }
-
 }

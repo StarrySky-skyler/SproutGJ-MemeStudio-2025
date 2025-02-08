@@ -6,10 +6,10 @@ namespace Febucci.UI.Core
     /// <summary>
     /// Could draw anything
     /// </summary>
-    class GenericSharedDrawer : SharedDrawer
+    internal class GenericSharedDrawer : SharedDrawer
     {
+        private readonly bool showScript;
 
-        bool showScript;
         public GenericSharedDrawer(bool showScript)
         {
             this.showScript = showScript;
@@ -42,14 +42,12 @@ namespace Febucci.UI.Core
                 {
                     EditorGUILayout.BeginHorizontal();
                     //if (iterator.displayName.Length > 0)
-                        //EditorGUILayout.PrefixLabel(iterator.displayName.Replace("Base ", ""));
+                    //EditorGUILayout.PrefixLabel(iterator.displayName.Replace("Base ", ""));
                     EditorGUILayout.PropertyField(iterator, true);
                     //EditorGUILayout.PropertyField(iterator, GUIContent.none, true);
                     EditorGUILayout.EndHorizontal();
                 }
-
-            } while (iterator.NextVisible(false)) ;
+            } while (iterator.NextVisible(false));
         }
     }
-
 }

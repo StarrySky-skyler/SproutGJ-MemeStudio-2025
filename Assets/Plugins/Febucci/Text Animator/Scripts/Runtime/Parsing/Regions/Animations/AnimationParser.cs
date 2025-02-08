@@ -8,48 +8,60 @@ namespace Febucci.UI.Core.Parsing
     /// <summary>
     /// Rules how to parse a rich text tag that has an opening and ending
     /// </summary>
-    public class AnimationParser<T> : TagParserBase where T : AnimationScriptableBase
+    public class AnimationParser<T> : TagParserBase
+        where T : AnimationScriptableBase
     {
+        private const char
+            middleSymbolDefault =
+                '\n'; //this will never be set... right? right???
+
+        //--- RESULTS ---
+        private Dictionary<string, AnimationRegion> _results;
+
         //--- DATABASE ---
         public Database<T> database;
-        VisibilityMode visibilityMode;
-        char middleSymbol;
-        const char middleSymbolDefault = '\n'; //this will never be set... right? right???
+        private readonly char middleSymbol;
+        private readonly VisibilityMode visibilityMode;
 
         //--- CONSTRUCTORS ---
-        public AnimationParser(char startSymbol, char closingSymbol, char endSymbol, VisibilityMode visibilityMode, Database<T> database) : base(startSymbol, closingSymbol, endSymbol)
+        public AnimationParser(char startSymbol, char closingSymbol,
+            char endSymbol, VisibilityMode visibilityMode,
+            Database<T> database) : base(startSymbol, closingSymbol, endSymbol)
         {
             this.visibilityMode = visibilityMode;
             this.database = database;
-            this.middleSymbol = middleSymbolDefault;
+            middleSymbol = middleSymbolDefault;
         }
 
-        public AnimationParser(char startSymbol, char closingSymbol, char middleSymbol, char endSymbol, VisibilityMode visibilityMode, Database<T> database) : base(startSymbol, closingSymbol, endSymbol)
+        public AnimationParser(char startSymbol, char closingSymbol,
+            char middleSymbol, char endSymbol, VisibilityMode visibilityMode,
+            Database<T> database) : base(startSymbol, closingSymbol, endSymbol)
         {
             this.visibilityMode = visibilityMode;
             this.database = database;
             this.middleSymbol = middleSymbol;
         }
 
-        //--- RESULTS ---
-        Dictionary<string, AnimationRegion> _results;
-
-        public AnimationRegion[] results => _results.Values.ToArray(); //TODO cache
+        public AnimationRegion[] results =>
+            _results.Values.ToArray(); //TODO cache
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
             _results = new Dictionary<string, AnimationRegion>();
-            if(database) database.BuildOnce();
+            if (database) database.BuildOnce();
         }
 
 
-        public override bool TryProcessingTag(string textInsideBrackets, int tagLength, ref int realTextIndex, StringBuilder finalTextBuilder, int internalOrder)
+        public override bool TryProcessingTag(string textInsideBrackets,
+            int tagLength, ref int realTextIndex,
+            StringBuilder finalTextBuilder, int internalOrder)
         {
             if (!database) return false;
-            
-            textInsideBrackets = textInsideBrackets.ToLower(); //animations are case insensitive
+
+            textInsideBrackets =
+                textInsideBrackets.ToLower(); //animations are case insensitive
 
             //Makes sure the database is built
             database.BuildOnce();
@@ -60,9 +72,7 @@ namespace Febucci.UI.Core.Parsing
             if (isClosing && tagLength == 1)
             {
                 foreach (var range in _results.Values)
-                {
                     range.CloseAllOpenedRanges(realTextIndex);
-                }
                 return true;
             }
 
@@ -84,11 +94,12 @@ namespace Febucci.UI.Core.Parsing
             //TODO tests for this
             if (middleSymbol != middleSymbolDefault)
             {
-                if(tempTagName[0] != middleSymbol) return false; 
+                if (tempTagName[0] != middleSymbol) return false;
                 tempTagName = tempTagName.Substring(1);
             }
 
-            if (!database.ContainsKey(tempTagName)) return false; //Skips unrecognized tags
+            if (!database.ContainsKey(tempTagName))
+                return false; //Skips unrecognized tags
 
             //----ADDS RESULT----
             if (isClosing)
@@ -100,7 +111,9 @@ namespace Febucci.UI.Core.Parsing
             {
                 //Creates new region if it doesn't exist yet
                 if (!_results.ContainsKey(tempTagName))
-                    _results.Add(tempTagName, new AnimationRegion(tempTagName,  visibilityMode, database[tempTagName]));
+                    _results.Add(tempTagName,
+                        new AnimationRegion(tempTagName, visibilityMode,
+                            database[tempTagName]));
 
                 _results[tempTagName].OpenNewRange(realTextIndex, tempTagWords);
             }
@@ -109,7 +122,7 @@ namespace Febucci.UI.Core.Parsing
             Returns true nonetheless, since even if the tag might have not been processed correctly,
             it's still a Text Animator tag that shouldn't appear in the final text
             */
-            return true; 
+            return true;
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using Febucci.UI.Core;
+﻿using System;
+using Febucci.UI.Core;
 using Febucci.UI.Core.Parsing;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,22 @@ namespace Febucci.UI
     [AddComponentMenu("Febucci/TextAnimator/Text Animator - Text Mesh Pro")]
     public sealed class TextAnimator_TMP : TAnimCore
     {
+        private TMP_InputField attachedInputField;
+
+        //----- Values cache -----
+        private bool autoSize;
+        //-----
+
+        private bool componentsCached;
+        private bool isUI;
+        private Color sourceColor;
+        private Rect sourceRect;
+        private TMP_TextInfo textInfo;
+
+        private TMP_Text tmpComponent;
+        private int tmpFirstVisibleCharacter;
+        private int tmpMaxVisibleCharacters;
+
         /// <summary>
         /// The TextMeshPro text component linked to this Text Animator
         /// </summary>
@@ -26,43 +44,6 @@ namespace Febucci.UI
                 return tmpComponent;
             }
         }
-        
-        TMP_Text tmpComponent;
-        TMP_TextInfo textInfo;
-        TMP_InputField attachedInputField;
-
-        //----- Values cache -----
-        bool autoSize;
-        Rect sourceRect;
-        Color sourceColor;
-        int tmpFirstVisibleCharacter;
-        int tmpMaxVisibleCharacters;
-        //-----
-
-        bool componentsCached;
-        bool isUI;
-        void CacheComponentsOnce()
-        {
-            if(componentsCached) return;
-            
-            if (!gameObject.TryGetComponent(out tmpComponent))
-            {
-                Debug.LogError($"TextAnimator_TMP {name} requires a TMP_Text component to work.", gameObject);
-            }
-            
-            gameObject.TryGetComponent(out attachedInputField);
-            componentsCached = true;
-            isUI = tmpComponent is TextMeshProUGUI;
-        }
-        
-        protected override void OnInitialized()
-        {
-            CacheComponentsOnce();
-            
-            //prevents the text from being rendered at startup
-            //e.g. in case user has stuff on the inspector
-            tmpComponent.renderMode = TextRenderFlags.DontRender;
-        }
 
         protected override void OnEnable()
         {
@@ -70,16 +51,61 @@ namespace Febucci.UI
             textInfo = TMProComponent.textInfo;
         }
 
+        private void CacheComponentsOnce()
+        {
+            if (componentsCached) return;
+
+            if (!gameObject.TryGetComponent(out tmpComponent))
+                Debug.LogError(
+                    $"TextAnimator_TMP {name} requires a TMP_Text component to work.",
+                    gameObject);
+
+            gameObject.TryGetComponent(out attachedInputField);
+            componentsCached = true;
+            isUI = tmpComponent is TextMeshProUGUI;
+        }
+
+        protected override void OnInitialized()
+        {
+            CacheComponentsOnce();
+
+            //prevents the text from being rendered at startup
+            //e.g. in case user has stuff on the inspector
+            tmpComponent.renderMode = TextRenderFlags.DontRender;
+        }
+
+        protected override bool IsReady()
+        {
+            return componentsCached && (!isUI || tmpComponent.canvas);
+        }
+
+        #region Characters
+
+        protected override int GetCharactersCount()
+        {
+            return textInfo.characterCount;
+        }
+
+        #endregion
+
         #region Text
 
         protected override TagParserBase[] GetExtraParsers()
         {
-            return new TagParserBase[1] {new TMPTagParser(tmpComponent.richText, '<', '/', '>')};
+            return new TagParserBase[1]
+                { new TMPTagParser(tmpComponent.richText, '<', '/', '>') };
         }
 
-        public override string GetOriginalTextFromSource() => TMProComponent.text;
-        public override string GetStrippedTextFromSource() => tmpComponent.GetParsedText();
-        
+        public override string GetOriginalTextFromSource()
+        {
+            return TMProComponent.text;
+        }
+
+        public override string GetStrippedTextFromSource()
+        {
+            return tmpComponent.GetParsedText();
+        }
+
         /// <summary>
         /// Equivalent to setting the text to the TMP component, without parsing it.
         /// Please use <see cref="TAnimCore.SetText(string)"/> or <see cref="TAnimCore.SetText(string, bool)"/> instead.
@@ -91,7 +117,8 @@ namespace Febucci.UI
             TMProComponent.renderMode = TextRenderFlags.DontRender;
 
             //--generates mesh and text info--
-            if (attachedInputField) attachedInputField.text = text; //renders input field
+            if (attachedInputField)
+                attachedInputField.text = text; //renders input field
             else tmpComponent.text = text; //<-- sets the text
 
 
@@ -104,10 +131,11 @@ namespace Febucci.UI
                 case TextOverflowModes.Masking:
                     break;
                 default:
-                    LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponent.rectTransform);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponent
+                        .rectTransform);
                     break;
             }
-            
+
             OnForceMeshUpdate();
 
             textInfo = tmpComponent.GetTextInfo(tmpComponent.text);
@@ -116,41 +144,44 @@ namespace Febucci.UI
             {
                 //needed to update tmp mesh from editor
                 tmpComponent.havePropertiesChanged = true;
-                UnityEditor.EditorUtility.SetDirty(tmpComponent);
+                EditorUtility.SetDirty(tmpComponent);
 
                 Animate(0);
             }
             else
 #endif
+            {
                 tmpComponent.renderMode = TextRenderFlags.DontRender;
+            }
         }
-        #endregion
 
-        protected override bool IsReady() => componentsCached && (!isUI || tmpComponent.canvas);
-        #region Characters
-        protected override int GetCharactersCount() => textInfo.characterCount;
         #endregion
 
         #region Checks
+
         protected override bool HasChangedRenderingSettings()
         {
             return tmpComponent.havePropertiesChanged
-                //changing the properties below doesn't seem to trigger 'havePropertiesChanged', so we're checking them manually
-                || tmpComponent.enableAutoSizing != autoSize
-                || tmpComponent.rectTransform.rect != sourceRect
-                || tmpComponent.color != sourceColor
-                || tmpComponent.firstVisibleCharacter != tmpFirstVisibleCharacter
-                || tmpComponent.maxVisibleCharacters != tmpMaxVisibleCharacters;
+                   //changing the properties below doesn't seem to trigger 'havePropertiesChanged', so we're checking them manually
+                   || tmpComponent.enableAutoSizing != autoSize
+                   || tmpComponent.rectTransform.rect != sourceRect
+                   || tmpComponent.color != sourceColor
+                   || tmpComponent.firstVisibleCharacter !=
+                   tmpFirstVisibleCharacter
+                   || tmpComponent.maxVisibleCharacters !=
+                   tmpMaxVisibleCharacters;
         }
 
         protected override bool HasChangedText(string strippedText)
         {
-            if(string.IsNullOrEmpty(tmpComponent.text) && string.IsNullOrEmpty(strippedText))
+            if (string.IsNullOrEmpty(tmpComponent.text) &&
+                string.IsNullOrEmpty(strippedText))
                 return false;
-            
-            if (string.IsNullOrEmpty(tmpComponent.text) != string.IsNullOrEmpty(strippedText))
+
+            if (string.IsNullOrEmpty(tmpComponent.text) !=
+                string.IsNullOrEmpty(strippedText))
                 return true;
-            
+
             return !tmpComponent.text.Equals(strippedText);
         }
 
@@ -158,7 +189,8 @@ namespace Febucci.UI
 
         #region Mesh
 
-        protected override void CopyMeshFromSource(ref CharacterData[] characters)
+        protected override void CopyMeshFromSource(
+            ref CharacterData[] characters)
         {
             autoSize = tmpComponent.enableAutoSizing;
             sourceRect = tmpComponent.rectTransform.rect;
@@ -169,7 +201,9 @@ namespace Febucci.UI
             TMP_CharacterInfo currentCharInfo;
 
             //Updates the characters sources
-            for (int i = 0; i < textInfo.characterCount && i < characters.Length; i++)
+            for (int i = 0;
+                 i < textInfo.characterCount && i < characters.Length;
+                 i++)
             {
                 currentCharInfo = textInfo.characterInfo[i];
                 characters[i].info.isRendered = currentCharInfo.isVisible;
@@ -179,40 +213,47 @@ namespace Febucci.UI
 
                 //Copies source data from the mesh info only if the character is valid, otherwise its vertices array will be null and tAnim will start throw errors
                 if (!currentCharInfo.isVisible) continue;
-                
+
                 characters[i].info.pointSize = currentCharInfo.pointSize;
 
                 //Updates vertices
                 for (byte k = 0; k < TextUtilities.verticesPerChar; k++)
-                {
-                    characters[i].source.positions[k] = textInfo.meshInfo[currentCharInfo.materialReferenceIndex].vertices[currentCharInfo.vertexIndex + k];
-                }
+                    characters[i].source.positions[k] = textInfo
+                        .meshInfo[currentCharInfo.materialReferenceIndex]
+                        .vertices[currentCharInfo.vertexIndex + k];
 
                 //Updates colors
                 for (byte k = 0; k < TextUtilities.verticesPerChar; k++)
-                {
-                    characters[i].source.colors[k] = textInfo.meshInfo[currentCharInfo.materialReferenceIndex].colors32[currentCharInfo.vertexIndex + k];
-                }
+                    characters[i].source.colors[k] = textInfo
+                        .meshInfo[currentCharInfo.materialReferenceIndex]
+                        .colors32[currentCharInfo.vertexIndex + k];
             }
         }
 
-        public override int GetRenderedCharactersCountInsidePage() => TMProComponent.overflowMode != TextOverflowModes.Overflow ? TMProComponent.firstOverflowCharacterIndex : base.GetRenderedCharactersCountInsidePage();
+        public override int GetRenderedCharactersCountInsidePage()
+        {
+            return TMProComponent.overflowMode != TextOverflowModes.Overflow
+                ? TMProComponent.firstOverflowCharacterIndex
+                : base.GetRenderedCharactersCountInsidePage();
+        }
 
         public override int GetFirstCharacterIndexInsidePage()
         {
-            if(TMProComponent.pageToDisplay <= 1)
+            if (TMProComponent.pageToDisplay <= 1)
                 return 0;
-            
-            return TMProComponent.textInfo.pageInfo[TMProComponent.pageToDisplay - 1].firstCharacterIndex;
+
+            return TMProComponent.textInfo
+                .pageInfo[TMProComponent.pageToDisplay - 1].firstCharacterIndex;
         }
 
         protected override void PasteMeshToSource(CharacterData[] characters)
         {
-
             TMP_CharacterInfo currentCharInfo;
 
             //Updates the mesh
-            for (int i = 0; i < textInfo.characterCount && i < CharactersCount; i++)
+            for (int i = 0;
+                 i < textInfo.characterCount && i < CharactersCount;
+                 i++)
             {
                 currentCharInfo = textInfo.characterInfo[i];
                 //Avoids updating if we're on an invisible character, like a spacebar
@@ -224,31 +265,36 @@ namespace Febucci.UI
 
                 //Updates vertices
                 for (byte k = 0; k < TextUtilities.verticesPerChar; k++)
-                {
-                    textInfo.meshInfo[currentCharInfo.materialReferenceIndex].vertices[currentCharInfo.vertexIndex + k] = characters[i].current.positions[k];
-                }
+                    textInfo.meshInfo[currentCharInfo.materialReferenceIndex]
+                            .vertices[currentCharInfo.vertexIndex + k] =
+                        characters[i].current.positions[k];
 
                 //Updates colors
                 for (byte k = 0; k < TextUtilities.verticesPerChar; k++)
-                {
-                    textInfo.meshInfo[currentCharInfo.materialReferenceIndex].colors32[currentCharInfo.vertexIndex + k] = characters[i].current.colors[k];
-                }
+                    textInfo.meshInfo[currentCharInfo.materialReferenceIndex]
+                            .colors32[currentCharInfo.vertexIndex + k] =
+                        characters[i].current.colors[k];
             }
 
             tmpComponent.UpdateVertexData();
         }
 
-        protected override void OnForceMeshUpdate() => tmpComponent.ForceMeshUpdate(true);
+        protected override void OnForceMeshUpdate()
+        {
+            tmpComponent.ForceMeshUpdate(true);
+        }
+
         #endregion
 
         #region Obsolete
-        
-        [System.Obsolete("This method is Obsolete. Please check through the 'Characters' array instead.")]
+
+        [Obsolete(
+            "This method is Obsolete. Please check through the 'Characters' array instead.")]
         public bool TryGetNextCharacter(out TMP_CharacterInfo result)
         {
-            if(latestCharacterShown.index<CharactersCount-1)
+            if (latestCharacterShown.index < CharactersCount - 1)
             {
-                result = textInfo.characterInfo[latestCharacterShown.index+1];
+                result = textInfo.characterInfo[latestCharacterShown.index + 1];
                 return true;
             }
 
@@ -256,7 +302,7 @@ namespace Febucci.UI
             return false;
         }
 
-        [System.Obsolete("Please use TMProComponent instead.")]
+        [Obsolete("Please use TMProComponent instead.")]
         public TMP_Text tmproText => TMProComponent;
 
         #endregion

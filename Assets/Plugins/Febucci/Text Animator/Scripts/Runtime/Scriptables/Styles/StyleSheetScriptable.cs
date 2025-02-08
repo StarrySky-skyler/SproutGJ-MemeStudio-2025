@@ -7,11 +7,15 @@ namespace Febucci.UI.Styles
     /// <summary>
     /// Contains a list of styles that can be used in the text
     /// </summary>
-    [System.Serializable]
-    [CreateAssetMenu(fileName = "TextAnimator StyleSheet", menuName = "Text Animator/StyleSheet", order = 100)]
+    [Serializable]
+    [CreateAssetMenu(fileName = "TextAnimator StyleSheet",
+        menuName = "Text Animator/StyleSheet", order = 100)]
     public class StyleSheetScriptable : ScriptableObject
     {
-        [SerializeField] Style[] styles = Array.Empty<Style>();
+        [SerializeField] private Style[] styles = Array.Empty<Style>();
+
+        private bool built;
+        private Dictionary<string, Style> dictionary;
 
         public Style[] Styles
         {
@@ -22,20 +26,17 @@ namespace Febucci.UI.Styles
                 built = false;
             }
         }
-        
-        bool built;
-        Dictionary<string, Style> dictionary;
 
         public void BuildOnce()
         {
             if (built) return;
             built = true;
-            
-            if(dictionary != null) dictionary.Clear();
+
+            if (dictionary != null) dictionary.Clear();
             else dictionary = new Dictionary<string, Style>();
-            
+
             if (styles == null) return;
-            
+
             foreach (var style in styles)
             {
                 var tag = style.styleTag.ToLowerInvariant();
@@ -43,7 +44,9 @@ namespace Febucci.UI.Styles
 
                 if (dictionary.ContainsKey(tag))
                 {
-                    Debug.LogError($"[TextAnimator] StyleSheetScriptable: duplicated style tag '{tag}", this);
+                    Debug.LogError(
+                        $"[TextAnimator] StyleSheetScriptable: duplicated style tag '{tag}",
+                        this);
                     continue;
                 }
 

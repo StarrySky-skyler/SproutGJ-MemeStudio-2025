@@ -1,18 +1,23 @@
 using UnityEngine;
 
-[ExecuteInEditMode, ImageEffectAllowedInSceneView]
+[ExecuteInEditMode]
+[ImageEffectAllowedInSceneView]
 public class CRTPostEffecter : MonoBehaviour
 {
+    public enum LeterBoxType
+    {
+        Black,
+        Blur
+    }
+
     public Material material;
     public int whiteNoiseFrequency = 1;
     public float whiteNoiseLength = 0.1f;
-    private float whiteNoiseTimeLeft;
 
     public int screenJumpFrequency = 1;
     public float screenJumpLength = 0.2f;
     public float screenJumpMinLevel = 0.1f;
     public float screenJumpMaxLevel = 0.9f;
-    private float screenJumpTimeLeft;
 
     public float flickeringStrength = 0.002f;
     public float flickeringCycle = 111f;
@@ -31,55 +36,24 @@ public class CRTPostEffecter : MonoBehaviour
     public float multipleGhostStrength = 0.01f;
 
     public bool isScanline = true;
-    public bool isMonochrome = false;
+    public bool isMonochrome;
 
-    public bool isLetterBox = false;
-    public bool isLetterBoxEdgeBlur = false;
+    public bool isLetterBox;
+    public bool isLetterBoxEdgeBlur;
     public LeterBoxType letterBoxType;
-    public enum LeterBoxType
-    {
-        Black,
-        Blur
-    }
 
-    public bool isFilmDirt = false;
+    public bool isFilmDirt;
     public Texture2D filmDirtTex;
 
-    public bool isDecalTex = false;
+    public bool isDecalTex;
     public Texture2D decalTex;
     public Vector2 decalTexPos;
     public Vector2 decalTexScale;
 
     public bool isLowResolution = true;
     public Vector2Int resolutions;
-
-    #region Properties in shader
-    private int _WhiteNoiseOnOff;
-    private int _ScanlineOnOff;
-    private int _MonochormeOnOff;
-    private int _ScreenJumpLevel;
-    private int _FlickeringStrength;
-    private int _FlickeringCycle;
-    private int _SlippageStrength;
-    private int _SlippageSize;
-    private int _SlippageInterval;
-    private int _SlippageScrollSpeed;
-    private int _SlippageNoiseOnOff;
-    private int _SlippageOnOff;
-    private int _ChromaticAberrationStrength;
-    private int _ChromaticAberrationOnOff;
-    private int _MultipleGhostOnOff;
-    private int _MultipleGhostStrength;
-    private int _LetterBoxOnOff;
-    private int _LetterBoxType;
-    private int _LetterBoxEdgeBlurOnOff;
-    private int _DecalTex;
-    private int _DecalTexOnOff;
-    private int _DecalTexPos;
-    private int _DecalTexScale;
-    private int _FilmDirtOnOff;
-    private int _FilmDirtTex;
-    #endregion
+    private float screenJumpTimeLeft;
+    private float whiteNoiseTimeLeft;
 
     private void Start()
     {
@@ -95,8 +69,10 @@ public class CRTPostEffecter : MonoBehaviour
         _SlippageScrollSpeed = Shader.PropertyToID("_SlippageScrollSpeed");
         _SlippageNoiseOnOff = Shader.PropertyToID("_SlippageNoiseOnOff");
         _SlippageOnOff = Shader.PropertyToID("_SlippageOnOff");
-        _ChromaticAberrationStrength = Shader.PropertyToID("_ChromaticAberrationStrength");
-        _ChromaticAberrationOnOff = Shader.PropertyToID("_ChromaticAberrationOnOff");
+        _ChromaticAberrationStrength =
+            Shader.PropertyToID("_ChromaticAberrationStrength");
+        _ChromaticAberrationOnOff =
+            Shader.PropertyToID("_ChromaticAberrationOnOff");
         _MultipleGhostOnOff = Shader.PropertyToID("_MultipleGhostOnOff");
         _MultipleGhostStrength = Shader.PropertyToID("_MultipleGhostStrength");
         _LetterBoxOnOff = Shader.PropertyToID("_LetterBoxOnOff");
@@ -122,42 +98,46 @@ public class CRTPostEffecter : MonoBehaviour
             }
             else
             {
-                material.SetInteger(_WhiteNoiseOnOff, 0); 
+                material.SetInteger(_WhiteNoiseOnOff, 0);
             }
         }
         //////
-        
-        material.SetInteger(_LetterBoxOnOff, isLetterBox ? 0 : 1); 
+
+        material.SetInteger(_LetterBoxOnOff, isLetterBox ? 0 : 1);
         //material.SetInteger(_LetterBoxEdgeBlurOnOff, isLetterBoxEdgeBlur ? 0 : 1); 
         material.SetInteger(_LetterBoxType, (int)letterBoxType);
 
-        material.SetInteger(_ScanlineOnOff, isScanline ? 1 : 0); 
+        material.SetInteger(_ScanlineOnOff, isScanline ? 1 : 0);
         material.SetInteger(_MonochormeOnOff, isMonochrome ? 1 : 0);
         material.SetFloat(_FlickeringStrength, flickeringStrength);
         material.SetFloat(_FlickeringCycle, flickeringCycle);
-        material.SetFloat(_ChromaticAberrationStrength, chromaticAberrationStrength);
-        material.SetInteger(_ChromaticAberrationOnOff, isChromaticAberration ? 1 : 0);
+        material.SetFloat(_ChromaticAberrationStrength,
+            chromaticAberrationStrength);
+        material.SetInteger(_ChromaticAberrationOnOff,
+            isChromaticAberration ? 1 : 0);
         material.SetInteger(_MultipleGhostOnOff, isMultipleGhost ? 1 : 0);
-        material.SetFloat(_MultipleGhostStrength, multipleGhostStrength); 
+        material.SetFloat(_MultipleGhostStrength, multipleGhostStrength);
         material.SetInteger(_FilmDirtOnOff, isFilmDirt ? 1 : 0);
         material.SetTexture(_FilmDirtTex, filmDirtTex);
 
         //////Slippage
         material.SetInteger(_SlippageOnOff, isSlippage ? 1 : 0);
         material.SetFloat(_SlippageInterval, slippageInterval);
-        material.SetFloat(_SlippageNoiseOnOff, isSlippageNoise ? Random.Range(0, 1f) : 1);
+        material.SetFloat(_SlippageNoiseOnOff,
+            isSlippageNoise ? Random.Range(0, 1f) : 1);
         material.SetFloat(_SlippageScrollSpeed, slippageScrollSpeed);
-        material.SetFloat(_SlippageStrength, slippageStrength); 
+        material.SetFloat(_SlippageStrength, slippageStrength);
         material.SetFloat(_SlippageSize, slippageSize);
         //////
-        
+
         //////Screen Jump Noise
         screenJumpTimeLeft -= 0.01f;
         if (screenJumpTimeLeft <= 0)
         {
             if (Random.Range(0, 1000) < screenJumpFrequency)
             {
-                var level = Random.Range(screenJumpMinLevel, screenJumpMaxLevel);
+                var level =
+                    Random.Range(screenJumpMinLevel, screenJumpMaxLevel);
                 material.SetFloat(_ScreenJumpLevel, level);
                 screenJumpTimeLeft = screenJumpLength;
             }
@@ -178,7 +158,8 @@ public class CRTPostEffecter : MonoBehaviour
         //////Low resolution
         if (isLowResolution)
         {
-            var target = RenderTexture.GetTemporary(src.width / 2, src.height / 2);
+            var target =
+                RenderTexture.GetTemporary(src.width / 2, src.height / 2);
             Graphics.Blit(src, target);
             Graphics.Blit(target, dest, material);
             RenderTexture.ReleaseTemporary(target);
@@ -188,6 +169,35 @@ public class CRTPostEffecter : MonoBehaviour
             Graphics.Blit(src, dest, material);
         }
         //////
-
     }
+
+    #region Properties in shader
+
+    private int _WhiteNoiseOnOff;
+    private int _ScanlineOnOff;
+    private int _MonochormeOnOff;
+    private int _ScreenJumpLevel;
+    private int _FlickeringStrength;
+    private int _FlickeringCycle;
+    private int _SlippageStrength;
+    private int _SlippageSize;
+    private int _SlippageInterval;
+    private int _SlippageScrollSpeed;
+    private int _SlippageNoiseOnOff;
+    private int _SlippageOnOff;
+    private int _ChromaticAberrationStrength;
+    private int _ChromaticAberrationOnOff;
+    private int _MultipleGhostOnOff;
+    private int _MultipleGhostStrength;
+    private int _LetterBoxOnOff;
+    private int _LetterBoxType;
+    private int _LetterBoxEdgeBlurOnOff;
+    private int _DecalTex;
+    private int _DecalTexOnOff;
+    private int _DecalTexPos;
+    private int _DecalTexScale;
+    private int _FilmDirtOnOff;
+    private int _FilmDirtTex;
+
+    #endregion
 }

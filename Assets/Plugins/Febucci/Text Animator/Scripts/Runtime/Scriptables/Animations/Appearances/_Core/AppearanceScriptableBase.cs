@@ -1,3 +1,4 @@
+using System;
 using Febucci.UI.Core;
 
 namespace Febucci.UI.Effects
@@ -5,7 +6,7 @@ namespace Febucci.UI.Effects
     /// <summary>
     /// Base class for animating letters in Text Animator
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public abstract class AppearanceScriptableBase : AnimationScriptableBase
     {
         public float baseDuration = .5f;
@@ -16,7 +17,12 @@ namespace Febucci.UI.Effects
             duration = baseDuration;
         }
 
-        public override float GetMaxDuration() => duration; //TODO improve this, a bit hacky
+        public override float GetMaxDuration()
+        {
+            return duration;
+            //TODO improve this, a bit hacky
+        }
+
         public override void SetModifier(ModifierInfo modifier)
         {
             switch (modifier.name)
@@ -25,7 +31,10 @@ namespace Febucci.UI.Effects
             }
         }
 
-        public override bool CanApplyEffectTo(CharacterData character, TAnimCore animator) => character.passedTime <= duration;
+        public override bool CanApplyEffectTo(CharacterData character,
+            TAnimCore animator)
+        {
+            return character.passedTime <= duration;
+        }
     }
-
 }

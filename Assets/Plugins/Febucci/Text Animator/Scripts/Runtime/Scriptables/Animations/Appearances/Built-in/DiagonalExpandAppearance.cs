@@ -1,22 +1,23 @@
 ﻿using Febucci.UI.Core;
-using Febucci.UI.Effects;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace Febucci.UI.Effects
 {
-    [UnityEngine.Scripting.Preserve]
-    [CreateAssetMenu(fileName = "Diagonal Expand Appearance", menuName = "Text Animator/Animations/Appearances/Diagonal Expand")]
+    [Preserve]
+    [CreateAssetMenu(fileName = "Diagonal Expand Appearance",
+        menuName = "Text Animator/Animations/Appearances/Diagonal Expand")]
     [EffectInfo("diagexp", EffectCategory.Appearances)]
     public sealed class DiagonalExpandAppearance : AppearanceScriptableBase
     {
         public bool diagonalFromBttmLeft;
 
-        int targetA;
-        int targetB;
-        
         //--Temp variables--
-        Vector3 middlePos;
-        float pct;
+        private Vector3 middlePos;
+        private float pct;
+
+        private int targetA;
+        private int targetB;
 
         public override void ResetContext(TAnimCore animator)
         {
@@ -25,7 +26,7 @@ namespace Febucci.UI.Effects
             UpdateOrientation();
         }
 
-        void UpdateOrientation()
+        private void UpdateOrientation()
         {
             if (diagonalFromBttmLeft) //expands bottom left and top right
             {
@@ -39,14 +40,19 @@ namespace Febucci.UI.Effects
             }
         }
 
-        public override void ApplyEffectTo(ref Core.CharacterData character, TAnimCore animator)
+        public override void ApplyEffectTo(ref CharacterData character,
+            TAnimCore animator)
         {
             middlePos = character.current.positions.GetMiddlePos();
             pct = Tween.EaseInOut(character.passedTime / duration);
 
-            character.current.positions[targetA] = Vector3.LerpUnclamped(middlePos, character.current.positions[targetA], pct);
+            character.current.positions[targetA] =
+                Vector3.LerpUnclamped(middlePos,
+                    character.current.positions[targetA], pct);
             //top right copies from bottom right
-            character.current.positions[targetB] = Vector3.LerpUnclamped(middlePos, character.current.positions[targetB], pct);
+            character.current.positions[targetB] =
+                Vector3.LerpUnclamped(middlePos,
+                    character.current.positions[targetB], pct);
         }
 
         public override void SetModifier(ModifierInfo modifier)
@@ -61,5 +67,4 @@ namespace Febucci.UI.Effects
             }
         }
     }
-
 }

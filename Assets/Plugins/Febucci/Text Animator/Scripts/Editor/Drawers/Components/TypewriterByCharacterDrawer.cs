@@ -1,40 +1,49 @@
 using UnityEditor;
-using UnityEngine;
 
 namespace Febucci.UI.Core.Editors
 {
     [CustomEditor(typeof(TypewriterByCharacter), true)]
-    class TypewriterByCharacterDrawer : TypewriterCoreDrawer
+    internal class TypewriterByCharacterDrawer : TypewriterCoreDrawer
     {
-        SerializedProperty waitForNormalChars;
-        SerializedProperty waitLong;
-        SerializedProperty waitMiddle;
-        SerializedProperty avoidMultiplePunctuationWait;
-        SerializedProperty waitForNewLines;
-        SerializedProperty waitForLastCharacter;
+        private SerializedProperty avoidMultiplePunctuationWait;
+        private PropertyWithDifferentLabel disappearanceSpeedMultiplier;
+        private PropertyWithDifferentLabel disappearanceWaitTime;
 
-        PropertyWithDifferentLabel useTypewriterWaitForDisappearances;
-        PropertyWithDifferentLabel disappearanceWaitTime;
-        PropertyWithDifferentLabel disappearanceSpeedMultiplier;
+        private PropertyWithDifferentLabel useTypewriterWaitForDisappearances;
+        private SerializedProperty waitForLastCharacter;
+        private SerializedProperty waitForNewLines;
+        private SerializedProperty waitForNormalChars;
+        private SerializedProperty waitLong;
+        private SerializedProperty waitMiddle;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            waitForNormalChars = serializedObject.FindProperty("waitForNormalChars");
+            waitForNormalChars =
+                serializedObject.FindProperty("waitForNormalChars");
             waitLong = serializedObject.FindProperty("waitLong");
             waitMiddle = serializedObject.FindProperty("waitMiddle");
-            avoidMultiplePunctuationWait = serializedObject.FindProperty("avoidMultiplePunctuationWait");
+            avoidMultiplePunctuationWait =
+                serializedObject.FindProperty("avoidMultiplePunctuationWait");
             waitForNewLines = serializedObject.FindProperty("waitForNewLines");
-            waitForLastCharacter = serializedObject.FindProperty("waitForLastCharacter");
-            useTypewriterWaitForDisappearances = new PropertyWithDifferentLabel(serializedObject, "useTypewriterWaitForDisappearances", "Use Typewriter Wait Times");
-            disappearanceSpeedMultiplier = new PropertyWithDifferentLabel(serializedObject, "disappearanceSpeedMultiplier", "Typewriter Speed Multiplier");
-            disappearanceWaitTime = new PropertyWithDifferentLabel(serializedObject, "disappearanceWaitTime", "Disappearances Wait");
+            waitForLastCharacter =
+                serializedObject.FindProperty("waitForLastCharacter");
+            useTypewriterWaitForDisappearances = new PropertyWithDifferentLabel(
+                serializedObject, "useTypewriterWaitForDisappearances",
+                "Use Typewriter Wait Times");
+            disappearanceSpeedMultiplier = new PropertyWithDifferentLabel(
+                serializedObject, "disappearanceSpeedMultiplier",
+                "Typewriter Speed Multiplier");
+            disappearanceWaitTime = new PropertyWithDifferentLabel(
+                serializedObject, "disappearanceWaitTime",
+                "Disappearances Wait");
         }
 
         protected override string[] GetPropertiesToExclude()
         {
-            string[] newProperties = new string[] {
+            string[] newProperties =
+            {
                 "script",
                 "waitForNormalChars",
                 "waitLong",
@@ -45,22 +54,19 @@ namespace Febucci.UI.Core.Editors
                 "waitForLastCharacter",
                 "useTypewriterWaitForDisappearances",
                 "disappearanceSpeedMultiplier",
-                "disappearanceWaitTime",
+                "disappearanceWaitTime"
             };
 
             string[] baseProperties = base.GetPropertiesToExclude();
 
-            string[] mergedArray = new string[newProperties.Length + baseProperties.Length];
+            string[] mergedArray =
+                new string[newProperties.Length + baseProperties.Length];
 
             for (int i = 0; i < baseProperties.Length; i++)
-            {
                 mergedArray[i] = baseProperties[i];
-            }
 
             for (int i = 0; i < newProperties.Length; i++)
-            {
                 mergedArray[i + baseProperties.Length] = newProperties[i];
-            }
 
             return mergedArray;
         }
@@ -84,7 +90,6 @@ namespace Febucci.UI.Core.Editors
                 disappearanceSpeedMultiplier.PropertyField();
             else
                 disappearanceWaitTime.PropertyField();
-
         }
     }
 }

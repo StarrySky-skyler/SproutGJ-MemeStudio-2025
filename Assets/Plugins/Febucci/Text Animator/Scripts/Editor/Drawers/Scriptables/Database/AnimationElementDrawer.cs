@@ -1,20 +1,21 @@
-using Febucci.UI.Effects;
+using System;
 using UnityEditor;
 using UnityEngine;
 
 namespace Febucci.UI.Core
 {
-    [System.Serializable]
-    class AnimationElementDrawer
+    [Serializable]
+    internal class AnimationElementDrawer
     {
-        public SerializedProperty propertyScriptable;
-        GenericSharedDrawer drawer;
-        private GUIContent scriptableNameContent;
         public bool expanded;
         public bool somethingChanged;
         public int wantsToDelete;
+        private GenericSharedDrawer drawer;
+        public SerializedProperty propertyScriptable;
+        private GUIContent scriptableNameContent;
 
-        public AnimationElementDrawer(SerializedProperty propertyArrayElementPair)
+        public AnimationElementDrawer(
+            SerializedProperty propertyArrayElementPair)
         {
             propertyScriptable = propertyArrayElementPair;
             drawer = new GenericSharedDrawer(false);
@@ -23,8 +24,9 @@ namespace Febucci.UI.Core
             scriptableNameContent = new GUIContent("Scriptable");
         }
 
-        public bool hasScriptable => propertyScriptable.objectReferenceValue != null;
-        
+        public bool hasScriptable =>
+            propertyScriptable.objectReferenceValue != null;
+
         public void Draw()
         {
             somethingChanged = false;
@@ -52,17 +54,15 @@ namespace Febucci.UI.Core
             expanded = EditorGUILayout.Foldout(expanded, foldoutName, true);
             GUI.backgroundColor = wantsToDelete == 1 ? Color.red : Color.white;
             GUI.enabled = expanded;
-            if (GUILayout.Button(wantsToDelete == 1 ? "Confirm?" : "Delete", EditorStyles.helpBox, GUILayout.Width(55)))
-            {
-                wantsToDelete++;
-            }
+            if (GUILayout.Button(wantsToDelete == 1 ? "Confirm?" : "Delete",
+                    EditorStyles.helpBox, GUILayout.Width(55))) wantsToDelete++;
             GUI.enabled = true;
             if (!expanded)
                 wantsToDelete = 0;
 
             GUI.backgroundColor = Color.white;
-                
-            if(drawWarning)
+
+            if (drawWarning)
                 EditorGUILayout.HelpBox("Invalid", MessageType.Warning);
             EditorGUILayout.EndHorizontal();
 
@@ -75,30 +75,32 @@ namespace Febucci.UI.Core
             }
         }
 
-        
-        void DrawInfo()
+
+        private void DrawInfo()
         {
             EditorGUILayout.BeginHorizontal();
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(propertyScriptable, scriptableNameContent);
+            EditorGUILayout.PropertyField(propertyScriptable,
+                scriptableNameContent);
             if (EditorGUI.EndChangeCheck())
             {
                 //refreshes drawer
                 somethingChanged = true;
                 drawer = new GenericSharedDrawer(false);
-                
+
                 if (propertyScriptable.serializedObject.hasModifiedProperties)
-                    propertyScriptable.serializedObject.ApplyModifiedProperties();
-                
+                    propertyScriptable.serializedObject
+                        .ApplyModifiedProperties();
+
                 expanded = true;
             }
+
             EditorGUILayout.EndHorizontal();
         }
 
-        void DrawBody()
+        private void DrawBody()
         {
             drawer.OnInspectorGUI(propertyScriptable);
         }
-
     }
 }

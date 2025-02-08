@@ -7,12 +7,13 @@ namespace Febucci.UI.Core
     public class TypingInfo
     {
         public float speed = 1;
-        public float timePassed { get; internal set; } = 0;
 
         public TypingInfo()
         {
-            this.speed = 1;
-            this.timePassed = 0;
+            speed = 1;
+            timePassed = 0;
         }
+
+        public float timePassed { get; internal set; }
     }
 }

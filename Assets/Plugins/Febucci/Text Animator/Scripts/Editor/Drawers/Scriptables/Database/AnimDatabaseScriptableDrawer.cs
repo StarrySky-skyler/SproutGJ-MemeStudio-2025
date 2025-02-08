@@ -4,9 +4,9 @@ using UnityEditor;
 namespace Febucci.UI.Core
 {
     [CustomEditor(typeof(AnimationsDatabase), true)]
-    class AnimDatabaseScriptableDrawer : Editor
+    internal class AnimDatabaseScriptableDrawer : Editor
     {
-        DatabaseSharedDrawer drawer = new DatabaseSharedDrawer();
+        private readonly DatabaseSharedDrawer drawer = new();
 
         public override void OnInspectorGUI()
         {

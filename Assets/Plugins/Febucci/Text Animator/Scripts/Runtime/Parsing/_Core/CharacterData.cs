@@ -10,7 +10,7 @@ namespace Febucci.UI.Core
         public int wordIndex;
         public bool isVisible;
         public float passedTime;
-        
+
         public float uniformIntensity;
 
         public MeshData source;
@@ -18,23 +18,21 @@ namespace Febucci.UI.Core
 
         public void ResetInfo(int i, bool resetVisibility = true)
         {
-
             index = i;
             wordIndex = -1;
-            
-            if(resetVisibility) isVisible = true; //text is visible by default
+
+            if (resetVisibility) isVisible = true; //text is visible by default
 
             //--Initializes first time only--
             if (!info.initialized)
             {
-                source.positions = new Vector3[Core.TextUtilities.verticesPerChar];
-                source.colors = new Color32[Core.TextUtilities.verticesPerChar];
+                source.positions = new Vector3[TextUtilities.verticesPerChar];
+                source.colors = new Color32[TextUtilities.verticesPerChar];
 
-                current.positions = new Vector3[Core.TextUtilities.verticesPerChar];
-                current.colors = new Color32[Core.TextUtilities.verticesPerChar];
+                current.positions = new Vector3[TextUtilities.verticesPerChar];
+                current.colors = new Color32[TextUtilities.verticesPerChar];
                 info.initialized = true;
             }
-
         }
 
         public void ResetAnimation()
@@ -49,9 +47,7 @@ namespace Febucci.UI.Core
         public void Hide()
         {
             for (byte i = 0; i < source.positions.Length; i++)
-            {
                 current.positions[i] = Vector3.zero;
-            }
         }
 
         public void UpdateIntensity(float referenceFontSize)

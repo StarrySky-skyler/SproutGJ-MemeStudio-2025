@@ -6,6 +6,6 @@ namespace Febucci.UI
     public enum TimeScale
     {
         Scaled,
-        Unscaled,
+        Unscaled
     }
 }

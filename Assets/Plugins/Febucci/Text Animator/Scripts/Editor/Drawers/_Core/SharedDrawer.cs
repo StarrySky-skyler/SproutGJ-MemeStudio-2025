@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 
 namespace Febucci.UI.Core
@@ -6,28 +7,31 @@ namespace Febucci.UI.Core
     /// Base class that can be used to create drawers used by multiple
     /// custom editors, both components and scriptable objects
     /// </summary>
-    [System.Serializable]
-    abstract class SharedDrawer
+    [Serializable]
+    internal abstract class SharedDrawer
     {
-        protected SerializedProperty baseProperty;
         protected SerializedObject baseObject;
-        bool initialized;
+        protected SerializedProperty baseProperty;
+        private bool initialized;
 
-        protected virtual void OnEnabled(SerializedObject baseObject) { }
+        protected virtual void OnEnabled(SerializedObject baseObject)
+        {
+        }
 
         public void OnInspectorGUI(SerializedProperty baseProperty)
         {
-            if(baseProperty == null) return;
-            if(baseProperty.objectReferenceValue == null) return;
-            
+            if (baseProperty == null) return;
+            if (baseProperty.objectReferenceValue == null) return;
+
             if (baseProperty != this.baseProperty)
                 initialized = false;
-            
-            if(!initialized)
+
+            if (!initialized)
             {
                 this.baseProperty = baseProperty;
                 //hacky unity way to reach the actual serialized object
-                this.baseObject = new SerializedObject(baseProperty.objectReferenceValue);
+                baseObject =
+                    new SerializedObject(baseProperty.objectReferenceValue);
                 OnEnabled(baseObject);
                 initialized = true;
             }
@@ -43,7 +47,7 @@ namespace Febucci.UI.Core
             if (baseObject == null) return;
             if (this.baseObject != baseObject)
                 initialized = false;
-            
+
             if (!initialized)
             {
                 this.baseObject = baseObject;
@@ -57,7 +61,9 @@ namespace Febucci.UI.Core
             ApplyChanges();
         }
 
-        protected virtual void _OnInspectorGUI() { }
+        protected virtual void _OnInspectorGUI()
+        {
+        }
 
         protected void ApplyChanges()
         {
@@ -65,5 +71,4 @@ namespace Febucci.UI.Core
                 baseObject.ApplyModifiedProperties();
         }
     }
-
 }
