@@ -34,6 +34,13 @@ namespace Tsuki.Managers
         public UnityEvent onGameUndo;
         public UnityEvent beforeGameReload;
 
+        public bool AllowLoadGame { get; set; }
+
+        private void Start()
+        {
+            AllowLoadGame = false;
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();

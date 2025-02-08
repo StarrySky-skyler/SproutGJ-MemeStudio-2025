@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Reflection;
+using Tsuki.Managers;
 
 [System.Serializable]
 public class ChatInfo
@@ -78,6 +79,7 @@ public class ChatManager : MonoBehaviour
 
     void LoadGame()
     {
+        GameManager.Instance.AllowLoadGame = true;
         transform.root.gameObject.SetActive(false);
     }
 

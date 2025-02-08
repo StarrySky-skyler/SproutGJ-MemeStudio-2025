@@ -18,7 +18,6 @@ namespace Tsuki.MVC.Controllers.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        // TODO: 使用状态机管理玩家流程
         [HideInInspector] public PlayerView playerView;
         public LayerMask wallLayer;
         public LayerMask grassLayer;
@@ -41,7 +40,7 @@ namespace Tsuki.MVC.Controllers.Player
 
         public void OnMove(InputValue context)
         {
-            if (!_moveable) return;
+            if (!_moveable || !GameManager.Instance.AllowLoadGame) return;
             _moveHandler.GetLineMovable(out bool moveX, out bool moveY);
             _moveHandler.Move(context.Get<Vector2>(), moveX, moveY);
         }
