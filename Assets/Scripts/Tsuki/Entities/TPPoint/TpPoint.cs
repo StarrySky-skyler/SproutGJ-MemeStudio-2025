@@ -6,11 +6,10 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using System.Collections;
-using Tsuki.Entities.Box;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
+using Tsuki.Entities.Box.FSM.Types;
 using UnityEngine;
 
 namespace Tsuki.Entities.TPPoint
@@ -49,6 +48,7 @@ namespace Tsuki.Entities.TPPoint
                     Debug.LogError("TP点名称错误");
                     return;
             }
+
             box.StateMachine.SwitchState(BoxStateType.Tp,
                 new Context { CheckTp = CheckTp },
                 new Context { Tp = Tp });
@@ -81,18 +81,18 @@ namespace Tsuki.Entities.TPPoint
         }
 
         /// <summary>
-        /// 处理TP点
+        ///     处理TP点
         /// </summary>
         /// <param name="self">要传送物体的transform</param>
         private void Tp(Transform self)
         {
             LastTped = self;
-            StartCoroutine(TpCoroutine(self));   
+            StartCoroutine(TpCoroutine(self));
         }
 
         private IEnumerator TpCoroutine(Transform self)
         {
-            Vector3 targetPos = new (targetP.position.x,
+            Vector3 targetPos = new(targetP.position.x,
                 targetP.position.y, 0);
             self.position = targetPos;
             yield return new WaitForSeconds(0.1f);

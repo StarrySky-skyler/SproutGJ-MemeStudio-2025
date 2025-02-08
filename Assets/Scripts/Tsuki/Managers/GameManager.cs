@@ -29,6 +29,8 @@ namespace Tsuki.Managers
         public UnityEvent beforeGameReload = new();
         public UnityEvent<bool> onAllowLoadGame = new();
 
+        private bool _allowLoadGame;
+
         public bool AllowLoadGame
         {
             get => _allowLoadGame;
@@ -39,8 +41,6 @@ namespace Tsuki.Managers
                 onAllowLoadGame?.Invoke(value);
             }
         }
-
-        private bool _allowLoadGame;
 
         private void Start()
         {
@@ -83,11 +83,11 @@ namespace Tsuki.Managers
             // 如果回到起点，不允许撤销
             if (ModelsManager.Instance.PlayerMod.CurrentLeftStep ==
                 ModelsManager.Instance.PlayerMod.maxMoveStep) return;
-                onGameUndo?.Invoke();
+            onGameUndo?.Invoke();
         }
 
         /// <summary>
-        /// 注册事件
+        ///     注册事件
         /// </summary>
         /// <param name="type"></param>
         /// <param name="action"></param>
@@ -114,7 +114,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 注销事件
+        ///     注销事件
         /// </summary>
         /// <param name="type"></param>
         /// <param name="action"></param>

@@ -6,19 +6,15 @@
 // @description:
 // *****************************************************************************
 
-using System;
-using System.Collections;
 using Tsuki.MVC.Models.Game;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Tsuki.Base
 {
     public static class Commons
     {
         /// <summary>
-        /// 获取newpos位置是否在地图内
+        ///     获取newpos位置是否在地图内
         /// </summary>
         /// <param name="gameModel"></param>
         /// <param name="newPos"></param>
@@ -31,7 +27,7 @@ namespace Tsuki.Base
         }
 
         /// <summary>
-        /// 获取相机修正后的位置
+        ///     获取相机修正后的位置
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
@@ -41,9 +37,9 @@ namespace Tsuki.Base
             modifiedPos.z = -10;
             return modifiedPos;
         }
-        
+
         /// <summary>
-        /// 获取相机修正后的位置
+        ///     获取相机修正后的位置
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>

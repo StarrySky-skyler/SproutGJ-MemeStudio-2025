@@ -8,7 +8,6 @@
 
 using Tsuki.Interface;
 using Tsuki.Managers;
-using Tsuki.MVC.Models.Player;
 using UnityEngine;
 
 namespace Tsuki.MVC.Views.Player
@@ -16,8 +15,8 @@ namespace Tsuki.MVC.Views.Player
     public class PlayerAnimationHandler : IPauseable
     {
         private static readonly int Move = Animator.StringToHash("Move");
-        private readonly PlayerView _playerView;
         private readonly Animator _animator;
+        private readonly PlayerView _playerView;
         private readonly SpriteRenderer _spriteRenderer;
         private bool _allowFlip = true;
 
@@ -28,20 +27,6 @@ namespace Tsuki.MVC.Views.Player
             _spriteRenderer = _playerView.GetComponent<SpriteRenderer>();
         }
 
-        /// <summary>
-        /// 播放动画
-        /// </summary>
-        /// <param name="moveStatus"></param>
-        public void PlayAnimation(bool moveStatus)
-        {
-            if (ModelsManager.Instance.PlayerMod.LastDirection.x != 0 && _allowFlip)
-            {
-                _spriteRenderer.flipX = ModelsManager.Instance.PlayerMod.LastDirection.x < 0;
-            }
-
-            _animator.SetBool(Move, moveStatus);
-        }
-
         public void Pause()
         {
             _allowFlip = false;
@@ -50,6 +35,20 @@ namespace Tsuki.MVC.Views.Player
         public void Resume()
         {
             _allowFlip = true;
+        }
+
+        /// <summary>
+        ///     播放动画
+        /// </summary>
+        /// <param name="moveStatus"></param>
+        public void PlayAnimation(bool moveStatus)
+        {
+            if (ModelsManager.Instance.PlayerMod.LastDirection.x != 0 &&
+                _allowFlip)
+                _spriteRenderer.flipX =
+                    ModelsManager.Instance.PlayerMod.LastDirection.x < 0;
+
+            _animator.SetBool(Move, moveStatus);
         }
     }
 }

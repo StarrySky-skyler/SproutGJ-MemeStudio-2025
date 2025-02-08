@@ -1,9 +1,7 @@
-using System;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
@@ -14,21 +12,17 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
     [Header("进入风格")] public Ease Enter_style = Ease.InOutQuad;
     [Header("退出风格")] public Ease Exit_style = Ease.InOutQuad;
 
-    [SerializeField]
-    [ReadOnly]
-    private Text _text;
-    [SerializeField]
-    [ReadOnly]
-    private string _textColoredStr;
-    [SerializeField]
-    [ReadOnly]
-    private string _originStr;
+    [SerializeField] [ReadOnly] private Text _text;
+
+    [SerializeField] [ReadOnly] private string _textColoredStr;
+
+    [SerializeField] [ReadOnly] private string _originStr;
 
     private void Start()
     {
         if (!transform.Find("Text")) return;
 
-        if(transform.Find("Text").TryGetComponent(out Text txt))
+        if (transform.Find("Text").TryGetComponent(out Text txt))
         {
             _text = txt;
             _textColoredStr = _text.text;
@@ -39,7 +33,11 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
         {
             _text = null;
         }
+    }
 
+    private void OnDestroy()
+    {
+        DOTween.KillAll();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -48,7 +46,7 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
 
         if (_text == null) return;
 
-        _text.DOText(_textColoredStr, 0.1f, true).OnComplete(() =>
+        _text.DOText(_textColoredStr, 0.1f).OnComplete(() =>
         {
             _text.DOText(_originStr, 0.1f);
         });
@@ -57,10 +55,5 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOScale(Vector3.one, dotimer).SetEase(Exit_style);
-    }
-
-    private void OnDestroy()
-    {
-        DOTween.KillAll();
     }
 }

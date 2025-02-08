@@ -6,10 +6,10 @@
 // @description:
 // *****************************************************************************
 
-namespace Tsuki.Entities.Box.FSM
+namespace Tsuki.Entities.Box.FSM.Types
 {
     /// <summary>
-    /// 箱子状态类型
+    ///     箱子状态类型
     /// </summary>
     public enum BoxStateType
     {

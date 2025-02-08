@@ -6,10 +6,10 @@
 // @description:
 // *****************************************************************************
 
-using System;
-using DG.Tweening;
 using Tsuki.Entities.Box.Base;
-using Tsuki.Entities.Box.FSM.Interface;
+using Tsuki.Entities.Box.FSM.Base;
+using Tsuki.Entities.Box.FSM.Interfaces;
+using Tsuki.Entities.Box.FSM.Types;
 using Tsuki.Entities.IceLine;
 using Tsuki.Managers;
 using UnityEngine;
@@ -21,7 +21,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         public BoxIceSlideState(BaseObj baseObj) : base(baseObj)
         {
         }
-        
+
         public void OnEnter(Context context)
         {
             switch (context.IceType)
@@ -30,14 +30,17 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                     // 冰线移动
                     BaseObj.MoveTween.onComplete += () =>
                     {
-                        BaseObj.StateMachine.SwitchState(BoxStateType.PushMoving,
-                            new Context { PushDirection = BaseObj.lastPushDirection });
+                        BaseObj.StateMachine.SwitchState(
+                            BoxStateType.PushMoving,
+                            new Context
+                                { PushDirection = BaseObj.lastPushDirection });
                     };
                     break;
                 case IceType.Grid:
                     BaseObj.MoveTween.onComplete += () =>
                     {
-                        BaseObj.StateMachine.SwitchState(BoxStateType.PushMoving,
+                        BaseObj.StateMachine.SwitchState(
+                            BoxStateType.PushMoving,
                             new Context
                                 { PushDirection = BaseObj.lastPushDirection });
                     };
@@ -50,12 +53,10 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
 
         public void OnUpdate(Context context)
         {
-            
         }
 
         public void OnExit(Context context)
         {
-            
         }
 
         public bool OnCheck(Context context)
@@ -71,9 +72,9 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                     return false;
             }
         }
-        
+
         /// <summary>
-        /// 处理单格冰滑动
+        ///     处理单格冰滑动
         /// </summary>
         private bool CheckIceGridSlide()
         {
@@ -85,7 +86,7 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         }
 
         /// <summary>
-        /// 处理冰线滑动
+        ///     处理冰线滑动
         /// </summary>
         private bool CheckIceLineSlide()
         {

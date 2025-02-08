@@ -6,8 +6,8 @@
 // @description:
 // *****************************************************************************
 
-using Tsuki.Entities.Box.FSM;
 using Tsuki.Entities.Box.FSM.BoxStates;
+using Tsuki.Entities.Box.FSM.Types;
 
 namespace Tsuki.Entities.Box.Base
 {

@@ -8,33 +8,35 @@
 
 using System;
 using System.Collections.Generic;
-using Tsuki.Entities.Box.FSM.Interface;
+using Tsuki.Entities.Box.FSM.Interfaces;
+using Tsuki.Entities.Box.FSM.Types;
 using Tsuki.Entities.IceLine;
 using UnityEngine;
 
 namespace Tsuki.Entities.Box.FSM
 {
     /// <summary>
-    /// 状态机上下文
+    ///     状态机上下文
     /// </summary>
     public class Context
     {
-        public Vector2Int PushDirection;
-        public IceType IceType;
-        public Action<Transform> Tp;
         public Func<Vector2Int, bool> CheckTp;
+        public IceType IceType;
+        public Vector2Int PushDirection;
+        public Action<Transform> Tp;
     }
 
     public class BoxStateMachine
     {
+        // 状态字典
+        private readonly Dictionary<BoxStateType, IBoxState>
+            _statesDict = new();
+
         // 当前状态
         private IBoxState _currentState;
 
-        // 状态字典
-        private readonly Dictionary<BoxStateType, IBoxState> _statesDict= new();
-
         /// <summary>
-        /// 添加状态
+        ///     添加状态
         /// </summary>
         /// <param name="boxStateType"></param>
         /// <param name="state"></param>
@@ -50,7 +52,7 @@ namespace Tsuki.Entities.Box.FSM
         }
 
         /// <summary>
-        /// 移除状态
+        ///     移除状态
         /// </summary>
         /// <param name="boxStateType"></param>
         public void RemoveState(BoxStateType boxStateType)
@@ -65,7 +67,7 @@ namespace Tsuki.Entities.Box.FSM
         }
 
         /// <summary>
-        /// 转换状态
+        ///     转换状态
         /// </summary>
         /// <param name="boxStateType"></param>
         /// <param name="contextNextCheck"></param>

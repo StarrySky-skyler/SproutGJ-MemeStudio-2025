@@ -11,7 +11,7 @@ namespace Tsuki.Interface
     public interface IUndoable
     {
         /// <summary>
-        /// 撤销操作
+        ///     撤销操作
         /// </summary>
         public void Undo();
     }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Tsuki.Entities.Box.FSM;
 using Tsuki.Entities.Box.FSM.BoxStates;
+using Tsuki.Entities.Box.FSM.Types;
 using Tsuki.Entities.Box.Types;
 using Tsuki.Interface;
 using Tsuki.Managers;
@@ -20,16 +21,16 @@ namespace Tsuki.Entities.Box.Base
     public class BaseObj : MonoBehaviour, IUndoable
     {
         [Header("箱子类型")] [SerializeField] public BoxType boxType;
+        [HideInInspector] public Vector2Int lastPushDirection;
 
         private bool _added;
-        [HideInInspector] public Vector2Int lastPushDirection;
-        public Tween MoveTween { get; set; }
-        public Vector3 NewPos { get; set; }
-
-        public BoxStateMachine StateMachine;
+        private Stack<Vector3> _lastPosStack;
 
         private Vector3 _startPos;
-        private Stack<Vector3> _lastPosStack;
+
+        public BoxStateMachine StateMachine;
+        public Tween MoveTween { get; set; }
+        public Vector3 NewPos { get; set; }
 
         protected virtual void Awake()
         {
@@ -51,12 +52,14 @@ namespace Tsuki.Entities.Box.Base
 
         protected virtual void OnEnable()
         {
-            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo, Undo);
+            GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
+                Undo);
         }
 
         protected virtual void OnDisable()
         {
-            GameManager.Instance.UnregisterEvent(GameManagerEventType.OnGameUndo, Undo);
+            GameManager.Instance.UnregisterEvent(
+                GameManagerEventType.OnGameUndo, Undo);
         }
 
         public void Undo()
@@ -67,7 +70,7 @@ namespace Tsuki.Entities.Box.Base
         }
 
         /// <summary>
-        /// 重复上一个位置
+        ///     重复上一个位置
         /// </summary>
         public void RepeatPos()
         {

@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using UnityEngine;
 
 namespace Tsuki.Entities.Grass
@@ -23,10 +22,7 @@ namespace Tsuki.Entities.Grass
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Weeders"))
-            {
-                _animator.SetTrigger(Break);
-            }
+            if (other.CompareTag("Weeders")) _animator.SetTrigger(Break);
         }
 
         public void DestroySelf()

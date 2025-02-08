@@ -1,20 +1,20 @@
-using System;
 using System.IO;
 using UnityEngine;
 using Vector2Json.SaveSystem;
-using AnRan;
+
 public class SaveControl : MonoBehaviour
 {
     public SaveCell[] cells;
     private readonly string _archiveFileNameFormatter = "archive";
-    void Start()
+
+    private void Start()
     {
         AddSerializedJson.AddAllConverter();
         LoadData();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //if (Input.GetMouseButtonDown(0))
         //{
@@ -30,16 +30,18 @@ public class SaveControl : MonoBehaviour
         //}
     }
 
-    void LoadData()
+    private void LoadData()
     {
-        string[] files = Directory.GetFiles(Application.streamingAssetsPath + "/GameJamSaveSystem", "*.JSON", SearchOption.AllDirectories);
+        string[] files = Directory.GetFiles(
+            Application.streamingAssetsPath + "/GameJamSaveSystem", "*.JSON",
+            SearchOption.AllDirectories);
 
         for (int i = 0; i < files.Length; i++)
         {
-            UserData data = GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
+            UserData data =
+                GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
 
             cells[i].LoadData(data);
         }
-
     }
 }

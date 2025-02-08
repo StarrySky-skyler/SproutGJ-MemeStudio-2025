@@ -6,13 +6,10 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using DG.Tweening;
 using TMPro;
-using Tsuki.Base;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Tsuki.Managers
 {
@@ -22,16 +19,16 @@ namespace Tsuki.Managers
 
         [Header("渐变时间")] public float stepFadeTime;
         public float stepChangeFadeTime;
-
-        private TextMeshProUGUI _stepText;
+        private Color _addStepOriginColor;
+        private Color _addStepTargetColor;
         private TextMeshProUGUI _addStepText;
-        private TextMeshProUGUI _reduceStepText;
 
         private GameObject _pausePanel;
-        private Color _addStepOriginColor;
         private Color _reduceStepOriginColor;
-        private Color _addStepTargetColor;
         private Color _reduceStepTargetColor;
+        private TextMeshProUGUI _reduceStepText;
+
+        private TextMeshProUGUI _stepText;
 
         private void Start()
         {
@@ -63,7 +60,7 @@ namespace Tsuki.Managers
                 ShowPauseUI);
             GameManager.Instance.RegisterEvent(
                 GameManagerEventType.OnGameResume, HidePauseUI);
-            GameManager.Instance.onAllowLoadGame.AddListener((allow) =>
+            GameManager.Instance.onAllowLoadGame.AddListener(allow =>
             {
                 if (allow)
                     _stepText.DOColor(Color.white, stepFadeTime);
@@ -87,7 +84,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 初始化暂停UI
+        ///     初始化暂停UI
         /// </summary>
         private void ResetPauseUI(Scene scene, LoadSceneMode mode)
         {
@@ -103,7 +100,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 处理暂停UI
+        ///     处理暂停UI
         /// </summary>
         private void ShowPauseUI()
         {
@@ -111,7 +108,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 处理暂停UI
+        ///     处理暂停UI
         /// </summary>
         private void HidePauseUI()
         {

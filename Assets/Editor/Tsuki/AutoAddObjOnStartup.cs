@@ -9,7 +9,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 namespace Editor.Tsuki
 {
@@ -24,7 +23,7 @@ namespace Editor.Tsuki
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)
         {
-            Debug.Log("播放状态改变"+state);
+            Debug.Log("播放状态改变" + state);
             if (state == PlayModeStateChange.ExitingEditMode)
             {
                 Debug.Log("开始添加物体");
@@ -68,6 +67,7 @@ namespace Editor.Tsuki
                 Debug.LogWarning("自动删除Managers失败，找不到物体");
                 return;
             }
+
             Object.DestroyImmediate(obj);
             Debug.Log("自动删除Managers成功");
         }

@@ -8,14 +8,12 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using AnRan;
 using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.Base;
-using Tsuki.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Tsuki.Entities.CameraController
 {
@@ -23,6 +21,7 @@ namespace Tsuki.Entities.CameraController
     {
         [Header("聚焦物体")] [Header("繁茂城邦")] [CanBeNull]
         public Transform lushCityTrans;
+
         [Header("干旱城邦")] [CanBeNull] public Transform dryCityTrans;
 
         [Header("严寒城邦")] [CanBeNull] public Transform coldCityTrans;
@@ -32,10 +31,18 @@ namespace Tsuki.Entities.CameraController
         [Header("相机移动时间")] public float moveTime;
         [Header("聚焦后视野大小")] public float targetFieldOfView;
         [Header("聚焦所需时间")] public float zoomTime;
+        private Camera _camera;
+        private float _originFieldOfView;
 
         private Vector3 _originPos;
-        private float _originFieldOfView;
-        private Camera _camera;
+
+        public void Reset()
+        {
+            transform.DOMove(_originPos, moveTime).SetEase(Ease.InOutQuad);
+            DOTween.To(() => _camera.orthographicSize,
+                x => _camera.orthographicSize = x,
+                _originFieldOfView, zoomTime).SetEase(Ease.InOutQuad);
+        }
 
         private void Start()
         {
@@ -46,7 +53,7 @@ namespace Tsuki.Entities.CameraController
         }
 
         /// <summary>
-        /// 聚焦到目标位置
+        ///     聚焦到目标位置
         /// </summary>
         public void FocusOnTarget(FocusTargetType targetType)
         {
@@ -70,7 +77,7 @@ namespace Tsuki.Entities.CameraController
         }
 
         /// <summary>
-        /// 聚焦到给定的目标位置，z轴会自动修正
+        ///     聚焦到给定的目标位置，z轴会自动修正
         /// </summary>
         /// <param name="trans"></param>
         public void FocusOnTarget(Transform trans)
@@ -84,32 +91,27 @@ namespace Tsuki.Entities.CameraController
             // 移动
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Append(transform.DOMove(newPos, moveTime).SetEase(Ease.InOutQuad));
+            sequence.Append(transform.DOMove(newPos, moveTime)
+                .SetEase(Ease.InOutQuad));
 
             sequence.Append(DOTween.To(() => _camera.orthographicSize,
                 x => _camera.orthographicSize = x,
                 targetFieldOfView, zoomTime).SetEase(Ease.InOutQuad));
 
-            if (Vector3.Distance(transform.position, newPos) < 0.1f && (_camera.orthographicSize - targetFieldOfView) < 0.1f)
+            if (Vector3.Distance(transform.position, newPos) < 0.1f &&
+                _camera.orthographicSize - targetFieldOfView < 0.1f)
             {
                 StopAllCoroutines();
                 StartCoroutine(SelectScene());
             }
             // 聚焦
-
-        }
-        public void Reset()
-        {
-            transform.DOMove(_originPos, moveTime).SetEase(Ease.InOutQuad);
-            DOTween.To(() => _camera.orthographicSize,
-                x => _camera.orthographicSize = x,
-                _originFieldOfView, zoomTime).SetEase(Ease.InOutQuad);
         }
 
-        IEnumerator SelectScene()
+        private IEnumerator SelectScene()
         {
             yield return null;
-            SceneManager.LoadScene(AnRan.GameManager.Instance.selectSaveData.level + 2);
+            SceneManager.LoadScene(
+                GameManager.Instance.selectSaveData.level + 2);
         }
     }
 

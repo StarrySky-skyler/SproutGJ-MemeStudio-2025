@@ -7,12 +7,10 @@
 // *****************************************************************************
 
 using Tsuki.Entities.Box.Base;
-using UnityEngine;
 
 namespace Tsuki.Entities.Weeders
 {
     public class Weeder : BaseObj
     {
-        
     }
 }

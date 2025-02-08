@@ -1,6 +1,4 @@
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -18,26 +16,26 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                 if (_instance == null)
                 {
-                    GameObject singletonObject = new GameObject();
+                    GameObject singletonObject = new();
                     _instance = singletonObject.AddComponent<T>();
-                    singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    singletonObject.name = typeof(T) + " (Singleton)";
                 }
             }
+
             return _instance;
         }
     }
 
     protected virtual void Awake()
     {
-
         if (_instance != null && _instance != this)
         {
-            //Debug.Log("µ¥ÀýÉ¾³ý:" + gameObject.name);
+            //Debug.Log("ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½:" + gameObject.name);
             //Destroy(gameObject); 
         }
         else
         {
-            _instance = this as T;  
+            _instance = this as T;
         }
 
         //if (!isDontDestroyOnLoad)
@@ -54,9 +52,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        if (_instance == this)
-        {
-            _instance = null;
-        }
+        if (_instance == this) _instance = null;
     }
 }

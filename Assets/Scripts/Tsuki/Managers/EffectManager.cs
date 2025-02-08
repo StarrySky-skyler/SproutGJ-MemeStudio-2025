@@ -6,10 +6,7 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using JetBrains.Annotations;
-using Tsuki.Base;
-using Tsuki.MVC.Models.Player;
 using Tsuki.Effects;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -57,7 +54,7 @@ namespace Tsuki.Managers
         }
 
         /// <summary>
-        /// 生成脚本特效
+        ///     生成脚本特效
         /// </summary>
         /// <param name="moveStatus"></param>
         private void SpawnFootPrint(bool moveStatus)

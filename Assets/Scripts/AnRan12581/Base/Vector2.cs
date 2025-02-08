@@ -23,19 +23,20 @@ namespace Vector2Json.SaveSystem
 
     public class Vector2Converter : JsonConverter
     {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value,
+            JsonSerializer serializer)
         {
             var vector = (Vector2)value;
             var obj = new JObject
             {
                 { "x", vector.x },
                 { "y", vector.y }
-
             };
             obj.WriteTo(writer);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType,
+            object existingValue, JsonSerializer serializer)
         {
             var obj = JObject.Load(reader);
             var x = (float)obj["x"];
@@ -46,11 +47,10 @@ namespace Vector2Json.SaveSystem
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(UnityEngine.Vector2);
+            return objectType == typeof(Vector2);
         }
     }
 }
-
 
 
 namespace Vector3Json.SaveSystem
@@ -73,7 +73,8 @@ namespace Vector3Json.SaveSystem
 
     public class Vector3Converter : JsonConverter
     {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value,
+            JsonSerializer serializer)
         {
             var vector = (Vector3)value;
             var obj = new JObject
@@ -85,7 +86,8 @@ namespace Vector3Json.SaveSystem
             obj.WriteTo(writer);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType,
+            object existingValue, JsonSerializer serializer)
         {
             var obj = JObject.Load(reader);
             var x = (float)obj["x"];
@@ -96,7 +98,7 @@ namespace Vector3Json.SaveSystem
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(UnityEngine.Vector3);
+            return objectType == typeof(Vector3);
         }
     }
 }

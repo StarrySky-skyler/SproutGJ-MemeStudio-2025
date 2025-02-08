@@ -7,7 +7,6 @@
 // *****************************************************************************
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +19,14 @@ namespace Tsuki.MVC.Models.Player
         [Header("移动一格的时间（箱子也是）")] public float moveTime;
 
         [Header("最大移动步数")] public int maxMoveStep;
+
+        public UnityEvent<bool> onMoveStatusChanged = new();
+
+        public UnityEvent<int, bool> onStepChanged = new();
+
+        private int _currentLeftStep;
+
+        private bool _isMoving;
 
         public int CurrentLeftStep
         {
@@ -44,20 +51,12 @@ namespace Tsuki.MVC.Models.Player
             }
         }
 
-        public UnityEvent<bool> onMoveStatusChanged = new();
-
-        public UnityEvent<int, bool> onStepChanged = new();
-
         public Vector2Int LastDirection { get; set; } // 移动方向
         public Vector3 CurrentPos { get; set; }
         public Stack<Vector3> LastPosStack { get; private set; } // 上一次的位置
 
-        private bool _isMoving;
-
-        private int _currentLeftStep;
-
         /// <summary>
-        /// 初始化
+        ///     初始化
         /// </summary>
         public void Init()
         {

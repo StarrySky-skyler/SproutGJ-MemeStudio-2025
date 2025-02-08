@@ -1,57 +1,18 @@
-
 using UnityEngine;
-using Vector2Json.SaveSystem;
+
 public class PlayerControl : MonoBehaviour
 {
-    [Header("ÒÆ¶¯ËÙ¶È")]
-    public float moveSpeed = 5f;
-    [Header("ÌøÔ¾¸ß¶È")]
-    public float jumpForce = 10f;
-    [Header("×î´óÌøÔ¾´ÎÊý")]
-    public int maxJumpCount = 2;
+    [Header("ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½")] public float moveSpeed = 5f;
 
-    [Header("³å´ÌÏµÊý")]
-    public float dashMutiple = 2;
+    [Header("ï¿½ï¿½Ô¾ï¿½ß¶ï¿½")] public float jumpForce = 10f;
 
-    [Header("³å´ÌÊ±¼ä")]
-    public float dashTimer = 0.2f;
-    [Header("µØÃæ²ã")]
-    public LayerMask groundLayer;
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½")] public int maxJumpCount = 2;
 
-    #region Debug
+    [Header("ï¿½ï¿½ï¿½Ïµï¿½ï¿½")] public float dashMutiple = 2;
 
-    [SerializeField]
-    [ReadOnly]
-    [Header("µ±Ç°ËÙ¶È")]
-    float speed = 0;
+    [Header("ï¿½ï¿½ï¿½Ê±ï¿½ï¿½")] public float dashTimer = 0.2f;
 
-    [SerializeField]
-    [ReadOnly]
-    [Header("ÌøÔ¾´ÎÊý")]
-    int jumpCount = 0;
-
-
-    [SerializeField]
-    [ReadOnly]
-    [Header("ÏòÏÂ¼ì²â¾àÀë")]
-    float raycastDistance;
-
-    [SerializeField]
-    [ReadOnly]
-    [Header("µØÃæ¼ì²â")]
-    bool isGrounded = false;
-
-    [SerializeField]
-    [ReadOnly]
-    [Header("2D¸ÕÌå")]
-    Rigidbody2D rb;
-
-    [SerializeField]
-    [ReadOnly]
-    [Header("2DSprite")]
-    private SpriteRenderer spriteRenderer;
-
-    #endregion
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½")] public LayerMask groundLayer;
 
     private void Start()
     {
@@ -68,12 +29,18 @@ public class PlayerControl : MonoBehaviour
         Move();
 
         Jump();
-
     }
 
-    bool IsGround()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        return Physics2D.Raycast(spriteRenderer.bounds.center, Vector2.down, raycastDistance, groundLayer);
+        if (1 << collision.gameObject.layer == groundLayer && isGrounded)
+            jumpCount = 0;
+    }
+
+    private bool IsGround()
+    {
+        return Physics2D.Raycast(spriteRenderer.bounds.center, Vector2.down,
+            raycastDistance, groundLayer);
     }
 
     private void Jump()
@@ -82,9 +49,7 @@ public class PlayerControl : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpCount++;
-
         }
-
     }
 
     private void Move()
@@ -93,9 +58,7 @@ public class PlayerControl : MonoBehaviour
         float moveDirection = horizontalInput * speed;
         rb.linearVelocity = new Vector2(moveDirection, rb.linearVelocity.y);
         if (horizontalInput != 0)
-        {
             spriteRenderer.flipX = horizontalInput > 0 ? false : true;
-        }
 
         Dash(horizontalInput);
     }
@@ -104,27 +67,36 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && hor != 0)
         {
-
             speed = moveSpeed * dashMutiple;
             Invoke("DashFinished", dashTimer);
         }
-
     }
 
-    void DashFinished()
+    private void DashFinished()
     {
         speed = moveSpeed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
+    #region Debug
 
-        if (1 << collision.gameObject.layer == groundLayer && isGrounded)
-        {
-            jumpCount = 0;
-        }
-    }
+    [SerializeField] [ReadOnly] [Header("ï¿½ï¿½Ç°ï¿½Ù¶ï¿½")]
+    private float speed;
+
+    [SerializeField] [ReadOnly] [Header("ï¿½ï¿½Ô¾ï¿½ï¿½ï¿½ï¿½")]
+    private int jumpCount;
 
 
+    [SerializeField] [ReadOnly] [Header("ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    private float raycastDistance;
+
+    [SerializeField] [ReadOnly] [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    private bool isGrounded;
+
+    [SerializeField] [ReadOnly] [Header("2Dï¿½ï¿½ï¿½ï¿½")]
+    private Rigidbody2D rb;
+
+    [SerializeField] [ReadOnly] [Header("2DSprite")]
+    private SpriteRenderer spriteRenderer;
+
+    #endregion
 }
-

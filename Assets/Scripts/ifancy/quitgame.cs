@@ -1,18 +1,17 @@
+using UnityEditor;
 using UnityEngine;
 
 public class quitgame : MonoBehaviour
 {
-    public void QuitGame() 
+    public void QuitGame()
     {
-
-        //´æµµ£¿£¿
+        //ï¿½æµµï¿½ï¿½ï¿½ï¿½
 
 
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
-
     }
 }
