@@ -1,25 +1,27 @@
-using AnRan;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using TMPro;
+using UnityEngine.SceneManagement;
 public class SaveCell : MonoBehaviour
 {
     public Button enter;
+    public TMP_Text title;
     public TMP_Text time;
     public TMP_Text load;
     public Image load_slider;
 
     public void LoadData(UserData userdata)
     {
-        time.text = userdata.time;
-        load.text = $"ï¿½ï¿½ï¿½ï¿½:{(userdata.process * 10f).ToString("F0")}%";
+        title.text = "Level" + userdata.level.ToString();
+        this.time.text = userdata.time;
+        this.load.text = $"½ø¶È:{(userdata.process * 10f).ToString("F0")}%";
         load_slider.fillAmount = userdata.process / 10f;
         enter.onClick.AddListener(() =>
         {
-            GameManager.Instance.selectSaveData = userdata;
-            SceneManager.LoadScene("Select"); //Ñ¡ï¿½ï¿½ï¿½Í¼
+            AnRan.GameManager.Instance.selectSaveData = userdata;
+            SceneManager.LoadScene("Select");//Ñ¡ÔñµØÍ¼
+    
         });
     }
+
 }
