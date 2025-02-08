@@ -33,9 +33,21 @@ namespace Tsuki.Managers
         public UnityEvent onGameResume;
         public UnityEvent onGameUndo;
         public UnityEvent beforeGameReload;
+        public UnityEvent<bool> onAllowLoadGame;
 
-        public bool AllowLoadGame { get; set; }
+        public bool AllowLoadGame
+        {
+            get => _allowLoadGame;
+            set
+            {
+                if (_allowLoadGame == value) return;
+                _allowLoadGame = value;
+                onAllowLoadGame?.Invoke(value);
+            }
+        }
 
+        private bool _allowLoadGame;
+        
         private void Start()
         {
             AllowLoadGame = false;

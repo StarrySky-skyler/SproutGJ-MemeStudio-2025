@@ -109,7 +109,7 @@ namespace Tsuki.Entities.AutoWall
             return (HandleType)(costStep % 4);
         }
 
-        private void HandleDisplay(int leftStep)
+        private void HandleDisplay(int leftStep, bool _)
         {
             if (!_allowShow) return;
             HandleType wwallType = GetHandleType(leftStep);
@@ -134,7 +134,7 @@ namespace Tsuki.Entities.AutoWall
             }
         }
 
-        private void HandleDisplayReverse(int leftStep)
+        private void HandleDisplayReverse(int leftStep, bool _)
         {
             if (!_allowShow) return;
             HandleType wwallType = GetHandleType(leftStep);

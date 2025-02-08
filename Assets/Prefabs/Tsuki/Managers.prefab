@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 2855192516287785484, guid: 0a077436ba0b2d0419982430e29fd382, type: 3}
+  stepFadeTime: 2
+  stepChangeFadeTime: 0.2
+  stepText: {fileID: 0}
+  addStepText: {fileID: 0}
+  reduceStepText: {fileID: 0}
 --- !u!1 &1632684422770056032
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +105,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   beforeGameReload:
+    m_PersistentCalls:
+      m_Calls: []
+  onAllowLoadGame:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6431261240471566386
@@ -417,6 +425,9 @@ MonoBehaviour:
   onBoxCorrectAdded:
     m_PersistentCalls:
       m_Calls: []
+  onBoxCorrectRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9105402378859450936
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,3 +472,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aece24e545d24452a25cab8ee4b25343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _userDataList: []
