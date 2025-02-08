@@ -283,7 +283,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -973,7 +972,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -1340,10 +1338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mutiple: 1.05
-  dotimer: 0.1
+  dotimer: 0.15
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -1499,7 +1496,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -2496,7 +2492,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -2665,7 +2660,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -2923,7 +2917,6 @@ MonoBehaviour:
   dotimer: 0.1
   Enter_style: 7
   Exit_style: 7
-  textDuration: 0.1
   _text: {fileID: 0}
   _textColoredStr: 
   _originStr: 
@@ -3853,18 +3846,6 @@ PrefabInstance:
     - target: {fileID: 5834811241075264055, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Hide
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410339779941680466, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
-      propertyPath: dotimer
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410339779941680466, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
-      propertyPath: mutiple
-      value: 1.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 6410339779941680466, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
-      propertyPath: textDuration
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6583979287055374373, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_FontData.m_FontSize
