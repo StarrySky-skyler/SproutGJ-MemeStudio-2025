@@ -6,18 +6,23 @@
 // @description:
 // *****************************************************************************
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tsuki.MVC.Models.Game
 {
-    [CreateAssetMenu(fileName = "GameModel", menuName = "Tsuki/New Game Config", order = 1)]
+    [CreateAssetMenu(fileName = "GameModel", menuName = "Tsuki/New Game Config",
+        order = 1)]
     public class GameModel : ScriptableObject
     {
         [Header("单元格大小")] public float girdSize;
         [Header("地面")] public LayerMask groundLayer;
         [Header("障碍物")] public LayerMask obstacleLayer;
         [Header("草层")] public LayerMask grassLayer;
-        [Header("冰块层")]  public LayerMask groundIceLayer;
-         public LayerMask groundIceLineLayer;
+        [Header("冰块层")] public LayerMask groundIceLayer;
+        public LayerMask groundIceLineLayer;
+
+        [Header("关卡BGM配置")]
+        public List<AudioClip> bgmList;
     }
 }

@@ -14,6 +14,7 @@ using DG.Tweening;
 using JetBrains.Annotations;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -66,11 +67,13 @@ namespace Tsuki.Managers
             if (!audioGo) audioGo = Instantiate(audioPrefab);
             _bgmAudioSource = audioGo.GetComponents<AudioSource>()[0];
             _sfxAudioSource = audioGo.GetComponents<AudioSource>()[1];
-            _bgmAudioSource.loop = false;
+            _bgmAudioSource.loop = true;
             _sfxAudioSource.loop = false;
             //_lastMoveSoundEffect = null;
             _bgmAudioSource.volume = 0;
-            StartCoroutine(PlayBgm());
+            // StartCoroutine(PlayBgm());
+            PlayLevelBgm(false);
+            SceneManager.sceneLoaded += (scene, mode) => { PlayLevelBgm(); };
         }
 
         private void OnEnable()
@@ -79,6 +82,8 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
                 RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.AddListener(PlayWinSoundEffect);
+            BoxManager.Instance.onBoxCorrectAdded.AddListener(() =>
+                PlayWinSoundEffect(true));
         }
 
         private void OnDisable()
@@ -87,6 +92,42 @@ namespace Tsuki.Managers
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
                 .RemoveListener(RandomPlayMoveSoundEffect);
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
+        }
+
+        private void PlayLevelBgm(bool fadeOutLast = true)
+        {
+            MannulPlayBgm(GetCurrentLevelBgm(), fadeOutLast);
+        }
+
+        /// <summary>
+        /// 手动切换播放Bgm
+        /// </summary>
+        /// <param name="fadeOutLast">是否先渐出</param>
+        /// <param name="targetAudio">目标Bgm</param>
+        public void MannulPlayBgm(AudioClip targetAudio,
+            bool fadeOutLast = true)
+        {
+            if (fadeOutLast)
+            {
+                _audioFade.FadeOut(_bgmAudioSource, () =>
+                {
+                    _bgmAudioSource.clip = targetAudio;
+                    _audioFade.FadeIn(_bgmAudioSource);
+                });
+            }
+            else
+            {
+                _bgmAudioSource.clip = targetAudio;
+                _audioFade.FadeIn(_bgmAudioSource);
+            }
+        }
+
+        private AudioClip GetCurrentLevelBgm()
+        {
+            int level = LevelManager.Instance.GetCurrentLevel();
+            Debug.Log("音频：当前关卡为" + level);
+            Debug.Log("音频：当前关卡音频为" + bgmList[level - 1]);
+            return ModelsManager.Instance.GameMod.bgmList[level - 1];
         }
 
         private IEnumerator PlayBgm()
@@ -145,26 +186,6 @@ namespace Tsuki.Managers
             switch (soundEffectType)
             {
                 case SoundEffectType.Move:
-                    // 第一次播放移动音效
-                    // AudioClip clip = null;
-                    // if (!_lastMoveSoundEffect)
-                    // {
-                    //     clip = moveSoundEffect[
-                    //         Random.Range(0, moveSoundEffect.Count - 1)];
-                    // }
-                    // // 移动音效与上次不同，播放新的移动音效
-                    // else
-                    // {
-                    //     clip = _lastMoveSoundEffect;
-                    //     while (clip == _lastMoveSoundEffect)
-                    //     {
-                    //         clip = moveSoundEffect[
-                    //             Random.Range(0, moveSoundEffect.Count - 1)];
-                    //     }
-                    // }
-                    //
-                    // soundEffectAudioSource.PlayOneShot(clip);
-                    // _lastMoveSoundEffect = clip;
                     PlayMoveSoundEffect();
                     break;
                 case SoundEffectType.Win:
