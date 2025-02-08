@@ -54,10 +54,7 @@ namespace Tsuki.Managers
                 UpdateStepText);
             ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
                 UpdateStepColor);
-            SceneManager.sceneLoaded += (_, _) =>
-            {
-                Init();
-            };
+            SceneManager.sceneLoaded += (_, _) => { Init(); };
         }
 
         private void OnDisable()
