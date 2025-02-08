@@ -19,7 +19,7 @@ namespace Editor.Tsuki
         // 自动添加对象
         static AutoAddObjOnStartup()
         {
-            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            //EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
 
         private static void OnPlayModeStateChanged(PlayModeStateChange state)

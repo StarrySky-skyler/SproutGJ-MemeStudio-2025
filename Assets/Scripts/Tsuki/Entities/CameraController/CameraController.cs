@@ -109,7 +109,7 @@ namespace Tsuki.Entities.CameraController
         IEnumerator SelectScene()
         {
             yield return null;
-            LevelManager.Instance.LoadLevel( AnRan.GameManager.Instance.selectSaveData);
+            SceneManager.LoadScene($"Level{AnRan.GameManager.Instance.selectSaveData.level}Scene" );
         }
     }
 

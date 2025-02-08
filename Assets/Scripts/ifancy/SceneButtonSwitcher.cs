@@ -22,5 +22,4 @@ public class SceneButtonSwitcher : MonoBehaviour
     {
         gameObject.transform.parent.parent.gameObject.SetActive(false);
     }
-
 }

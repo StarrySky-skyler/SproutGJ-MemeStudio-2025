@@ -9,30 +9,48 @@ using UnityEngine.EventSystems;
 public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
     IPointerExitHandler
 {
-    [Header("�Ŵ���")] public float mutiple = 1.2f;
-    [Header("����ʱ��")] public float dotimer = 0.2f;
-    [Header("������")] public Ease Enter_style = Ease.InOutQuad;
-    [Header("�˳����")] public Ease Exit_style = Ease.InOutQuad;
+    [Header("放大倍数")] public float mutiple = 1.2f;
+    [Header("整体动画时间")] public float dotimer = 0.1f;
+    [Header("进入风格")] public Ease Enter_style = Ease.InOutQuad;
+    [Header("退出风格")] public Ease Exit_style = Ease.InOutQuad;
+    [Header("字体动画时间")] public float textDuration=0.1f;
 
-    public float textDuration;
-
+    [SerializeField]
+    [ReadOnly]
     private Text _text;
+    [SerializeField]
+    [ReadOnly]
     private string _textColoredStr;
+    [SerializeField]
+    [ReadOnly]
     private string _originStr;
 
     private void Start()
     {
-        _text = transform.Find("Text").GetComponent<Text>();
-        _textColoredStr = _text.text;
-        _originStr = _text.text;
-        string temp = _textColoredStr.Aggregate("",
-            (current, c) => current + ("<color=#FFFFF>" + c + "</color>"));
-        _textColoredStr = temp;
+        if (!transform.Find("Text")) return;
+
+        if(transform.Find("Text").TryGetComponent(out Text txt))
+        {
+            _text = txt;
+            _textColoredStr = _text.text;
+            _originStr = _text.text;
+            string temp = _textColoredStr.Aggregate("",
+                (current, c) => current + ("<color=#FFFFF>" + c + "</color>"));
+            _textColoredStr = temp;
+        }
+        else
+        {
+            _text = null;
+        }
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.DOScale(Vector3.one * mutiple, dotimer).SetEase(Enter_style);
+
+        if (_text == null) return;
+
         _text.DOText(_textColoredStr, textDuration, true).OnComplete(() =>
         {
             _text.DOText(_originStr, textDuration);
@@ -42,5 +60,10 @@ public class DoTweenPointer : MonoBehaviour, IPointerEnterHandler,
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOScale(Vector3.one, dotimer).SetEase(Exit_style);
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.KillAll();
     }
 }

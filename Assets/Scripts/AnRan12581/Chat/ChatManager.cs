@@ -16,6 +16,9 @@ public class ChatInfo
     [Header("对话内容")]
     [TextArea]
     public string chatContent;  // 聊天内容
+    [Header("显示立绘")]
+    public GameObject character;
+
     public List<SelectBtn> selectsbtn;  // 选择按钮列表
     public bool isStop;  // 是否停止聊天（如暂停或结束）
     [Header("开始对话时")]
@@ -38,6 +41,9 @@ public class ChatManager : MonoBehaviour
 
     [Header("文本到达一定进度后可完整显示")]
     [Range(0.1f, 1.0f)] public float ChatContentRot = 0.5f;  // 每次显示字符的旋转速度，控制字符显示的平滑度
+
+    [Header("所有立绘")]
+    public GameObject[] AllCharacters;
 
     public List<ChatInfo> chatInfos = new List<ChatInfo>();  // 聊天信息列表，存储多个聊天的内容和按钮等信息
 
@@ -204,11 +210,24 @@ public class ChatManager : MonoBehaviour
 
         chatContent.text = string.Empty;  // 清空当前聊天内容文本框
 
-        
+        chatName.text = chatInfos[currentIndex].name;//对话名称变更
+
+        foreach (GameObject o in AllCharacters)
+        {
+            o.SetActive(false);//关闭所有立绘
+        }
+
+        if (chatInfos[currentIndex].character != null)
+        {
+
+            chatInfos[currentIndex].character.SetActive(true);
+        }
+
+
 
         for (int i = 0; i < chatInfos[currentIndex].chatContent.Length; i++)  // 遍历聊天内容中的每个字符
         {
-            chatName.text = chatInfos[currentIndex].name;
+
             chatContent.text += chatInfos[currentIndex].chatContent[i];  // 显示一个字符
             if (chatContent.text.Length >= chatInfos[currentIndex].chatContent.Length * ChatContentRot)
             {

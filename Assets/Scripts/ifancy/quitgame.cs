@@ -3,8 +3,16 @@ using UnityEngine;
 public class quitgame : MonoBehaviour
 {
     public void QuitGame() 
-    { 
+    {
+
         //´æµµ£¿£¿
-      Application.Quit();
+
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+
     }
 }
