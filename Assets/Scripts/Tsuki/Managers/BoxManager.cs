@@ -47,7 +47,7 @@ namespace Tsuki.Managers
             // 注册事件
             SceneManager.sceneLoaded += ResetBoxCount;
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged.AddListener(
-                RepeatAllBoxLastPos);
+                RepeatAllLastPos);
         }
 
         private void OnDisable()
@@ -55,7 +55,7 @@ namespace Tsuki.Managers
             // 注销事件
             SceneManager.sceneLoaded -= ResetBoxCount;
             ModelsManager.Instance.PlayerMod.onMoveStatusChanged
-                .RemoveListener(RepeatAllBoxLastPos);
+                .RemoveListener(RepeatAllLastPos);
         }
 
         private void ResetBoxCount(Scene scene, LoadSceneMode mode)
@@ -103,12 +103,15 @@ namespace Tsuki.Managers
         ///     重复所有箱子的最后位置
         /// </summary>
         /// <param name="moveStatus"></param>
-        private void RepeatAllBoxLastPos(bool moveStatus)
+        private void RepeatAllLastPos(bool moveStatus)
         {
             if (!moveStatus) return;
             GameObject[] boxes = GameObject.FindGameObjectsWithTag("Box");
             foreach (GameObject box in boxes)
                 box.GetComponent<BaseObj>().RepeatPos();
+            GameObject[] weeders = GameObject.FindGameObjectsWithTag("Weeders");
+            foreach (GameObject weeds in weeders)
+                weeds.GetComponent<BaseObj>().RepeatPos();
         }
     }
 }

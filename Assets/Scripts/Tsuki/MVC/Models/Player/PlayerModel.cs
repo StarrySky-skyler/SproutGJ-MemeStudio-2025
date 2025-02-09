@@ -12,7 +12,6 @@ using Tsuki.Managers;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace Tsuki.MVC.Models.Player
 {
@@ -71,7 +70,8 @@ namespace Tsuki.MVC.Models.Player
             _isMoving = false;
             LastPosStack = new Stack<Vector3>();
             if (SceneManager.GetActiveScene().name.Contains("Level"))
-                CurrentPos = GameObject.FindWithTag("Player").transform.position;
+                CurrentPos = GameObject.FindWithTag("Player").transform
+                    .position;
         }
 
         public void AddStep(int step = 1)

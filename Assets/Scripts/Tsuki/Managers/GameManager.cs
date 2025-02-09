@@ -94,7 +94,8 @@ namespace Tsuki.Managers
             if (ModelsManager.Instance.PlayerMod.IsMoving) return;
             // 如果回到起点，不允许撤销
             if (ModelsManager.Instance.PlayerMod.CurrentLeftStep ==
-                ModelsManager.Instance.PlayerMod.GetCurrentLevelMaxStep()) return;
+                ModelsManager.Instance.PlayerMod.GetCurrentLevelMaxStep())
+                return;
             onGameUndo?.Invoke();
         }
 

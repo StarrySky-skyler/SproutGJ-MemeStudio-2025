@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using Tsuki.Base;
 using Tsuki.MVC.Models.Game;
 using Tsuki.MVC.Models.Player;
 using UnityEngine;
@@ -29,10 +28,7 @@ namespace Tsuki.Managers
 
         private void OnEnable()
         {
-            SceneManager.sceneLoaded += (_, _) =>
-            {
-                PlayerMod.Init();
-            };
+            SceneManager.sceneLoaded += (_, _) => { PlayerMod.Init(); };
         }
     }
 }

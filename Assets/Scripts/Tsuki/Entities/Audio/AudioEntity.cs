@@ -130,7 +130,7 @@ namespace Tsuki.Entities.Audio
                 DebugYumihoshi.Error<AudioEntity>("全局音频", "音效为空，加载失败");
                 return;
             }
-            
+
             audioSource[1].PlayOneShot(clip);
         }
 
@@ -142,7 +142,7 @@ namespace Tsuki.Entities.Audio
                 DebugYumihoshi.Error<AudioEntity>("全局音频", "音效为空，加载失败");
                 return;
             }
-            
+
             audioSource[1].PlayOneShot(clip);
         }
     }

@@ -108,6 +108,7 @@ namespace Tsuki.Managers
                 DebugYumihoshi.Warn<AudioManager>("音频", "音频实体为空");
                 return;
             }
+
             _audioEntity.PlayBgm(GetCurrentLevelBgm(), fadeOutLast);
         }
 
