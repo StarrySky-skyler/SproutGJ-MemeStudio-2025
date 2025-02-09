@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Tsuki.Entities.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 public class SaveCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
@@ -13,22 +14,25 @@ public class SaveCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
     public TMP_Text load;
     public Image load_slider;
     private Image img;
+    private AudioEntity _audio;
 
     void Start()
     {
         img = GetComponent<Image>();
+        _audio = GameObject.FindWithTag("Audio").GetComponent<AudioEntity>();
     }
 
     public void LoadData(UserData userdata)
     {
         title.text = "Level" + userdata.level.ToString();
         this.time.text = userdata.time;
-        this.load.text = $"½ø¶È:{(userdata.process * 10f).ToString("F0")}%";
+        this.load.text = $"ï¿½ï¿½ï¿½ï¿½:{(userdata.process * 10f).ToString("F0")}%";
         load_slider.fillAmount = userdata.process / 10f;
         enter.onClick.AddListener(() =>
         {
+            _audio.PlaySfx("Load a Save");
             AnRan.GameManager.Instance.selectSaveData = userdata;
-            SceneManager.LoadScene("Select");//Ñ¡ÔñµØÍ¼
+            SceneManager.LoadScene("Select");//Ñ¡ï¿½ï¿½ï¿½Í¼
     
         });
     }

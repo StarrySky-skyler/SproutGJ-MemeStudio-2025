@@ -14,19 +14,25 @@ namespace Tsuki.Entities.Audio
 {
     public class AudioEntity : MonoBehaviour
     {
-        private AudioSource[] _audioSource;
+        [HideInInspector] public AudioSource[] audioSource;
+
         private AudioClip _sfxClick;
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
 
         private void Start()
         {
             _sfxClick = Resources.Load<AudioClip>("Music/Sfx/Got Hurt");
             if (!_sfxClick) Debug.LogWarning("AudioEntity >>> 鼠标点击音效为空，加载失败");
 
-            _audioSource = GetComponents<AudioSource>();
+            audioSource = GetComponents<AudioSource>();
             if (SceneManager.GetActiveScene().name == "Menu")
             {
-                _audioSource[0].loop = true;
-                _audioSource[0].Play();
+                audioSource[0].loop = true;
+                audioSource[0].Play();
             }
         }
 
@@ -41,8 +47,26 @@ namespace Tsuki.Entities.Audio
         private void PlaySfxClick()
         {
             if (!_sfxClick) return;
-            _audioSource[2].Stop();
-            _audioSource[2].PlayOneShot(_sfxClick);
+            audioSource[2].Stop();
+            audioSource[2].PlayOneShot(_sfxClick);
+        }
+
+        /// <summary>
+        /// 播放音效
+        /// </summary>
+        /// <param name="name"></param>
+        public void PlaySfx(string name)
+        {
+            if (name == "Load a Save") audioSource[0].Stop();
+            AudioClip clip = Resources.Load<AudioClip>($"Music/Sfx/{name}");
+            if (!clip)
+            {
+                Debug.LogWarning($"AudioEntity >>> 音效 {name} 为空，加载失败");
+                return;
+            }
+
+            audioSource[1].Stop();
+            audioSource[1].PlayOneShot(clip);
         }
     }
 }
