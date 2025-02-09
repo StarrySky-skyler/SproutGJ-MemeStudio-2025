@@ -1319,6 +1319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u5173\u53615\u5F00\u59CB"
       objectReference: {fileID: 0}
+    - target: {fileID: 7548720136758311414, guid: ee3cf5f2179194f4b9b6b6020a0af814, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

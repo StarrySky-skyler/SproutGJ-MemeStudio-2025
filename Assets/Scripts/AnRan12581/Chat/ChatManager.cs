@@ -68,13 +68,6 @@ public class ChatManager : MonoBehaviour
 
     private bool _played;
 
-    private void Awake()
-    {
-#if UNITY_EDITOR
-        chatContentTime = 0f;
-#endif
-    }
-
     public void Update()
     {
         if (Input.GetMouseButtonDown(0)) // 判断是否按下了鼠标左键

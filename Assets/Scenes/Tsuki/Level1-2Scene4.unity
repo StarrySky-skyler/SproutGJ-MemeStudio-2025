@@ -302,6 +302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u5173\u53612\u7ED3\u675F"
       objectReference: {fileID: 0}
+    - target: {fileID: 7737460509770914657, guid: 197a3f74353572742a6c92e70df46f03, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 8212215495638774781, guid: 197a3f74353572742a6c92e70df46f03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -471,6 +471,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3524058193668721055, guid: b8a95016914bb34439a5336929ffe367, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 7084720491228979132, guid: b8a95016914bb34439a5336929ffe367, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

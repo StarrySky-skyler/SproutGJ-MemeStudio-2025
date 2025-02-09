@@ -1288,6 +1288,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3444078370335404758, guid: c7eccc69f55a57a4ebc2becfa9868915, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 3819661090657443238, guid: c7eccc69f55a57a4ebc2becfa9868915, type: 3}
       propertyPath: m_SortingOrder
       value: 0

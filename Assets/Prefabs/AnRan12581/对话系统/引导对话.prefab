@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chatContentTime: 0.1
-  ChatContentRot: 0.5
+  ChatContentRot: 0.15
   AllCharacters:
   - {fileID: 2219489536097318470}
   - {fileID: 3706804301915301933}

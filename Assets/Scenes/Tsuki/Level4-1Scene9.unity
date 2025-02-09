@@ -685,6 +685,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7548720136758311414, guid: bfcb5eb7b99d4424dabf6f01fb2cc850, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548720136758311414, guid: bfcb5eb7b99d4424dabf6f01fb2cc850, type: 3}
       propertyPath: chatInfos.Array.data[12].name
       value: "\u9009\u9879"
       objectReference: {fileID: 0}
@@ -1165,6 +1169,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u7ED3\u5C40B\u7EBF"
       objectReference: {fileID: 0}
+    - target: {fileID: 7548720136758311414, guid: 77c6fd9b4cfb0d54d8df1bca0d781213, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1221,6 +1229,10 @@ PrefabInstance:
     - target: {fileID: 4794346165271279593, guid: d137dc67808b3394d8ba3f630d790a6b, type: 3}
       propertyPath: m_Name
       value: "\u6700\u540E\u4E00\u5173\u5F00\u59CB"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548720136758311414, guid: d137dc67808b3394d8ba3f630d790a6b, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3115,6 +3127,10 @@ PrefabInstance:
     - target: {fileID: 4794346165271279593, guid: 4d9aa7db845eace4a96c7e3b97bbf436, type: 3}
       propertyPath: m_Name
       value: "\u7ED3\u5C40A\u7EBF"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7548720136758311414, guid: 4d9aa7db845eace4a96c7e3b97bbf436, type: 3}
+      propertyPath: ChatContentRot
+      value: 0.15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
