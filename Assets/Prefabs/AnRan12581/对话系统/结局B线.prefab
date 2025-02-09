@@ -311,52 +311,8 @@ MonoBehaviour:
   - {fileID: 264218448149030219}
   - {fileID: 4268706505438451859}
   chatInfos:
-  - name: "\u65C1\u767D"
-    chatContent: "\uFF08\u516C\u56ED\u91CD\u65B0\u54CD\u8D77\u97F3\u4E50\uFF0C\u8EAB\u65C1\u7684\u4EBA\u60CA\u559C\u5730\u201C\u54C7\u201D\u4E86\u4E00\u58F0\uFF0C\u5C0F\u732B\u4E5F\u56DE\u5230\u4E86\u6211\u7684\u80A9\u8180\uFF09"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: "\u65C1\u767D"
-    chatContent: "\uFF08\u539A\u91CD\u7684\u6BDB\u6BE1\u95E8\u5E18\u9646\u7EED\u6380\u5F00\uFF0C\u5C45\u6C11\u4EEC\u50CF\u51AC\u7720\u9192\u6765\u7684\u677E\u9F20\u822C\u63A2\u5934\uFF09"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: npc
-    chatContent: "\u8282\u65E5\u7684\u4E50\u58F0\u91CD\u65B0\u54CD\u8D77\u4E86\uFF01\u6211\u4EEC\u5E94\u8BE5\u91CD\u65B0\u5F00\u59CB\u529E\u516C\u56ED\u97F3\u4E50\u4F1A\uFF01"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: "\u65C1\u767D"
-    chatContent: "\uFF08\u5C45\u6C11\u4EEC\u9010\u6E10\u805A\u96C6\u5230\u5E7F\u573A\u4E0A\uFF0C\u6709\u4EBA\u8FD8\u80CC\u7740\u81EA\u5DF1\u7684\u4E50\u5668\uFF09"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: npc
-    chatContent: "\u51E0\u5E74\u524D\uFF0C\u4E5F\u662F\u5357\u65B9\u6765\u7684\u65C5\u5BA2\u5728\u8FD9\u4E2A\u516C\u56ED\u548C\u6211\u8BF4\u8FC7\uFF0C\u97F3\u4E50\u91CC\u6709\u6211\u4EEC\u4E16\u754C\u7684\u901A\u884C\u6CD5\u5219\u3002"
+  - name: Aria
+    chatContent: "\u8FD9\u662F\u4F60\u4EEC\u7559\u7ED9\u6211\u7684\uFF0C\u4E5F\u662F\u6211\u4E00\u8DEF\u4E0A\u552F\u4E00\u7684\u4F19\u4F34\u3002\u6211\u60F3\u597D\u597D\u5730\u7559\u7740\u5B83\u3002"
     character: {fileID: 0}
     selectsbtn: []
     isStop: 0
@@ -367,7 +323,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - name: Aria
-    chatContent: "\uFF08\uFF01\u597D\u719F\u6089\u7684\u8BDD\uFF0C\u96BE\u9053\u2026\u2026\uFF09  "
+    chatContent: "\uFF08\u9644\u8FD1\u6216\u8BB8\u8FD8\u6709\u5176\u4ED6\u7236\u6BCD\u7559\u4E0B\u7684\u4E1C\u897F\uFF0C\u6211\u53EF\u4EE5\u8BD5\u7740\u518D\u627E\u4E00\u627E\uFF09"
     character: {fileID: 5570152957988994637}
     selectsbtn: []
     isStop: 0
@@ -377,8 +333,30 @@ MonoBehaviour:
     chatEndEvent:
       m_PersistentCalls:
         m_Calls: []
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u811A\u8FB9\u7684\u4F17\u591A\u5DE5\u5177\u7BB1\u95F4\uFF0C\u6709\u4E00\u4E2A\u6734\u7D20\u7684\u7BB1\u5B50\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u5C06\u4E4B\u6253\u5F00\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
   - name: Aria
-    chatContent: "\u662F\u4E00\u5BF9\u8910\u8272\u5934\u53D1\u7684\u592B\u5987\u5417\uFF1F"
+    chatContent: "\u8FD9\u662F\u2026\u2026\u4E00\u7BB1\u5B50\u7684\u624B\u7A3F\uFF0C\u5168\u662F\u4E50\u8C31\u5417\uFF1F"
     character: {fileID: 5570152957988994637}
     selectsbtn: []
     isStop: 0
@@ -388,8 +366,8 @@ MonoBehaviour:
     chatEndEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: npc
-    chatContent: "\u8BF6\u2026\u2026\u5E94\u8BE5\u662F\u7684\u3002"
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u5BC6\u5BC6\u9EBB\u9EBB\u7684\u548C\u5F26\u4E0E\u97F3\u9636\u6392\u5E03\u56FE\uFF0C\u663E\u773C\u7684\u6CE8\u91CA\uFF1A\uFF09"
     character: {fileID: 0}
     selectsbtn: []
     isStop: 0
@@ -399,19 +377,8 @@ MonoBehaviour:
     chatEndEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: npc
-    chatContent: "\u603B\u4E4B\uFF0C\u5927\u5BB6\u90FD\u8BF4\u90A3\u662F\u4E00\u4E2A\u5927\u5BB6\u6700\u5065\u5EB7\u3001\u6700\u597D\u8FD0\u7684\u51AC\u5929\uFF0C\u90A3\u5E74\u4E4B\u540E\uFF0C\u6211\u4EEC\u624D\u5F00\u59CB\u53EB\u8FD9\u4E2A\u516C\u56ED\u4E3A\u97F3\u4E50\u516C\u56ED\u3002"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Aria
-    chatContent: "\uFF08\u7238\u7238\u5988\u5988\uFF0C\u4F60\u4EEC\u6765\u8FC7\u8FD9\u91CC\u3002\uFF09"
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u201C\u5404\u57CE\u5EFA\u7B51\u5BF9\u5E94\u548C\u5F26\u89C4\u5F8B\u201D\uFF09"
     character: {fileID: 0}
     selectsbtn: []
     isStop: 0
@@ -422,29 +389,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - name: Aria
-    chatContent: "\uFF08\u76F4\u89C9\u544A\u8BC9\u6211\uFF0C\u5C0F\u732B\u5E2E\u5FD9\u6062\u590D\u7684\u548C\u5F26\u58F0\u80FD\u5C06\u4E8B\u4EF6\u62E8\u56DE\u6B63\u8F68\uFF0C\u6211\u77E5\u9053\u8FD9\u6B63\u662F\u4F60\u4EEC\u4E00\u76F4\u5E0C\u671B\u7684\u3002\uFF09"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Aria
-    chatContent: "\uFF08\u53EF\u662F\u6211\u4ECD\u7136\u4E0D\u660E\u767D\uFF0C\u4F60\u4EEC\u7A76\u7ADF\u9762\u4E34\u4E86\u600E\u6837\u7684\u60C5\u666F\u3001\u53C8\u4E3A\u4EC0\u4E48\u5BC4\u7ED9\u6211\u8FD9\u4E00\u5207\u3002\uFF09"
-    character: {fileID: 0}
-    selectsbtn: []
-    isStop: 0
-    chatStartEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    chatEndEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Aria
-    chatContent: "\uFF08\u6309\u5730\u56FE\u7684\u6807\u8BB0\uFF0C\u6211\u7684\u65C5\u7A0B\u8FD8\u6709\u6700\u540E\u4E00\u7AD9\u2026\u2026\uFF09"
+    chatContent: "\u770B\u8D77\u6765\u8FD9\u4E5F\u662F\u5C0F\u732B\u7684\u6570\u636E\u6765\u6E90\uFF1F\u6839\u636E\u4E4B\u524D\u7684\u7ECF\u9A8C\uFF0C\u6211\u60F3\u6211\u5F97\u786E\u4FDD\u90A3\u4E9B\u548C\u5F26\u4E0D\u4F1A\u518D\u6B21\u79FB\u4F4D\u3002"
     character: {fileID: 5570152957988994637}
     selectsbtn: []
     isStop: 0
@@ -454,8 +399,85 @@ MonoBehaviour:
     chatEndEvent:
       m_PersistentCalls:
         m_Calls: []
-  - name: "\u5173\u53616\u7ED3\u675F"
-    chatContent: "\u52A0\u8F7D\u573A\u666F\u4E2D......"
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u7EE7\u7EED\u7FFB\u627E\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Aria
+    chatContent: "\u8FD9\u4EFD\u2026\u2026\u9898\u540D\u662F\u300AARIA\u300B\uFF01"
+    character: {fileID: 5570152957988994637}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u5728\u7EB8\u5F20\u53CD\u9762\u3001\u672B\u5C3E\uFF0C\u6709\u4E00\u884C\u5B57\u8FF9\uFF1A\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u540D\u4E3AAria\u7684\u66F2\u5B50\uFF0C\u60F3\u5FF5\u3002\u7B49\u8FD9\u8FB9\u7ED3\u675F\uFF0C\u4E00\u5B9A\u56DE\u5BB6\u3002\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Aria
+    chatContent: "\u6211\u5F97\u5E26\u8D70\u5B83\u4EEC\u3002"
+    character: {fileID: 5570152957988994637}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u9884\u611F\u5230\u7236\u6BCD\u4ECD\u7136\u4E0D\u4F1A\u56DE\u5BB6\uFF0C\u6211\u5C06\u62B1\u7740\u4E00\u76D2\u66F2\u8C31\u4E0E\u51B0\u51B7\u7684\u5C0F\u732B\uFF0C\u5B89\u6392\u597D\u6BCF\u4E2A\u548C\u5F26\u5BA1\u67E5\u7684\u5468\u671F\uFF0C\u5148\u4E00\u6B65\u8E0F\u4E0A\u8FD4\u7A0B\u3002\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\u65C1\u767D"
+    chatContent: "\uFF08\u7BB1\u5B50\u91CC\u597D\u591A\u4EFD\u66F2\u8C31\u90FD\u6709\u7559\u8A00\uFF0C\u8BF7\u7B49\u6211\u5728\u8DEF\u4E0A\u6162\u6162\u6F14\u594F\u3001\u6162\u6162\u9605\u8BFB\u3002\uFF09"
+    character: {fileID: 0}
+    selectsbtn: []
+    isStop: 0
+    chatStartEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    chatEndEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: "\u7ED3\u5C40"
+    chatContent: "\u201C\u672A\u80FD\u4EB2\u81EA\u4E0E\u4F60\u544A\u522B\uFF0C\u8FD9\u7247\u5927\u9646\u662F\u6211\u4EEC\u4E3A\u4F60\u7559\u4E0B\u7684\u97F3\u4E50\u3002\u201D"
     character: {fileID: 0}
     selectsbtn: []
     isStop: 0
@@ -1736,12 +1758,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1253390050371038224}
   m_Layer: 0
-  m_Name: "\u5173\u53616\u7ED3\u675F"
+  m_Name: "\u7ED3\u5C40B\u7EBF"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1253390050371038224
 Transform:
   m_ObjectHideFlags: 0

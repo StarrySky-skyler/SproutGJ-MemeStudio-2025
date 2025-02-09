@@ -183,7 +183,7 @@ public class ChatManager : MonoBehaviour
                         .GetComponent<Button>(); // 从按钮池获取一个按钮
                 currentSelectBtn.Add(selectBtn); // 将按钮添加到当前按钮列表
                 selectBtn.transform.SetParent(selectBtnLayout); // 设置按钮的父物体
-                selectBtn.transform.GetChild(0).GetComponent<TMP_Text>().text =
+                selectBtn.transform.GetChild(0).GetComponent<Text>().text =
                     chatInfos[index].selectsbtn[i].btnContent; // 设置按钮文本
                 selectBtn.onClick.RemoveAllListeners(); // 移除按钮上的所有事件监听
                 selectBtn.onClick.AddListener(() =>
