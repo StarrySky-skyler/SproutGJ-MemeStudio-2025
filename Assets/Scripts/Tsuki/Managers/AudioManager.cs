@@ -38,6 +38,7 @@ namespace Tsuki.Managers
         private GameObject _audioGo;
         private AudioSource _bgmAudioSource;
         private bool _played;
+        private bool _played2;
         private AudioSource _sfxAudioSource;
 
         private void Start()
@@ -63,6 +64,13 @@ namespace Tsuki.Managers
                 if (!allow || _played) return;
                 _audioEntity.PlayBgm("Captain Oblivion（slow）");
                 _played = true;
+            });
+            GameManager.Instance.onAllowLoadGame.AddListener(allow =>
+            {
+                if (!allow || _played2) return;
+                if (LevelManager.Instance.GetCurrentLevel() != 2) return;
+                _audioEntity.PlayBgm("Captain Oblivion（slow）");
+                _played2 = true;
             });
         }
 
@@ -141,15 +149,16 @@ namespace Tsuki.Managers
                 case 1:
                 case 2:
                 case 3:
-                case 8:
+                case 4:
+                case 9:
                     _audioEntity.PlaySfx(MOVE_SFX_NAME);
                     break;
-                case 4:
                 case 5:
+                case 6:
                     _audioEntity.PlaySfx(MOVE_ON_DRY_SFX_NAME);
                     break;
-                case 6:
                 case 7:
+                case 8:
                     _audioEntity.PlaySfx(MOVE_ON_ICE_SFX_NAME);
                     break;
                 default:

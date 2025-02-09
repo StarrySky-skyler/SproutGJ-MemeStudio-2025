@@ -6,6 +6,7 @@
 // @description: 游戏管理器单例
 // *****************************************************************************
 
+using System;
 using Tsuki.Base;
 using UnityEngine;
 using UnityEngine.Events;
@@ -51,7 +52,12 @@ namespace Tsuki.Managers
 
         private void Start()
         {
+            AllowLoadGame = false;
             if (!GameObject.Find("chatBack")) AllowLoadGame = true;
+        }
+
+        private void OnEnable()
+        {
             SceneManager.sceneLoaded += (_, _) =>
             {
                 AllowLoadGame = false;
