@@ -137,7 +137,7 @@ Shader "TextMeshPro/Mobile/Distance Field"
             {
                 pixel_t output;
 
-                    UNITY_INITIALIZE_OUTPUT(pixel_t, output);
+                UNITY_INITIALIZE_OUTPUT(pixel_t, output);
                 UNITY_SETUP_INSTANCE_ID(input);
                 UNITY_TRANSFER_INSTANCE_ID(input, output);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
@@ -156,10 +156,13 @@ Shader "TextMeshPro/Mobile/Distance Field"
                 float scale = rsqrt(dot(pixelSize, pixelSize));
                 scale *= abs(input.texcoord0.w) * _GradientScale * (_Sharpness +
                     1);
-                if (UNITY_MATRIX_P[3][3] == 0) scale = lerp(
-                    abs(scale) * (1 - _PerspectiveFilter), scale,
-                    abs(dot(UnityObjectToWorldNormal(input.normal.xyz),
-                                 normalize(WorldSpaceViewDir(vert)))));
+                if (UNITY_MATRIX_P[3][3] == 0)
+                    scale = lerp(
+                        abs(scale) * (1 - _PerspectiveFilter), scale,
+                        abs(dot(UnityObjectToWorldNormal(input.normal.xyz),
+                                                    normalize(
+                                                        WorldSpaceViewDir(
+                                                            vert)))));
 
                 float weight = lerp(_WeightNormal, _WeightBold, bold) / 4.0;
                 weight = (weight + _FaceDilate) * _ScaleRatioA * 0.5;
@@ -187,7 +190,7 @@ Shader "TextMeshPro/Mobile/Distance Field"
                 outlineColor.a *= opacity;
                 outlineColor.rgb *= outlineColor.a;
                 outlineColor = lerp(faceColor, outlineColor,
-                    sqrt(min(1.0, (outline * 2))));
+                                         sqrt(min(1.0, (outline * 2))));
 
                 #if (UNDERLAY_ON | UNDERLAY_INNER)
 			layerScale /= 1 + ((_UnderlaySoftness * _ScaleRatioC) * layerScale);
@@ -208,9 +211,9 @@ Shader "TextMeshPro/Mobile/Distance Field"
                 output.faceColor = faceColor;
                 output.outlineColor = outlineColor;
                 output.texcoord0 = float4(input.texcoord0.x, input.texcoord0.y,
-                    maskUV.x, maskUV.y);
+    maskUV.x, maskUV.y);
                 output.param = half4(scale, bias - outline, bias + outline,
-               bias);
+                    bias);
 
                 const half2 maskSoftness = half2(
                     max(_UIMaskSoftnessX, _MaskSoftnessX),

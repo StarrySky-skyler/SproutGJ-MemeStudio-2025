@@ -37,8 +37,8 @@ namespace Tsuki.Managers
         private AudioFade _audioFade;
         private GameObject _audioGo;
         private AudioSource _bgmAudioSource;
-        private AudioSource _sfxAudioSource;
         private bool _played;
+        private AudioSource _sfxAudioSource;
 
         private void Start()
         {
@@ -57,11 +57,11 @@ namespace Tsuki.Managers
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
                 () => { _audioEntity.PlaySfx(UNDO_SFX_NAME); });
-            
-            GameManager.Instance.onAllowLoadGame.AddListener((allow) =>
+
+            GameManager.Instance.onAllowLoadGame.AddListener(allow =>
             {
                 if (!allow || _played) return;
-                _audioEntity.PlayBgm("Captain Oblivion（slow）", true);
+                _audioEntity.PlayBgm("Captain Oblivion（slow）");
                 _played = true;
             });
         }

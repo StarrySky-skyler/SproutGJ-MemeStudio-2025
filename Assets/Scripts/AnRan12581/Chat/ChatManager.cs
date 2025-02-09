@@ -241,7 +241,8 @@ public class ChatManager : MonoBehaviour
         // 生日bgm
         if (chatInfos[currentIndex].chatContent.Contains("生日") && !_played)
         {
-            GameObject.FindWithTag("Audio").GetComponent<AudioEntity>().PlayBgm("Her's BrithDay");
+            GameObject.FindWithTag("Audio").GetComponent<AudioEntity>()
+                .PlayBgm("Her's BrithDay");
             _played = true;
         }
 

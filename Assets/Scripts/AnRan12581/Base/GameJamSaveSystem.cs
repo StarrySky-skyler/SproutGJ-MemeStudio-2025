@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
-using System.Collections.Generic;
-using System;
 
 public class GameJamSaveSystem
 {
-    public static Dictionary<string, UserData> usersData = new Dictionary<string, UserData>();
+    public static Dictionary<string, UserData> usersData = new();
 
     public static char[] keyChars = { 'a', 'b', 'c', 'd', 'e' };
 
@@ -20,6 +20,7 @@ public class GameJamSaveSystem
             char newChar = (char)(dataChar ^ keyChar);
             dataChars[i] = newChar;
         }
+
         return new string(dataChars);
     }
 
@@ -30,64 +31,57 @@ public class GameJamSaveSystem
 
     public static void SaveData(UserData userData)
     {
-
-        if (!File.Exists(Application.streamingAssetsPath + "/GameJamSaveSystem"))
-        {
-            System.IO.Directory.CreateDirectory(Application.streamingAssetsPath + "/GameJamSaveSystem");
-        }
+        if (!File.Exists(Application.streamingAssetsPath +
+                         "/GameJamSaveSystem"))
+            Directory.CreateDirectory(Application.streamingAssetsPath +
+                                      "/GameJamSaveSystem");
 
         usersData[userData.filename] = userData;
 
         string jsonData = JsonConvert.SerializeObject(userData);
 
-        File.WriteAllText(Application.streamingAssetsPath + string.Format("/GameJamSaveSystem/{0}.json", userData.filename), jsonData);
+        File.WriteAllText(
+            Application.streamingAssetsPath +
+            string.Format("/GameJamSaveSystem/{0}.json", userData.filename),
+            jsonData);
     }
 
     public static UserData LoadData(string userName)
     {
+        if (usersData.ContainsKey(userName)) return usersData[userName];
 
-        if (usersData.ContainsKey(userName))
-        {
-            return usersData[userName];
-        }
-
-        string path = Application.streamingAssetsPath + string.Format("/GameJamSaveSystem/{0}.json",userName);
+        string path = Application.streamingAssetsPath +
+                      string.Format("/GameJamSaveSystem/{0}.json", userName);
 
         if (File.Exists(path))
         {
             string jsonData = File.ReadAllText(path);
 
-            UserData userData = JsonConvert.DeserializeObject<UserData>(jsonData);
+            UserData userData =
+                JsonConvert.DeserializeObject<UserData>(jsonData);
             return userData;
         }
-        else
-        {
-            return null;
-        }
+
+        return null;
     }
 }
 
 [Serializable]
 public class UserData
 {
-    [Header("ÎÄ¼þÃû")]
-    [ReadOnly]
-    public string filename;
-    [Header("Ê±¼ä")]
-    [ReadOnly]
-    public string time;
-    [Header("¹Ø¿¨")]
-    [ReadOnly]
-    public int level;
-    [Header("½ø¶È")]
-    [ReadOnly]
-    public float process;
-    [Header("Íæ¼ÒÎ»ÖÃ")]
-    [ReadOnly]
-    public Vector2 pos;
+    [Header("ï¿½Ä¼ï¿½ï¿½ï¿½")] [ReadOnly] public string filename;
+
+    [Header("Ê±ï¿½ï¿½")] [ReadOnly] public string time;
+
+    [Header("ï¿½Ø¿ï¿½")] [ReadOnly] public int level;
+
+    [Header("ï¿½ï¿½ï¿½ï¿½")] [ReadOnly] public float process;
+
+    [Header("ï¿½ï¿½ï¿½Î»ï¿½ï¿½")] [ReadOnly] public Vector2 pos;
 
 
-    public UserData(string filename,string time, int level,float process,Vector2 pos)
+    public UserData(string filename, string time, int level, float process,
+        Vector2 pos)
     {
         this.filename = filename;
         this.time = time;
@@ -102,10 +96,9 @@ public class Vector2Pos
     public float X;
     public float Y;
 
-    public Vector2Pos(float X,float Y)
+    public Vector2Pos(float X, float Y)
     {
         this.X = X;
         this.Y = Y;
     }
-
 }
