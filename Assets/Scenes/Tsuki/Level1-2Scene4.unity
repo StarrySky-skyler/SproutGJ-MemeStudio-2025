@@ -743,6 +743,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6390425990915028201, guid: ee3fe8eef1cbcfd48b4672a5164c7bcf, type: 3}
+      propertyPath: m_fontColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390425990915028201, guid: ee3fe8eef1cbcfd48b4672a5164c7bcf, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1351,6 +1359,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 108485864}
     m_Modifications:
+    - target: {fileID: 538074828833345954, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.2852001
+      objectReference: {fileID: 0}
     - target: {fileID: 672390548245680356, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1438,6 +1450,10 @@ PrefabInstance:
     - target: {fileID: 2156191556756119987, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2156191556756119987, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.8127975
       objectReference: {fileID: 0}
     - target: {fileID: 2983361987748829938, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: audioSource
