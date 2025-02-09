@@ -156,10 +156,11 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                 float scale = rsqrt(dot(pixelSize, pixelSize));
                 scale *= abs(input.texcoord0.w) * _GradientScale * (_Sharpness +
                     1);
-                if (UNITY_MATRIX_P[3][3] == 0) scale = lerp(
-                    abs(scale) * (1 - _PerspectiveFilter), scale,
-                    abs(dot(UnityObjectToWorldNormal(input.normal.xyz),
-                           normalize(WorldSpaceViewDir(vert)))));
+                if (UNITY_MATRIX_P[3][3] == 0)
+                    scale = lerp(
+                        abs(scale) * (1 - _PerspectiveFilter), scale,
+                        abs(dot(UnityObjectToWorldNormal(input.normal.xyz),
+                            normalize(WorldSpaceViewDir(vert)))));
 
                 float weight = lerp(_WeightNormal, _WeightBold, bold) / 4.0;
                 weight = (weight + _FaceDilate) * _ScaleRatioA * 0.5;
@@ -187,7 +188,7 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                 outlineColor.a *= opacity;
                 outlineColor.rgb *= outlineColor.a;
                 outlineColor = lerp(faceColor, outlineColor,
-            sqrt(min(1.0, (outline * 2))));
+    sqrt(min(1.0, (outline * 2))));
 
                 #if (UNDERLAY_ON | UNDERLAY_INNER)
 
@@ -213,10 +214,10 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                     faceColor,
                     outlineColor,
                     float4(input.texcoord0.x, input.texcoord0.y, maskUV.x,
-                        maskUV.y),
+                                                maskUV.y),
                     half4(scale, bias - outline, bias + outline, bias),
                     half4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-                          0.25 / (0.25 * maskSoftness + pixelSize.xy)),
+                        0.25 / (0.25 * maskSoftness + pixelSize.xy)),
                     #if (UNDERLAY_ON | UNDERLAY_INNER)
 				float4(input.texcoord0 + layerOffset, input.color.a, 0),
 				half2(layerScale, layerBias),
@@ -253,7 +254,7 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                 //#if UNITY_UI_CLIP_RECT
                 half2 m = saturate(
                     (_ClipRect.zw - _ClipRect.xy - abs(input.mask.xy)) * input.
-                    mask.zw);
+      mask.zw);
                 c *= m.x * m.y;
                 //#endif
 

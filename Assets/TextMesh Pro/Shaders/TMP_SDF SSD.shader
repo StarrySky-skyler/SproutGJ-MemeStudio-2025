@@ -173,8 +173,8 @@
             float4 SRGBToLinear(float4 rgba)
             {
                 return float4(lerp(rgba.rgb / 12.92f,
-                    pow((rgba.rgb + 0.055f) / 1.055f, 2.4f),
-                    step(0.04045f, rgba.rgb)), rgba.a);
+                                   pow((rgba.rgb + 0.055f) / 1.055f, 2.4f),
+                                   step(0.04045f, rgba.rgb)), rgba.a);
             }
 
             pixel_t VertShader(vertex_t input)
@@ -230,8 +230,8 @@
                 output.mask = half2(
                     vert.xy * 2 - clampedRect.xy - clampedRect.zw);
                 output.viewDir = mul((float3x3)_EnvMatrix,
-                           _WorldSpaceCameraPos.xyz - mul(
-                               unity_ObjectToWorld, vert).xyz);
+        _WorldSpaceCameraPos.xyz - mul(
+            unity_ObjectToWorld, vert).xyz);
                 #if (UNDERLAY_ON || UNDERLAY_INNER)
             output.texcoord2 = input.texcoord0 + bOffset;
             output.underlayColor = underlayColor;
@@ -266,14 +266,15 @@
                 faceColor.rgb *= input.color.rgb;
 
                 faceColor *= tex2D(_FaceTex,
-                    input.textures.xy + float2(_FaceUVSpeedX, _FaceUVSpeedY) *
-                    _Time.y);
+                           input.textures.xy + float2(
+                               _FaceUVSpeedX, _FaceUVSpeedY) *
+                           _Time.y);
                 outlineColor *= tex2D(_OutlineTex,
-                       input.textures.zw + float2(
-                           _OutlineUVSpeedX, _OutlineUVSpeedY) * _Time.y);
+                         input.textures.zw + float2(
+                             _OutlineUVSpeedX, _OutlineUVSpeedY) * _Time.y);
 
                 faceColor = GetColor(sd, faceColor, outlineColor, outline,
-                    softness);
+    softness);
 
                 #if BEVEL_ON
             float3 dxy = float3(0.5 / _TextureWidth, 0.5 / _TextureHeight, 0);

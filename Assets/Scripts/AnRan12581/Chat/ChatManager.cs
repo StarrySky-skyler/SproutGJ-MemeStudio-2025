@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Tsuki.Entities.Audio;
 using Tsuki.Managers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -64,6 +65,8 @@ public class ChatManager : MonoBehaviour
     [ReadOnly] public bool isSelected; // 当前是否选择了按钮（标志位）
 
     [ReadOnly] public List<Button> currentSelectBtn = new(); // 当前可用的选择按钮列表
+
+    private bool _played;
 
     private void Awake()
     {
@@ -235,6 +238,13 @@ public class ChatManager : MonoBehaviour
         if (chatInfos[currentIndex].character != null)
             chatInfos[currentIndex].character.SetActive(true);
 
+        // 生日bgm
+        if (chatInfos[currentIndex].chatContent.Contains("生日") && !_played)
+        {
+            GameObject.FindWithTag("Audio").GetComponent<AudioEntity>()
+                .PlayBgm("Her's BrithDay");
+            _played = true;
+        }
 
         for (int i = 0;
              i < chatInfos[currentIndex].chatContent.Length;

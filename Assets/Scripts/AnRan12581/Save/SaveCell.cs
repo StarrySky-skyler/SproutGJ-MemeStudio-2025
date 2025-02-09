@@ -1,10 +1,12 @@
-using UnityEngine;
-using UnityEngine.UI;
+using AnRan;
 using TMPro;
 using Tsuki.Entities.Audio;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 using UnityEngine.EventSystems;
-public class SaveCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class SaveCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Sprite normal;
     public Sprite highlight;
@@ -13,28 +15,13 @@ public class SaveCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
     public TMP_Text time;
     public TMP_Text load;
     public Image load_slider;
-    private Image img;
     private AudioEntity _audio;
+    private Image img;
 
-    void Start()
+    private void Start()
     {
         img = GetComponent<Image>();
         _audio = GameObject.FindWithTag("Audio").GetComponent<AudioEntity>();
-    }
-
-    public void LoadData(UserData userdata)
-    {
-        title.text = "Level" + userdata.level.ToString();
-        this.time.text = userdata.time;
-        this.load.text = $"����:{(userdata.process * 10f).ToString("F0")}%";
-        load_slider.fillAmount = userdata.process / 10f;
-        enter.onClick.AddListener(() =>
-        {
-            _audio.PlaySfx("Load a Save");
-            AnRan.GameManager.Instance.selectSaveData = userdata;
-            SceneManager.LoadScene("Select");//ѡ���ͼ
-    
-        });
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -45,5 +32,19 @@ public class SaveCell : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         img.sprite = normal;
+    }
+
+    public void LoadData(UserData userdata)
+    {
+        title.text = "Level" + userdata.level;
+        time.text = userdata.time;
+        load.text = $"����:{(userdata.process * 10f).ToString("F0")}%";
+        load_slider.fillAmount = userdata.process / 10f;
+        enter.onClick.AddListener(() =>
+        {
+            _audio.PlaySfx("Load a Save");
+            GameManager.Instance.selectSaveData = userdata;
+            SceneManager.LoadScene("Select"); //ѡ���ͼ
+        });
     }
 }

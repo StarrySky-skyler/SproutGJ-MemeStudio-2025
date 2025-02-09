@@ -37,6 +37,7 @@ namespace Tsuki.Managers
         private AudioFade _audioFade;
         private GameObject _audioGo;
         private AudioSource _bgmAudioSource;
+        private bool _played;
         private AudioSource _sfxAudioSource;
 
         private void Start()
@@ -52,10 +53,17 @@ namespace Tsuki.Managers
             //_lastMoveSoundEffect = null;
             _bgmAudioSource.volume = 0;
             // StartCoroutine(PlayBgm());
-            PlayLevelBgm(false);
+            _audioEntity.PlayBgm("Wool Bay（OOW Balanced）", false);
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
                 () => { _audioEntity.PlaySfx(UNDO_SFX_NAME); });
+
+            GameManager.Instance.onAllowLoadGame.AddListener(allow =>
+            {
+                if (!allow || _played) return;
+                _audioEntity.PlayBgm("Captain Oblivion（slow）");
+                _played = true;
+            });
         }
 
         private void OnEnable()

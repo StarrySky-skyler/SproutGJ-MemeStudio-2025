@@ -32,7 +32,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   archiveCount: 5
-  maxLevel: 8
+  maxLevel: 9
   fadeInTime: 2
   fadeOutTime: 2.5
   fadeInEase: 7
