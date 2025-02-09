@@ -28,6 +28,9 @@ MonoBehaviour:
   groundIceLineLayer:
     serializedVersion: 2
     m_Bits: 1024
+  obstacleLayerWithoutGrass:
+    serializedVersion: 2
+    m_Bits: 384
   archiveCount: 5
   maxLevel: 8
   fadeInTime: 2
