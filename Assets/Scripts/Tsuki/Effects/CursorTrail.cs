@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using UnityEngine;
 
 namespace Tsuki.Effects
@@ -28,6 +27,7 @@ namespace Tsuki.Effects
                 Debug.LogWarning("主相机不存在，渲染拖尾失败");
                 return;
             }
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Vector3 newPos = ray.GetPoint(distance) + offset;
             newPos.z = 0f;
