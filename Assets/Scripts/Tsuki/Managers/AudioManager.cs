@@ -103,6 +103,11 @@ namespace Tsuki.Managers
 
         private void PlayLevelBgm(bool fadeOutLast = true)
         {
+            if (!_audioEntity)
+            {
+                DebugYumihoshi.Warn<AudioManager>("音频", "音频实体为空");
+                return;
+            }
             _audioEntity.PlayBgm(GetCurrentLevelBgm(), fadeOutLast);
         }
 
