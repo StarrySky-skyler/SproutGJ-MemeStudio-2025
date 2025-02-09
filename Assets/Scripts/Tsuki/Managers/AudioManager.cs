@@ -9,13 +9,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Tsuki.Interface;
+using Tsuki.Entities.Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Tsuki.Managers
 {
-    public class AudioManager : Singleton<AudioManager>, IAudio
+    public class AudioManager : Singleton<AudioManager>
     {
         private const string UNDO_SFX_NAME = "Move a cat3";
         private const string MOVE_SFX_NAME = "Move a cat4";
@@ -30,25 +30,22 @@ namespace Tsuki.Managers
 
         [Header("关卡BGM配置")] public List<AudioClip> bgmList;
         private bool _allowAddCorrectBoxSfx; // 是否允许添加正确箱子音效，用于场切后防止立即播放
+        private AudioEntity _audioEntity;
 
         //[CanBeNull] private AudioClip _lastMoveSoundEffect;
         private AudioFade _audioFade;
+        private GameObject _audioGo;
         private AudioSource _bgmAudioSource;
         private AudioSource _sfxAudioSource;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _audioFade = new AudioFade(this);
-        }
-
         private void Start()
         {
-            GameObject audioGo = GameObject.FindWithTag("Audio");
+            _audioGo = GameObject.FindWithTag("Audio");
             // 若未找到Audio对象，则实例化一个
-            if (!audioGo) audioGo = Instantiate(audioPrefab);
-            _bgmAudioSource = audioGo.GetComponents<AudioSource>()[0];
-            _sfxAudioSource = audioGo.GetComponents<AudioSource>()[1];
+            if (!_audioGo) _audioGo = Instantiate(audioPrefab);
+            _bgmAudioSource = _audioGo.GetComponents<AudioSource>()[0];
+            _sfxAudioSource = _audioGo.GetComponents<AudioSource>()[1];
+            _audioEntity = _audioGo.GetComponent<AudioEntity>();
             _bgmAudioSource.loop = true;
             _sfxAudioSource.loop = false;
             //_lastMoveSoundEffect = null;
@@ -57,7 +54,7 @@ namespace Tsuki.Managers
             PlayLevelBgm(false);
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
-                () => { PlaySfx(UNDO_SFX_NAME); });
+                () => { _audioEntity.PlaySfx(UNDO_SFX_NAME); });
         }
 
         private void OnEnable()
@@ -96,53 +93,6 @@ namespace Tsuki.Managers
             BoxManager.Instance.onWinChanged.RemoveListener(PlayWinSoundEffect);
         }
 
-        /// <summary>
-        ///     播放音效
-        /// </summary>
-        /// <param name="sfxName">Resources下Audio的音效文件名</param>
-        public void PlaySfx(string sfxName)
-        {
-            AudioClip clip = Resources.Load<AudioClip>("Music/Sfx/" + sfxName);
-            if (!clip)
-            {
-                Debug.LogError("音频：未找到音效" + sfxName);
-                return;
-            }
-
-            _sfxAudioSource.PlayOneShot(clip);
-        }
-
-        /// <summary>
-        ///     播放Bgm
-        /// </summary>
-        /// <param name="bgmName"></param>
-        /// <param name="fadeOut">上一曲是否渐出，若未播放则此项无用</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void PlayBgm(string bgmName, bool fadeOut = true)
-        {
-            AudioClip targetAudio =
-                Resources.Load<AudioClip>("Music/Bgm/" + bgmName);
-            if (!targetAudio)
-            {
-                Debug.LogError("音频：未找到bgm" + bgmName);
-                return;
-            }
-
-            if (fadeOut && _bgmAudioSource.isPlaying)
-            {
-                _audioFade.FadeOut(_bgmAudioSource, () =>
-                {
-                    _bgmAudioSource.clip = targetAudio;
-                    _audioFade.FadeIn(_bgmAudioSource);
-                });
-            }
-            else
-            {
-                _bgmAudioSource.clip = targetAudio;
-                _audioFade.FadeIn(_bgmAudioSource);
-            }
-        }
-
         private IEnumerator WaitCorrectBoxSfx()
         {
             _allowAddCorrectBoxSfx = false;
@@ -152,7 +102,7 @@ namespace Tsuki.Managers
 
         private void PlayLevelBgm(bool fadeOutLast = true)
         {
-            PlayBgm(GetCurrentLevelBgm(), fadeOutLast);
+            _audioEntity.PlayBgm(GetCurrentLevelBgm(), fadeOutLast);
         }
 
         private AudioClip GetCurrentLevelBgm()
@@ -177,15 +127,15 @@ namespace Tsuki.Managers
                 case 2:
                 case 3:
                 case 8:
-                    PlaySfx(MOVE_SFX_NAME);
+                    _audioEntity.PlaySfx(MOVE_SFX_NAME);
                     break;
                 case 4:
                 case 5:
-                    PlaySfx(MOVE_ON_DRY_SFX_NAME);
+                    _audioEntity.PlaySfx(MOVE_ON_DRY_SFX_NAME);
                     break;
                 case 6:
                 case 7:
-                    PlaySfx(MOVE_ON_ICE_SFX_NAME);
+                    _audioEntity.PlaySfx(MOVE_ON_ICE_SFX_NAME);
                     break;
                 default:
                     Debug.LogError(
@@ -200,7 +150,7 @@ namespace Tsuki.Managers
         /// <param name="winStatus"></param>
         private void PlayWinSoundEffect(bool winStatus)
         {
-            PlaySfx(winStatus
+            _audioEntity.PlaySfx(winStatus
                 ? WIN_SFX_NAME
                 : FAIL_SFX_NAME);
         }
@@ -216,32 +166,10 @@ namespace Tsuki.Managers
 
         private IEnumerator WaitForPlayFailSfx(Action callback = null)
         {
-            PlaySfx(FAIL_SFX_NAME);
+            _audioEntity.PlaySfx(FAIL_SFX_NAME);
             while (_sfxAudioSource.isPlaying) yield return null;
 
             callback?.Invoke();
-        }
-
-        /// <summary>
-        ///     播放Bgm
-        /// </summary>
-        /// <param name="bgmClip"></param>
-        /// <param name="fadeOut">上一曲是否渐出，若未播放则此项无用</param>
-        public void PlayBgm(AudioClip bgmClip, bool fadeOut = true)
-        {
-            if (fadeOut && _bgmAudioSource.isPlaying)
-            {
-                _audioFade.FadeOut(_bgmAudioSource, () =>
-                {
-                    _bgmAudioSource.clip = bgmClip;
-                    _audioFade.FadeIn(_bgmAudioSource);
-                });
-            }
-            else
-            {
-                _bgmAudioSource.clip = bgmClip;
-                _audioFade.FadeIn(_bgmAudioSource);
-            }
         }
     }
 }

@@ -9,17 +9,18 @@
 using System;
 using DG.Tweening;
 using JetBrains.Annotations;
+using Tsuki.MVC.Models.Game;
 using UnityEngine;
 
-namespace Tsuki.Managers
+namespace Tsuki.Entities.Audio
 {
     public class AudioFade
     {
-        private readonly AudioManager _audioManager;
+        private readonly GameModel _gameModel;
 
-        public AudioFade(AudioManager audioManager)
+        public AudioFade(GameModel gameModel)
         {
-            _audioManager = AudioManager.Instance;
+            _gameModel = gameModel;
         }
 
         /// <summary>
@@ -31,10 +32,9 @@ namespace Tsuki.Managers
             [CanBeNull] Action onCompleted = null)
         {
             audioSource.Play();
-            audioSource.DOFade(1, _audioManager.fadeInTime).OnComplete(() =>
-            {
-                onCompleted?.Invoke();
-            });
+            audioSource.DOFade(1, _gameModel.fadeInTime)
+                .SetEase(_gameModel.fadeInEase)
+                .OnComplete(() => { onCompleted?.Invoke(); });
         }
 
         /// <summary>
@@ -45,11 +45,12 @@ namespace Tsuki.Managers
         public void FadeOut(AudioSource audioSource,
             [CanBeNull] Action onCompleted = null)
         {
-            audioSource.DOFade(0, _audioManager.fadeOutTime).OnComplete(() =>
-            {
-                audioSource.Stop();
-                onCompleted?.Invoke();
-            });
+            audioSource.DOFade(0, _gameModel.fadeOutTime)
+                .SetEase(_gameModel.fadeOutEase).OnComplete(() =>
+                {
+                    audioSource.Stop();
+                    onCompleted?.Invoke();
+                });
         }
     }
 }

@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using DG.Tweening;
 using UnityEngine;
 
 namespace Tsuki.MVC.Models.Game
@@ -23,5 +24,11 @@ namespace Tsuki.MVC.Models.Game
 
         [Header("存档槽位总数")] public int archiveCount;
         [Header("最大关卡数")] public int maxLevel;
+
+        [Header("音频")] [Header("渐入时间")] public float fadeInTime = 10f;
+
+        [Header("渐出时间")] public float fadeOutTime = 10f;
+        [Header("渐入曲线")] public Ease fadeInEase = Ease.InOutQuad;
+        [Header("渐出曲线")] public Ease fadeOutEase = Ease.InOutQuad;
     }
 }
