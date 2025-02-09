@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Tsuki.Base;
 using Tsuki.Entities.Box.FSM.Interfaces;
 using Tsuki.Entities.Box.FSM.Types;
+using Tsuki.Entities.Box.Types;
 using Tsuki.Entities.IceLine;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace Tsuki.Entities.Box.FSM
     /// </summary>
     public class Context
     {
+        public BoxType BoxType;
         public Func<Vector2Int, bool> CheckTp;
         public IceType IceType;
         public Vector2Int PushDirection;
