@@ -295,73 +295,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2367496452606676381, guid: 523923c4303f0544a975dc279d0eb6b8, type: 3}
   m_PrefabInstance: {fileID: 5386571007947023142}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &392612068
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 960
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 540
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1543825473764749674, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142494737789285628, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-      propertyPath: m_Name
-      value: Audio
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
---- !u!82 &392612069 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5265643057768235807, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-  m_PrefabInstance: {fileID: 392612068}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &392612070 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 9103404751481238593, guid: 93e78f150cf51304c92c5fe4a91a26c3, type: 3}
-  m_PrefabInstance: {fileID: 392612068}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &421298832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1476,7 +1409,7 @@ PrefabInstance:
     - target: {fileID: 2983361987748829938, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: audioSource
       value: 
-      objectReference: {fileID: 392612069}
+      objectReference: {fileID: 0}
     - target: {fileID: 3277023442250985511, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1504,7 +1437,7 @@ PrefabInstance:
     - target: {fileID: 5673811021974220435, guid: 7244a0ab6baca2044969256cbf9eca10, type: 3}
       propertyPath: audioSource
       value: 
-      objectReference: {fileID: 392612070}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5162,5 +5095,4 @@ SceneRoots:
   - {fileID: 7106251756723665007}
   - {fileID: 1272265052}
   - {fileID: 518124299}
-  - {fileID: 392612068}
   - {fileID: 1565275251}
