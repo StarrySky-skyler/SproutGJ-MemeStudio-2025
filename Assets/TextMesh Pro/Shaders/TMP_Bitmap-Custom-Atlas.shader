@@ -131,7 +131,7 @@ Shader "TextMeshPro/Bitmap Custom Atlas"
                     max(_UIMaskSoftnessX, _MaskSoftnessX),
                     max(_UIMaskSoftnessY, _MaskSoftnessY));
                 OUT.mask = float4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-                  0.25 / (0.25 * maskSoftness + pixelSize.xy));
+                                  0.25 / (0.25 * maskSoftness + pixelSize.xy));
 
                 return OUT;
             }

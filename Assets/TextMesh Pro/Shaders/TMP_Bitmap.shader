@@ -130,7 +130,7 @@ Shader "TextMeshPro/Bitmap"
                     max(_UIMaskSoftnessX, _MaskSoftnessX),
                     max(_UIMaskSoftnessY, _MaskSoftnessY));
                 OUT.mask = float4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-                                0.25 / (0.25 * maskSoftness + pixelSize.xy));
+                                  0.25 / (0.25 * maskSoftness + pixelSize.xy));
 
                 return OUT;
             }
@@ -139,7 +139,7 @@ Shader "TextMeshPro/Bitmap"
             {
                 fixed4 color = tex2D(_MainTex, IN.texcoord0);
                 color = fixed4(tex2D(_FaceTex, IN.texcoord1).rgb * IN.color.rgb,
-                           IN.color.a * color.a);
+                                 IN.color.a * color.a);
 
                 // Alternative implementation to UnityGet2DClipping with support for softness.
                 #if UNITY_UI_CLIP_RECT

@@ -121,19 +121,19 @@ Shader "Simple CRT"
                                       _ChromaticAberrationOnOff, uv.y)).r;
                 float green = tex2D(_MainTex, float2(uv.x, uv.y)).g;
                 float blue = tex2D(_MainTex,
-    float2(
-        uv.x + _ChromaticAberrationStrength *
-        _ChromaticAberrationOnOff, uv.y)).b;
+                                   float2(
+                                       uv.x + _ChromaticAberrationStrength *
+                                       _ChromaticAberrationOnOff, uv.y)).b;
                 float4 color = float4(red, green, blue, 1);
                 /////
 
                 /////Multiple Ghost
                 float4 ghost1st = tex2D(_MainTex,
-                                  uv - float2(1, 0) * _MultipleGhostStrength *
-                                  _MultipleGhostOnOff);
+    uv - float2(1, 0) * _MultipleGhostStrength *
+    _MultipleGhostOnOff);
                 float4 ghost2nd = tex2D(_MainTex,
-        uv - float2(1, 0) * _MultipleGhostStrength * 2 *
-        _MultipleGhostOnOff);
+                       uv - float2(1, 0) * _MultipleGhostStrength * 2 *
+                       _MultipleGhostOnOff);
                 color = color * 0.8 + ghost1st * 0.15 + ghost2nd * 0.05;
                 /////
 
@@ -185,7 +185,7 @@ Shader "Simple CRT"
                     for (float d = 0.0; d < pi; d += pi / directions)
                     {
                         for (float i = 1.0 / quality; i <= 1.0; i += 1.0 /
-                                         quality)
+                 quality)
                         {
                             samplingColor += tex2D(
                                 _MainTex,
@@ -220,7 +220,7 @@ Shader "Simple CRT"
 
                 /////Decal texture
                 float4 decal = tex2D(_DecalTex,
-                                  (i.decaluv - _DecalTexPos) * _DecalTexScale) *
+                            (i.decaluv - _DecalTexPos) * _DecalTexScale) *
                     _DecalTexOnOff;
                 color = color * (1 - decal.a) + decal;
                 /////

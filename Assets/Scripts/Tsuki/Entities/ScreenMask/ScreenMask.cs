@@ -35,6 +35,7 @@ namespace Tsuki.Entities.ScreenMask
 
         public void FadeIn(Action onCompleted = null)
         {
+            _img.color = Color.clear;
             _img.DOColor(Color.black, fadeInTime).OnComplete(() =>
             {
                 onCompleted?.Invoke();
@@ -43,6 +44,7 @@ namespace Tsuki.Entities.ScreenMask
 
         public void FadeOut(Action onCompleted = null)
         {
+            _img.color = Color.black;
             _img.DOColor(Color.clear, fadeOutTime).OnComplete(() =>
             {
                 onCompleted?.Invoke();

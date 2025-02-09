@@ -198,9 +198,9 @@ Shader "TextMeshPro/Distance Field Overlay"
                     scale = lerp(
                         abs(scale) * (1 - _PerspectiveFilter), scale,
                         abs(dot(UnityObjectToWorldNormal(input.normal.xyz),
-                                                    normalize(
-                                                        WorldSpaceViewDir(
-                                                            vert)))));
+                                normalize(
+                                    WorldSpaceViewDir(
+                                        vert)))));
 
                 float weight = lerp(_WeightNormal, _WeightBold, bold) / 4.0;
                 weight = (weight + _FaceDilate) * _ScaleRatioA * 0.5;
@@ -291,17 +291,17 @@ Shader "TextMeshPro/Distance Field Overlay"
                 faceColor.rgb *= input.color.rgb;
 
                 faceColor *= tex2D(_FaceTex,
-                                                  input.textures.xy + float2(
-                                                      _FaceUVSpeedX,
-                                                      _FaceUVSpeedY) *
-                                                  _Time.y);
+                          input.textures.xy + float2(
+                              _FaceUVSpeedX,
+                              _FaceUVSpeedY) *
+                          _Time.y);
                 outlineColor *= tex2D(_OutlineTex,
-                    input.textures.zw + float2(_OutlineUVSpeedX,
-                        _OutlineUVSpeedY) * _Time.
-                    y);
+             input.textures.zw + float2(_OutlineUVSpeedX,
+                 _OutlineUVSpeedY) * _Time.
+             y);
 
                 faceColor = GetColor(sd, faceColor, outlineColor, outline,
-                    softness);
+ softness);
 
                 #if BEVEL_ON
 			float3 dxy = float3(0.5 / _TextureWidth, 0.5 / _TextureHeight, 0);
