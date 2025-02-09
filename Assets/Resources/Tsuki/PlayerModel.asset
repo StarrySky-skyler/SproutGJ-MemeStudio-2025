@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerModel
   m_EditorClassIdentifier: 
   moveTime: 0.3
-  maxMoveSteps: 3d0000007f00000077000000460000003f0000006400000082000000a5000000
+  maxMoveSteps: 46000000820000007800000046000000460000006400000082000000aa000000
   onMoveStatusChanged:
     m_PersistentCalls:
       m_Calls: []
