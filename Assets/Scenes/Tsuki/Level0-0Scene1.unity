@@ -4126,7 +4126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1362363555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4143,8 +4143,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 33.33, y: 2.51}
-  m_SizeDelta: {x: 10.2743, y: 1.6954}
+  m_AnchoredPosition: {x: 33.22, y: 3.1945}
+  m_SizeDelta: {x: 10.4479, y: 3.0644}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1362363556
 MonoBehaviour:
@@ -4166,7 +4166,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5F00\u53D1\u8005\u5BC4\u8BED\nNo Game, No Life!(ifancy)\n\u97F3\u7B26\u753B\u7B14\u9ED1\u591C\u91CC\uFF0C\u60F3\u5728\u660E\u5929\u627E\u60CA\u559C~\uFF08\u4E00\u7B14\u5154\uFF09\n\u661F\u8F89\u76F8\u5F15\uFF0C\u97F3\u68A6\u4EA4\u7EC7\uFF0C\u5FC3\u58F0\u5171\u9E23\uFF0C\u6B65\u5C65\u6210\u8BD7\uFF08\u7ED8\u661Ftsuki\uFF09"
+  m_text: "\u5F00\u53D1\u8005\u5BC4\u8BED\nNo Game, No Life!(ifancy)\n\u97F3\u7B26\u753B\u7B14\u9ED1\u591C\u91CC\uFF0C\u60F3\u5728\u660E\u5929\u627E\u60CA\u559C~\u2014\u2014\u9B42\u73AF\u5409\u4ED6\u624B\uFF08\u4E00\u7B14\u5154\uFF09\n\u661F\u8F89\u76F8\u5F15\uFF0C\u97F3\u68A6\u4EA4\u7EC7\uFF0C\u5FC3\u58F0\u5171\u9E23\uFF0C\u6B65\u5C65\u6210\u8BD7\uFF08\u7ED8\u661Ftsuki\uFF09\n\u4EFF\u751F\u732B\u4F1A\u5F39\u7535\u5B50\u5409\u4ED6\u55B5\uFF1F\uFF08\u9006\u884C\u9053nxd\uFF09\n\u7ED3\u51B0\u7684\u5409\u4ED6\u4E0A\u6709\u732B\u5728skip\uFF08Deco\uFF09"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -7,6 +7,8 @@
 // *****************************************************************************
 
 using System;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace Tsuki
@@ -14,11 +16,24 @@ namespace Tsuki
     public class WordPos : MonoBehaviour
     {
         public GameObject word;
-        
+        private TextMeshProUGUI _textMeshProUGUI;
+        private string _text;
+
+        private void Start()
+        {
+            _textMeshProUGUI = word.GetComponent<TextMeshProUGUI>();
+            _text = _textMeshProUGUI.text;
+            _textMeshProUGUI.text = "";
+            word.SetActive(false);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
             word.SetActive(true);
+            DOTween.To(() => _textMeshProUGUI.text,
+                    x => _textMeshProUGUI.text = x, _text, _text.Length * 0.1f)
+                .SetEase(Ease.Linear);
         }
     }
 }
