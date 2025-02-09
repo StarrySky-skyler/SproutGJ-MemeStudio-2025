@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using System;
 using System.Text.RegularExpressions;
 using Tsuki.Base;
 using Tsuki.Entities.ScreenMask;
@@ -89,6 +90,13 @@ namespace Tsuki.Managers
             if (GetCurrentLevel() ==
                 ModelsManager.Instance.GameMod.maxLevel - 1)
                 BoxManager.Instance.onWinChanged.RemoveListener(LoadNextLevel);
+
+            GameJamSaveSystem.SaveData(new UserData(AnRan.GameManager.Instance.selectSaveData.filename, DateTime.Now.ToString("yyyy/M/d-H:mm:ss"),
+                GetCurrentLevel(),
+                10f,
+                ModelsManager.Instance.PlayerMod.CurrentPos));
+
+
             GameObject.FindWithTag("ScreenMask").GetComponent<ScreenMask>()
                 .FadeIn(
                     () =>
