@@ -6,6 +6,7 @@
 // @description: 游戏管理器单例
 // *****************************************************************************
 
+using Tsuki.Base;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -126,7 +127,7 @@ namespace Tsuki.Managers
                     beforeGameReload.AddListener(action);
                     break;
                 default:
-                    Debug.LogError("注册事件失败");
+                    DebugYumihoshi.Error<GameManager>("游戏管理器单例", "注册事件失败");
                     break;
             }
         }
@@ -154,7 +155,7 @@ namespace Tsuki.Managers
                     beforeGameReload.RemoveListener(action);
                     break;
                 default:
-                    Debug.LogError("注销事件失败");
+                    DebugYumihoshi.Error<GameManager>("游戏管理器单例", "注销事件失败");
                     break;
             }
         }

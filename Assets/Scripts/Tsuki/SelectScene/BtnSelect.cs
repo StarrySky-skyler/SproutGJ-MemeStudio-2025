@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using Tsuki.Entities.Audio;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,8 +14,8 @@ namespace Tsuki.SelectScene
 {
     public class BtnSelect : MonoBehaviour
     {
-        private Button _btn;
         private AudioEntity _audioEntity;
+        private Button _btn;
 
         private void Awake()
         {
@@ -25,7 +24,8 @@ namespace Tsuki.SelectScene
 
         private void Start()
         {
-            _audioEntity = GameObject.FindWithTag("Audio").GetComponent<AudioEntity>();
+            _audioEntity = GameObject.FindWithTag("Audio")
+                .GetComponent<AudioEntity>();
         }
 
         private void OnEnable()

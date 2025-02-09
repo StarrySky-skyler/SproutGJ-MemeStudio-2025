@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System.Collections;
+using Tsuki.Base;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
 using Tsuki.Entities.Box.FSM.Types;
@@ -45,7 +46,7 @@ namespace Tsuki.Entities.TPPoint
                         return;
                     break;
                 default:
-                    Debug.LogError("TP点名称错误");
+                    DebugYumihoshi.Error<TpPoint>("TP点", "TP点名称错误");
                     return;
             }
 
@@ -64,7 +65,7 @@ namespace Tsuki.Entities.TPPoint
             switch (tpType)
             {
                 case TpType.None:
-                    Debug.LogError("TP点类型为空");
+                    DebugYumihoshi.Error<TpPoint>("TP点", "TP点类型为空");
                     return false;
                 case TpType.Vertical:
                     if (enterDirection.x != 0) return false;
@@ -73,7 +74,7 @@ namespace Tsuki.Entities.TPPoint
                     if (enterDirection.y != 0) return false;
                     break;
                 default:
-                    Debug.LogError("TP点类型错误");
+                    DebugYumihoshi.Error<TpPoint>("TP点", "TP点类型错误");
                     return false;
             }
 

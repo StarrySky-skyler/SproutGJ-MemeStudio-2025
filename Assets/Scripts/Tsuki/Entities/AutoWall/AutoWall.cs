@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using DG.Tweening;
+using Tsuki.Base;
 using Tsuki.Managers;
 using UnityEngine;
 
@@ -62,7 +63,7 @@ namespace Tsuki.Entities.AutoWall
                         HandleDisplayReverse);
                     break;
                 default:
-                    Debug.LogError("自动墙类型错误");
+                    DebugYumihoshi.Error<AutoWall>("自动墙", "自动墙类型错误");
                     break;
             }
         }
@@ -84,7 +85,7 @@ namespace Tsuki.Entities.AutoWall
                             HandleDisplayReverse);
                     break;
                 default:
-                    Debug.LogError("自动墙类型错误");
+                    DebugYumihoshi.Error<AutoWall>("自动墙", "自动墙类型错误");
                     break;
             }
         }
@@ -128,7 +129,7 @@ namespace Tsuki.Entities.AutoWall
                 case HandleType.None:
                     break;
                 default:
-                    Debug.LogError("处理沙漠自动墙类型错误");
+                    DebugYumihoshi.Error<AutoWall>("自动墙", "自动墙类型错误");
                     break;
             }
         }
@@ -153,7 +154,7 @@ namespace Tsuki.Entities.AutoWall
                 case HandleType.None:
                     break;
                 default:
-                    Debug.LogError("处理沙漠自动墙类型错误");
+                    DebugYumihoshi.Error<AutoWall>("自动墙", "自动墙类型错误");
                     break;
             }
         }

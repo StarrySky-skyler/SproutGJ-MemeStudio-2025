@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.Base;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM.Base;
 using Tsuki.Entities.Box.FSM.Interfaces;
@@ -46,7 +47,8 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                     };
                     break;
                 default:
-                    Debug.LogError("OnEnter时冰类型grid/line错误");
+                    DebugYumihoshi.Error<BoxIceSlideState>("箱子状态机",
+                        "进入冰滑动状态时冰类型grid/line错误");
                     break;
             }
         }
@@ -68,7 +70,8 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
                 case IceType.Grid:
                     return CheckIceGridSlide();
                 default:
-                    Debug.LogError("冰类型grid/line错误");
+                    DebugYumihoshi.Error<BoxIceSlideState>("箱子冰滑行状态",
+                        "冰类型grid/line错误");
                     return false;
             }
         }
@@ -90,13 +93,13 @@ namespace Tsuki.Entities.Box.FSM.BoxStates
         /// </summary>
         private bool CheckIceLineSlide()
         {
-            Debug.Log("开始检测冰线滑动");
+            DebugYumihoshi.Log<BoxIceSlideState>("冰线滑动", "冰线滑动检测");
             Collider2D hit =
                 Physics2D.OverlapPoint(BaseObj.NewPos,
                     ModelsManager.Instance.GameMod.groundIceLineLayer);
             if (!hit) return false;
             IceSingleLine iceLine = hit.GetComponent<IceSingleLine>();
-            Debug.Log("检测到冰线");
+            DebugYumihoshi.Log<BoxIceSlideState>("冰线滑动", "检测到冰线");
             return iceLine.AllowSlide(BaseObj.lastPushDirection);
         }
     }

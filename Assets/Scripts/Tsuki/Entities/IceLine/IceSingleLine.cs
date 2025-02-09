@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.Base;
 using Tsuki.Entities.Box.Base;
 using Tsuki.Entities.Box.FSM;
 using Tsuki.Entities.Box.FSM.Types;
@@ -55,11 +56,11 @@ namespace Tsuki.Entities.IceLine
         /// <returns></returns>
         public bool AllowSlide(Vector2Int enterDirection)
         {
-            Debug.Log("冰线类型为：" + iceLineType);
+            DebugYumihoshi.Log<IceSingleLine>("冰线实体", "冰线类型为：" + iceLineType);
             switch (iceLineType)
             {
                 case IceLineType.None:
-                    Debug.LogError("冰线类型为空");
+                    DebugYumihoshi.Log<IceSingleLine>("冰线实体", "冰线类型为空");
                     break;
                 case IceLineType.Horizontal:
                     // 水平冰线
@@ -71,7 +72,7 @@ namespace Tsuki.Entities.IceLine
 
                     break;
                 default:
-                    Debug.LogError("冰线类型错误");
+                    DebugYumihoshi.Error<IceSingleLine>("冰线实体", "冰线类型错误");
                     break;
             }
 

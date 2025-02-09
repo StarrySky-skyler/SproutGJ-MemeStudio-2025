@@ -8,6 +8,7 @@
 
 using DG.Tweening;
 using TMPro;
+using Tsuki.Base;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -144,11 +145,12 @@ namespace Tsuki.Managers
         {
             if (show)
             {
-                Debug.Log("开始显示");
+                DebugYumihoshi.Log<UIManager>("UI增加步数", "开始显示");
                 _addStepText.DOColor(_addStepTargetColor, stepChangeFadeTime)
                     .OnComplete(
                         () =>
                         {
+                            DebugYumihoshi.Log<UIManager>("UI增加步数", "开始隐藏");
                             _addStepText.DOColor(_addStepOriginColor,
                                 stepChangeFadeTime);
                         }
@@ -156,12 +158,13 @@ namespace Tsuki.Managers
             }
             else
             {
-                Debug.Log("开始隐藏");
+                DebugYumihoshi.Log<UIManager>("UI减少步数", "开始显示");
                 _reduceStepText.DOColor(_reduceStepTargetColor,
                         stepChangeFadeTime)
                     .OnComplete(
                         () =>
                         {
+                            DebugYumihoshi.Log<UIManager>("UI减少步数", "开始隐藏");
                             _reduceStepText.DOColor(_reduceStepOriginColor,
                                 stepChangeFadeTime);
                         }

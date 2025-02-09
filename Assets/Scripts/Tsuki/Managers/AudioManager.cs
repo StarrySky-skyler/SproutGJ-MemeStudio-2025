@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Tsuki.Base;
 using Tsuki.Entities.Audio;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -108,9 +109,9 @@ namespace Tsuki.Managers
         private AudioClip GetCurrentLevelBgm()
         {
             int level = LevelManager.Instance.GetCurrentLevel();
-            Debug.Log("音频：当前关卡为" + level);
-            Debug.Log("音频：当前关卡音频为" +
-                      bgmList[level - 1]);
+            DebugYumihoshi.Log<AudioManager>("音频", $"当前关卡为{level}");
+            DebugYumihoshi.Log<AudioManager>("音频",
+                $"当前关卡音频为{bgmList[level - 1]}");
             return bgmList[level - 1];
         }
 
@@ -138,8 +139,8 @@ namespace Tsuki.Managers
                     _audioEntity.PlaySfx(MOVE_ON_ICE_SFX_NAME);
                     break;
                 default:
-                    Debug.LogError(
-                        $"[ERROR] AudioManager >>> 播放移动音效时，关卡数{LevelManager.Instance.GetCurrentLevel()}不合法");
+                    DebugYumihoshi.Error<AudioManager>("音频",
+                        $"播放移动音效时，关卡数{LevelManager.Instance.GetCurrentLevel()}不合法");
                     break;
             }
         }

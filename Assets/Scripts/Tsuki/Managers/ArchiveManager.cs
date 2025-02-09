@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Tsuki.Base;
 using UnityEngine;
 using Vector2Json.SaveSystem;
 
@@ -40,7 +41,7 @@ namespace Tsuki.Managers
             if (archiveIndex < 0 || archiveIndex >=
                 ModelsManager.Instance.GameMod.archiveCount)
             {
-                Debug.LogError("存档槽位索引越界");
+                DebugYumihoshi.Error<ArchiveManager>("存档", "存档槽位索引越界");
                 return;
             }
 
@@ -67,7 +68,7 @@ namespace Tsuki.Managers
                     GameJamSaveSystem.LoadData(_archiveFileNameFormatter + i);
                 if (loadedData == null)
                 {
-                    Debug.LogWarning(
+                    DebugYumihoshi.Warn<ArchiveManager>("存档",
                         $"存档文件{_archiveFileNameFormatter + i}不存在，跳过读取");
                     continue;
                 }

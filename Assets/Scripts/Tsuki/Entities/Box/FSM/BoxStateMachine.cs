@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Tsuki.Base;
 using Tsuki.Entities.Box.FSM.Interfaces;
 using Tsuki.Entities.Box.FSM.Types;
 using Tsuki.Entities.IceLine;
@@ -44,11 +45,13 @@ namespace Tsuki.Entities.Box.FSM
         {
             if (!_statesDict.TryAdd(boxStateType, state))
             {
-                Debug.LogError($"添加状态失败>>>{boxStateType}已存在");
+                DebugYumihoshi.Error<BoxStateMachine>("箱子状态机",
+                    $"添加状态失败，{boxStateType}已存在");
                 return;
             }
 
-            Debug.Log($"添加状态成功>>>{boxStateType}");
+            DebugYumihoshi.Log<BoxStateMachine>("箱子状态机",
+                $"添加状态成功{boxStateType}");
         }
 
         /// <summary>
@@ -59,11 +62,13 @@ namespace Tsuki.Entities.Box.FSM
         {
             if (!_statesDict.Remove(boxStateType))
             {
-                Debug.LogError($"移除状态失败>>>{boxStateType}不存在");
+                DebugYumihoshi.Error<BoxStateMachine>("箱子状态机",
+                    $"移除状态失败，{boxStateType}不存在");
                 return;
             }
 
-            Debug.Log($"移除状态成功>>>{boxStateType}");
+            DebugYumihoshi.Log<BoxStateMachine>("箱子状态机",
+                $"移除状态成功{boxStateType}");
         }
 
         /// <summary>
@@ -81,17 +86,20 @@ namespace Tsuki.Entities.Box.FSM
             if (!_statesDict.TryGetValue(boxStateType,
                     out IBoxState targetIBoxState))
             {
-                Debug.LogError($"转换状态错误>>>{boxStateType}不存在");
+                DebugYumihoshi.Error<BoxStateMachine>("箱子状态机",
+                    $"转换状态失败，{boxStateType}不存在");
                 return false;
             }
 
             if (!targetIBoxState.OnCheck(contextNextCheck))
             {
-                Debug.LogWarning($"转换状态错误>>>{boxStateType}在check时失败");
+                DebugYumihoshi.Warn<BoxStateMachine>("箱子状态机",
+                    $"转换状态错误{boxStateType}在check时失败");
                 return false;
             }
 
-            Debug.Log($"转换状态成功>>>当前状态{boxStateType}");
+            DebugYumihoshi.Log<BoxStateMachine>("箱子状态机",
+                $"转换状态成功>>>当前状态{boxStateType}");
             _currentState?.OnExit(contextLastExit);
             _currentState = _statesDict[boxStateType];
             _currentState.OnEnter(contextNextEnter);

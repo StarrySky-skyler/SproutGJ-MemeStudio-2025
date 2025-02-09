@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System;
+using Tsuki.Base;
 using Tsuki.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,7 +31,8 @@ namespace Tsuki.Entities.Audio
         private void Start()
         {
             _sfxClick = Resources.Load<AudioClip>("Music/Sfx/Got Hurt");
-            if (!_sfxClick) Debug.LogWarning("AudioEntity >>> 鼠标点击音效为空，加载失败");
+            if (!_sfxClick)
+                DebugYumihoshi.Warn<AudioEntity>("全局音频", "鼠标点击音效为空，加载失败");
 
             audioSource = GetComponents<AudioSource>();
             if (SceneManager.GetActiveScene().name == "Menu")
@@ -76,7 +78,7 @@ namespace Tsuki.Entities.Audio
                 Resources.Load<AudioClip>("Music/Bgm/" + bgmName);
             if (!targetAudio)
             {
-                Debug.LogError("音频：未找到bgm" + bgmName);
+                DebugYumihoshi.Error<AudioEntity>("全局音频", "Bgm为空，加载失败");
                 return;
             }
 
@@ -126,7 +128,7 @@ namespace Tsuki.Entities.Audio
             AudioClip clip = Resources.Load<AudioClip>("Music/Sfx/" + sfxName);
             if (!clip)
             {
-                Debug.LogError("音频：未找到音效" + sfxName);
+                DebugYumihoshi.Error<AudioEntity>("全局音频", "音效为空，加载失败");
                 return;
             }
 
@@ -138,9 +140,10 @@ namespace Tsuki.Entities.Audio
         {
             if (!clip)
             {
-                Debug.LogError("音频：未找到音效");
+                DebugYumihoshi.Error<AudioEntity>("全局音频", "音效为空，加载失败");
                 return;
             }
+
             audioSource[1].Stop();
             audioSource[1].PlayOneShot(clip);
         }

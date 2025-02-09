@@ -6,6 +6,7 @@
 // @description:
 // *****************************************************************************
 
+using Tsuki.Base;
 using Tsuki.Entities.Box.Base;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,7 +31,8 @@ namespace Tsuki.Managers
             {
                 if (_win == value) return;
                 _win = value;
-                Debug.Log(_win ? "所有箱子已归位" : "所有箱子未归位");
+                DebugYumihoshi.Log<BoxManager>("箱子",
+                    _win ? "所有箱子已归位" : "所有箱子未归位");
                 onWinChanged?.Invoke(_win);
             }
         }
@@ -76,7 +78,7 @@ namespace Tsuki.Managers
             _boxCorrectCount = Mathf.Min(_boxCorrectCount + 1, _boxCount);
             if (!GameManager.Instance.AllowLoadGame) return;
             onBoxCorrectAdded?.Invoke();
-            Debug.Log(
+            DebugYumihoshi.Log<BoxManager>("箱子计分",
                 $"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
             CheckWin();
         }
@@ -88,7 +90,7 @@ namespace Tsuki.Managers
         {
             _boxCorrectCount = Mathf.Max(_boxCorrectCount - 1, 0);
             onBoxCorrectRemoved?.Invoke();
-            Debug.Log(
+            DebugYumihoshi.Log<BoxManager>("箱子计分",
                 $"增加正确的箱子，当前正确的箱子数量：{_boxCorrectCount}，总箱子数量：{_boxCount}");
         }
 

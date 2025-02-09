@@ -69,7 +69,7 @@ namespace Tsuki.Entities.CameraController
             };
             if (!targetTrans)
             {
-                Debug.LogError("聚焦目标为空");
+                DebugYumihoshi.Error<CameraController>("相机聚焦", "聚焦目标为空");
                 return;
             }
 

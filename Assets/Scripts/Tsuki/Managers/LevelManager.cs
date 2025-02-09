@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System.Text.RegularExpressions;
+using Tsuki.Base;
 using Tsuki.Entities.ScreenMask;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,8 @@ namespace Tsuki.Managers
 
         private void OnEnable()
         {
-            Debug.Log($"LevelManager>>>当前关卡数：{GetCurrentLevel()}");
+            DebugYumihoshi.Log<LevelManager>("关卡",
+                $"当前关卡数：{GetCurrentLevel()}");
             SceneManager.sceneLoaded += PrintDebug;
             // TODO: 后期胜利应先弹出胜利UI，再加载下一关
             BoxManager.Instance.onWinChanged.AddListener(LoadNextLevel);
@@ -36,7 +38,8 @@ namespace Tsuki.Managers
 
         private void PrintDebug(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log("当前关卡数：" + GetCurrentLevel());
+            DebugYumihoshi.Log<LevelManager>("关卡",
+                $"当前关卡数：{GetCurrentLevel()}");
         }
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace Tsuki.Managers
             if (match.Count > 0) return int.Parse(match[^1].Value);
 
             // 如果匹配失败，则返回-1
-            Debug.LogError("获取当前关卡数错误，当前场景名称格式不正确");
+            DebugYumihoshi.Error<LevelManager>("关卡", "获取当前关卡数错误，当前场景名称格式不正确");
             return -1;
         }
 
@@ -72,7 +75,7 @@ namespace Tsuki.Managers
             GameObject.FindWithTag("Player").transform.position =
                 _loadData.pos;
             SceneManager.sceneLoaded -= SetObjsPos;
-            Debug.Log("玩家位置为：" + _loadData.pos);
+            DebugYumihoshi.Log<LevelManager>("关卡", "玩家位置为：" + _loadData.pos);
         }
 
         /// <summary>
