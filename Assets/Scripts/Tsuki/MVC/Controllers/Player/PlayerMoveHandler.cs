@@ -174,13 +174,15 @@ namespace Tsuki.MVC.Controllers.Player
             // IPushable box = hit.collider.GetComponent<IPushable>();
             // return box.TryPushBox(ModelsManager.Instance.PlayerMod
             //     .LastDirection);
-            BoxStateMachine box = hit.collider.GetComponent<BaseObj>()
+            BaseObj obj = hit.collider.GetComponent<BaseObj>();
+            BoxStateMachine box = obj
                 .StateMachine;
             return box.SwitchState(BoxStateType.PushMoving,
                 new Context
                 {
                     PushDirection =
-                        ModelsManager.Instance.PlayerMod.LastDirection
+                        ModelsManager.Instance.PlayerMod.LastDirection,
+                    BoxType = obj.boxType
                 });
         }
     }

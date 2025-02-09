@@ -3479,7 +3479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1606ad2b126aeb04f9c26ed5d0ebd3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  "\u6296\u52A8\u8303\u56F4": 7.51475
+  "\u6296\u52A8\u8303\u56F4": 1
   "\u6296\u52A8\u9891\u7387": 2
   "\u6296\u52A8\u901F\u5EA6": 1
 --- !u!114 &1959154004

@@ -13,17 +13,7 @@ MonoBehaviour:
   m_Name: PlayerModel
   m_EditorClassIdentifier: 
   moveTime: 0.3
-  girdSize: 0.5
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 384
-  grassLayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 72
-  maxMoveStep: 999
+  maxMoveSteps: 4100000084000000e7030000e7030000e7030000e7030000e7030000e7030000
   onMoveStatusChanged:
     m_PersistentCalls:
       m_Calls: []

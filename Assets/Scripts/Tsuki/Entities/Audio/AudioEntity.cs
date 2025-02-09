@@ -22,14 +22,10 @@ namespace Tsuki.Entities.Audio
 
         private AudioClip _sfxClick;
 
-        private void Awake()
+        private void Start()
         {
             _audioFade = new AudioFade(ModelsManager.Instance.GameMod);
             DontDestroyOnLoad(gameObject);
-        }
-
-        private void Start()
-        {
             _sfxClick = Resources.Load<AudioClip>("Music/Sfx/Got Hurt");
             if (!_sfxClick)
                 DebugYumihoshi.Warn<AudioEntity>("全局音频", "鼠标点击音效为空，加载失败");
@@ -82,6 +78,7 @@ namespace Tsuki.Entities.Audio
                 return;
             }
 
+            DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放Bgm{bgmName}");
             if (fadeOut && audioSource[0].isPlaying)
             {
                 _audioFade.FadeOut(audioSource[0], () =>
@@ -104,6 +101,7 @@ namespace Tsuki.Entities.Audio
         /// <param name="fadeOut">上一曲是否渐出，若未播放则此项无用</param>
         public void PlayBgm(AudioClip bgmClip, bool fadeOut = true)
         {
+            DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放Bgm{bgmClip.name}");
             if (fadeOut && audioSource[0].isPlaying)
             {
                 _audioFade.FadeOut(audioSource[0], () =>
@@ -125,6 +123,7 @@ namespace Tsuki.Entities.Audio
         /// <param name="sfxName">Resources下Audio的音效文件名</param>
         public void PlaySfx(string sfxName)
         {
+            DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放音效{sfxName}");
             AudioClip clip = Resources.Load<AudioClip>("Music/Sfx/" + sfxName);
             if (!clip)
             {
@@ -132,19 +131,18 @@ namespace Tsuki.Entities.Audio
                 return;
             }
 
-            audioSource[1].Stop();
             audioSource[1].PlayOneShot(clip);
         }
 
         public void PlaySfx(AudioClip clip)
         {
+            DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放音效{clip.name}");
             if (!clip)
             {
                 DebugYumihoshi.Error<AudioEntity>("全局音频", "音效为空，加载失败");
                 return;
             }
 
-            audioSource[1].Stop();
             audioSource[1].PlayOneShot(clip);
         }
     }

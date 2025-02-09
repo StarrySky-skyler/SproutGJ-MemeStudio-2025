@@ -7,8 +7,11 @@
 // *****************************************************************************
 
 using System.Collections.Generic;
+using Tsuki.Base;
+using Tsuki.Managers;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 namespace Tsuki.MVC.Models.Player
 {
@@ -18,7 +21,7 @@ namespace Tsuki.MVC.Models.Player
     {
         [Header("移动一格的时间（箱子也是）")] public float moveTime;
 
-        [Header("最大移动步数")] public int maxMoveStep;
+        [Header("关卡最大移动步数")] public List<int> maxMoveSteps;
 
         public UnityEvent<bool> onMoveStatusChanged = new();
 
@@ -60,22 +63,40 @@ namespace Tsuki.MVC.Models.Player
         /// </summary>
         public void Init()
         {
-            CurrentLeftStep = maxMoveStep;
+            CurrentLeftStep =
+                SceneManager.GetActiveScene().name.Contains("Level")
+                    ? GetCurrentLevelMaxStep()
+                    : 0;
             _isMoving = false;
             LastPosStack = new Stack<Vector3>();
-            CurrentPos = GameObject.FindWithTag("Player").transform.position;
+            if (SceneManager.GetActiveScene().name.Contains("Level"))
+                CurrentPos = GameObject.FindWithTag("Player").transform
+                    .position;
         }
 
         public void AddStep(int step = 1)
         {
             CurrentLeftStep =
-                Mathf.Clamp(CurrentLeftStep + step, 0, maxMoveStep);
+                Mathf.Clamp(CurrentLeftStep + step, 0,
+                    GetCurrentLevelMaxStep());
         }
 
         public void ReduceStep(int step = 1)
         {
             CurrentLeftStep =
-                Mathf.Clamp(CurrentLeftStep - step, 0, maxMoveStep);
+                Mathf.Clamp(CurrentLeftStep - step, 0,
+                    GetCurrentLevelMaxStep());
+        }
+
+        public int GetCurrentLevelMaxStep()
+        {
+            if (LevelManager.Instance.GetCurrentLevel() <= maxMoveSteps.Count &&
+                LevelManager.Instance.GetCurrentLevel() >= 1)
+                return maxMoveSteps
+                    [LevelManager.Instance.GetCurrentLevel() - 1];
+            DebugYumihoshi.Error<PlayerModel>("玩家model",
+                "初始化当前步数时出错，关卡数越界");
+            return _currentLeftStep;
         }
     }
 }

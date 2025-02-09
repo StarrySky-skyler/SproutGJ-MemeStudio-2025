@@ -104,8 +104,9 @@ namespace Tsuki.Entities.AutoWall
 
         private HandleType GetHandleType(int leftStep)
         {
-            int costStep = ModelsManager.Instance.PlayerMod.maxMoveStep -
-                           leftStep;
+            int costStep =
+                ModelsManager.Instance.PlayerMod.GetCurrentLevelMaxStep() -
+                leftStep;
             return (HandleType)(costStep % 4);
         }
 

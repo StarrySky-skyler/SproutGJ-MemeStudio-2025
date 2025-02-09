@@ -26,7 +26,7 @@ namespace Tsuki.Managers
             PlayerMod.Init();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             SceneManager.sceneLoaded += (_, _) => { PlayerMod.Init(); };
         }

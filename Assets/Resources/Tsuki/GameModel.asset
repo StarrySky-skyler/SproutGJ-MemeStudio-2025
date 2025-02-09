@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Bits: 72
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 2432
   grassLayer:
     serializedVersion: 2
     m_Bits: 2048
