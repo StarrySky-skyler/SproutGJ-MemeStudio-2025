@@ -133,5 +133,16 @@ namespace Tsuki.Entities.Audio
             audioSource[1].Stop();
             audioSource[1].PlayOneShot(clip);
         }
+
+        public void PlaySfx(AudioClip clip)
+        {
+            if (!clip)
+            {
+                Debug.LogError("音频：未找到音效");
+                return;
+            }
+            audioSource[1].Stop();
+            audioSource[1].PlayOneShot(clip);
+        }
     }
 }
