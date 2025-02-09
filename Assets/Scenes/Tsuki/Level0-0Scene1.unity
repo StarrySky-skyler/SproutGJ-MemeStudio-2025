@@ -2626,6 +2626,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: bgmList.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 9bfafbb88f4bb204784b0e5047b1ff26, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 9bfafbb88f4bb204784b0e5047b1ff26, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 9bfafbb88f4bb204784b0e5047b1ff26, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e7f1853d08d16254eadf4913d0f69837, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e7f1853d08d16254eadf4913d0f69837, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8b654e8330428744ab3c3c3ab7d4777e, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8b654e8330428744ab3c3c3ab7d4777e, type: 3}
+    - target: {fileID: 3828597865520537387, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
+      propertyPath: 'bgmList.Array.data[9]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3227192ca9c22b6418cdbac20241d1ca, type: 3}
     - target: {fileID: 6703434193536143894, guid: 9e544e9c34a37ed418af3039570041f1, type: 3}
       propertyPath: m_Name
       value: Managers
