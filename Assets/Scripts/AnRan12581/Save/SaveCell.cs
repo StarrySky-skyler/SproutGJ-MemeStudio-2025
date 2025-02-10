@@ -1,6 +1,7 @@
 using AnRan;
 using TMPro;
 using Tsuki.Entities.Audio;
+using Tsuki.Entities.ScreenMask;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -44,7 +45,12 @@ public class SaveCell : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             _audio.PlaySfx("Load a Save");
             GameManager.Instance.selectSaveData = userdata;
-            SceneManager.LoadScene("Select"); //ѡ���ͼ
+            GameObject.FindWithTag("ScreenMask").GetComponent<ScreenMask>()
+                .FadeIn(
+                    () =>
+                    {
+                        SceneManager.LoadScene("Select"); //ѡ���ͼ
+                    });
         });
     }
 }

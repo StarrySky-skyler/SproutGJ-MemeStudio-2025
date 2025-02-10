@@ -5173,7 +5173,8 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 2.8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2455387343136348490, guid: 8fab3205c4b112444a2ed87c53192e05, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -78,6 +78,12 @@ namespace Tsuki.Entities.Audio
                 return;
             }
 
+            if (audioSource[0].clip == targetAudio)
+            {
+                DebugYumihoshi.Warn<AudioEntity>("全局音频", "Bgm重复，不播放");
+                return;
+            }
+
             DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放Bgm{bgmName}");
             if (fadeOut && audioSource[0].isPlaying)
             {
@@ -101,6 +107,12 @@ namespace Tsuki.Entities.Audio
         /// <param name="fadeOut">上一曲是否渐出，若未播放则此项无用</param>
         public void PlayBgm(AudioClip bgmClip, bool fadeOut = true)
         {
+            if (bgmClip == audioSource[0].clip)
+            {
+                DebugYumihoshi.Warn<AudioEntity>("全局音频", "Bgm重复，不播放");
+                return;
+            }
+
             DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放Bgm{bgmClip.name}");
             if (fadeOut && audioSource[0].isPlaying)
             {

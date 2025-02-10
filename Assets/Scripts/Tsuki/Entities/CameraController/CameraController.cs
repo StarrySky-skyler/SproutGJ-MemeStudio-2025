@@ -110,8 +110,13 @@ namespace Tsuki.Entities.CameraController
         private IEnumerator SelectScene()
         {
             yield return null;
-            SceneManager.LoadScene(
-                GameManager.Instance.selectSaveData.level + 2);
+            GameObject.FindWithTag("ScreenMask")
+                .GetComponent<ScreenMask.ScreenMask>().FadeIn(
+                    () =>
+                    {
+                        SceneManager.LoadScene(
+                            GameManager.Instance.selectSaveData.level + 2);
+                    });
         }
     }
 

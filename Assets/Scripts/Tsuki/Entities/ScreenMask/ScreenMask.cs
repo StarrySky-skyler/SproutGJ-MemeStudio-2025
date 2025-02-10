@@ -18,19 +18,32 @@ namespace Tsuki.Entities.ScreenMask
     {
         [Header("渐进时间")] public float fadeInTime;
         [Header("渐退时间")] public float fadeOutTime;
+        private Canvas _canvas;
 
         private Image _img;
 
         private void Awake()
         {
             _img = GetComponent<Image>();
-            SceneManager.sceneLoaded += (_, _) => { FadeOut(); };
+            _canvas = GetComponentInParent<Canvas>();
             DontDestroyOnLoad(transform.parent.gameObject);
         }
 
         private void Start()
         {
+            _canvas.worldCamera = GameObject.FindWithTag("MainCamera")
+                .GetComponent<Camera>();
             FadeOut();
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += (_, _) =>
+            {
+                _canvas.worldCamera = GameObject.FindWithTag("MainCamera")
+                    .GetComponent<Camera>();
+                FadeOut();
+            };
         }
 
         public void FadeIn(Action onCompleted = null)

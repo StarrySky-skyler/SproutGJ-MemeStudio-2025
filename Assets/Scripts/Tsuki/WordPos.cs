@@ -6,7 +6,6 @@
 // @description:
 // *****************************************************************************
 
-using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -16,8 +15,8 @@ namespace Tsuki
     public class WordPos : MonoBehaviour
     {
         public GameObject word;
-        private TextMeshProUGUI _textMeshProUGUI;
         private string _text;
+        private TextMeshProUGUI _textMeshProUGUI;
 
         private void Start()
         {

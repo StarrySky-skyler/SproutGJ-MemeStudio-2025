@@ -1,3 +1,4 @@
+using Tsuki.Entities.ScreenMask;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,9 @@ public class SceneButtonSwitcher : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Menu" && SceneName == "Menu")
             Hide();
         else
-            SceneManager.LoadScene(SceneName);
+            GameObject.FindWithTag("ScreenMask").GetComponent<ScreenMask>()
+                .FadeIn(
+                    () => { SceneManager.LoadScene(SceneName); });
     }
 
     public void Hide()

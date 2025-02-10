@@ -42,25 +42,26 @@ namespace Tsuki.Managers
                 .Find("StepPanel/TMP_Step")
                 .GetComponent<TextMeshProUGUI>();
             // 注册事件
-            SceneManager.sceneLoaded += (_, _) =>
-            {
-                Init();
-                if (LevelManager.Instance.GetCurrentLevel() == 4)
-                {
-                    _stepText = GameObject.FindWithTag("UI").transform
-                        .Find("StepPanel/TMP_Step")
-                        .GetComponent<TextMeshProUGUI>();
-                    _stepText.DOColor(Color.white, stepFadeTime);
-                }
-            };
+            // SceneManager.sceneLoaded += (_, _) =>
+            // {
+            //     Init();
+            //     if (LevelManager.Instance.GetCurrentLevel() == 4)
+            //     {
+            //         _stepText = GameObject.FindWithTag("UI").transform
+            //             .Find("StepPanel/TMP_Step")
+            //             .GetComponent<TextMeshProUGUI>();
+            //         _stepText.DOColor(Color.white, stepFadeTime);
+            //     }
+            // };
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGamePause,
                 ShowPauseUI);
             GameManager.Instance.RegisterEvent(
                 GameManagerEventType.OnGameResume, HidePauseUI);
             GameManager.Instance.onAllowLoadGame.AddListener(allow =>
             {
-                if (allow)
-                    _stepText.DOColor(Color.white, stepFadeTime);
+                if (!allow) return;
+                Init();
+                _stepText.DOColor(Color.white, stepFadeTime);
             });
             ModelsManager.Instance.PlayerMod.onStepChanged.AddListener(
                 UpdateStepText);

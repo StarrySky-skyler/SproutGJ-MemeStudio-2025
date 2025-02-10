@@ -1,10 +1,10 @@
 {
-    "filename": "archive0",
-    "time": "无",
-    "level": 1,
-    "process": 0,
-    "pos": {
-      "x": -14,
-      "y": -7.5
-    }
+  "filename": "archive0",
+  "time": "无",
+  "level": 1,
+  "process": 0,
+  "pos": {
+    "x": -14,
+    "y": -7.5
   }
+}

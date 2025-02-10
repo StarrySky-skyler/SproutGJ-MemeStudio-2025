@@ -113,7 +113,7 @@ namespace Tsuki.Managers
         private IEnumerator WaitCorrectBoxSfx()
         {
             _allowAddCorrectBoxSfx = false;
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1f);
             _allowAddCorrectBoxSfx = true;
         }
 
