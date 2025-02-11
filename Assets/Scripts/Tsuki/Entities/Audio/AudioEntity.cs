@@ -24,8 +24,17 @@ namespace Tsuki.Entities.Audio
 
         private void Start()
         {
+            // 防止重复
+            if (FindObjectsByType<AudioEntity>(FindObjectsSortMode.None).Length > 1)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
+            }
+            // 初始化
             _audioFade = new AudioFade(ModelsManager.Instance.GameMod);
-            DontDestroyOnLoad(gameObject);
             _sfxClick = Resources.Load<AudioClip>("Music/Sfx/Got Hurt");
             if (!_sfxClick)
                 DebugYumihoshi.Warn<AudioEntity>("全局音频", "鼠标点击音效为空，加载失败");
