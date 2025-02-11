@@ -214,11 +214,11 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                     faceColor,
                     outlineColor,
                     float4(input.texcoord0.x, input.texcoord0.y, maskUV.x,
-                       maskUV.y),
+                           maskUV.y),
                     half4(scale, bias - outline, bias + outline, bias),
                     half4(vert.xy * 2 - clampedRect.xy - clampedRect.zw,
-                     0.25 / (0.25 * maskSoftness +
-                         pixelSize.xy)),
+                              0.25 / (0.25 * maskSoftness +
+                                  pixelSize.xy)),
                     #if (UNDERLAY_ON | UNDERLAY_INNER)
 				float4(input.texcoord0 + layerOffset, input.color.a, 0),
 				half2(layerScale, layerBias),
@@ -255,7 +255,7 @@ Shader "TextMeshPro/Mobile/Distance Field - Masking"
                 //#if UNITY_UI_CLIP_RECT
                 half2 m = saturate(
                     (_ClipRect.zw - _ClipRect.xy - abs(input.mask.xy)) * input.
-                          mask.zw);
+               mask.zw);
                 c *= m.x * m.y;
                 //#endif
 

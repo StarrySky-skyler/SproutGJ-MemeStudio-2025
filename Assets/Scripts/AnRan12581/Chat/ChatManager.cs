@@ -235,7 +235,7 @@ public class ChatManager : MonoBehaviour
         if (chatInfos[currentIndex].chatContent.Contains("…˙»’") && !_played)
         {
             GameObject.FindWithTag("Audio").GetComponent<AudioEntity>()
-                .PlayBgm("Her's BrithDay");
+                .PlayBirthdayBgm();
             _played = true;
         }
 

@@ -211,9 +211,9 @@ Shader "TextMeshPro/Mobile/Distance Field"
                 output.faceColor = faceColor;
                 output.outlineColor = outlineColor;
                 output.texcoord0 = float4(input.texcoord0.x, input.texcoord0.y,
-                                                  maskUV.x, maskUV.y);
+                                          maskUV.x, maskUV.y);
                 output.param = half4(scale, bias - outline, bias + outline,
-                    bias);
+                             bias);
 
                 const half2 maskSoftness = half2(
                     max(_UIMaskSoftnessX, _MaskSoftnessX),

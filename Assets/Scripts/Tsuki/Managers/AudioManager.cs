@@ -54,7 +54,7 @@ namespace Tsuki.Managers
             //_lastMoveSoundEffect = null;
             _bgmAudioSource.volume = 0;
             // StartCoroutine(PlayBgm());
-            _audioEntity.PlayBgm("Wool Bay（OOW Balanced）", false);
+            _audioEntity.PlayBgm("Wool Bay（OOW Balanced）");
             // 注册事件
             GameManager.Instance.RegisterEvent(GameManagerEventType.OnGameUndo,
                 () => { _audioEntity.PlaySfx(UNDO_SFX_NAME); });
@@ -117,7 +117,7 @@ namespace Tsuki.Managers
             _allowAddCorrectBoxSfx = true;
         }
 
-        private void PlayLevelBgm(bool fadeOutLast = true)
+        public void PlayLevelBgm(bool fadeOutLast = true)
         {
             if (!_audioEntity)
             {

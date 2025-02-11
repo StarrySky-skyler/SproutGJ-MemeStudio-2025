@@ -7,6 +7,7 @@
 // *****************************************************************************
 
 using System;
+using System.Collections;
 using Tsuki.Base;
 using Tsuki.Managers;
 using UnityEngine;
@@ -25,14 +26,12 @@ namespace Tsuki.Entities.Audio
         private void Start()
         {
             // 防止重复
-            if (FindObjectsByType<AudioEntity>(FindObjectsSortMode.None).Length > 1)
-            {
+            if (FindObjectsByType<AudioEntity>(FindObjectsSortMode.None)
+                    .Length > 1)
                 Destroy(gameObject);
-            }
             else
-            {
                 DontDestroyOnLoad(gameObject);
-            }
+
             // 初始化
             _audioFade = new AudioFade(ModelsManager.Instance.GameMod);
             _sfxClick = Resources.Load<AudioClip>("Music/Sfx/Got Hurt");
@@ -79,20 +78,24 @@ namespace Tsuki.Entities.Audio
         /// <exception cref="NotImplementedException"></exception>
         public void PlayBgm(string bgmName, bool fadeOut = true)
         {
+            StopCoroutine(PlayBirthdayBgmCoroutine());
             AudioClip targetAudio =
                 Resources.Load<AudioClip>("Music/Bgm/" + bgmName);
+            // 验证音频不为空
             if (!targetAudio)
             {
                 DebugYumihoshi.Error<AudioEntity>("全局音频", "Bgm为空，加载失败");
                 return;
             }
 
+            // 验证音频是否重复
             if (audioSource[0].clip == targetAudio)
             {
                 DebugYumihoshi.Warn<AudioEntity>("全局音频", "Bgm重复，不播放");
                 return;
             }
 
+            // 开始播放
             DebugYumihoshi.Log<AudioEntity>("全局音频", $"播放Bgm{bgmName}");
             if (fadeOut && audioSource[0].isPlaying)
             {
@@ -116,6 +119,7 @@ namespace Tsuki.Entities.Audio
         /// <param name="fadeOut">上一曲是否渐出，若未播放则此项无用</param>
         public void PlayBgm(AudioClip bgmClip, bool fadeOut = true)
         {
+            StopCoroutine(PlayBirthdayBgmCoroutine());
             if (bgmClip == audioSource[0].clip)
             {
                 DebugYumihoshi.Warn<AudioEntity>("全局音频", "Bgm重复，不播放");
@@ -165,6 +169,34 @@ namespace Tsuki.Entities.Audio
             }
 
             audioSource[1].PlayOneShot(clip);
+        }
+
+        public void PlayBirthdayBgm()
+        {
+            StartCoroutine(PlayBirthdayBgmCoroutine());
+        }
+
+        private IEnumerator PlayBirthdayBgmCoroutine()
+        {
+            try
+            {
+                AudioClip bgmClip =
+                    Resources.Load<AudioClip>("Music/Bgm/Her's BrithDay");
+                audioSource[0].Stop();
+                audioSource[0].loop = false;
+                audioSource[0].clip = bgmClip;
+                for (int i = 0; i < 2; i++)
+                {
+                    audioSource[0].Play();
+                    yield return new WaitForSeconds(bgmClip.length);
+                }
+
+                AudioManager.Instance.PlayLevelBgm();
+            }
+            finally
+            {
+                audioSource[0].loop = true;
+            }
         }
     }
 }
